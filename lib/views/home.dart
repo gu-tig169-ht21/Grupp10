@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'ekonomi.dart';
+import 'historik.dart';
+import 'prognos.dart';
+import 'produkt.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
   @override
