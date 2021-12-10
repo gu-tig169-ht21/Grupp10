@@ -52,26 +52,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     Tab(text: 'Konsumtion'),
                     Tab(text: 'Ekonomi'),
                   ],
-                  indicatorColor: Color(0xff95C8A8),
+                  indicatorColor: Colors.transparent,
+                  labelStyle: TextStyle(fontSize: 17, fontFamily: 'helvetica'),
+                  unselectedLabelStyle: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 15,
+                      fontFamily: 'helvetica'),
                 )),
             bottomNavigationBar: BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle),
-                  label: 'Konsumtion',
+                  icon: Icon(Icons.home),
+                  label: 'Hem',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.access_time),
+                  icon: Icon(Icons.history),
                   label: 'Historik',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.trending_up),
+                  icon: Icon(Icons.timeline),
                   label: 'Prognos',
                 ),
               ],
               backgroundColor: const Color(0xff464646),
-              unselectedItemColor: Colors.white,
-              selectedItemColor: const Color(0xff95C8A8),
+              unselectedItemColor: Colors.grey,
+              selectedItemColor: Colors.white,
               currentIndex: selectedIndex,
               onTap: (index) => setState(() {
                 selectedIndex = index;

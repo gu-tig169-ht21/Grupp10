@@ -12,9 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(canvasColor: Color(0xff464646), fontFamily: 'Helvetica'),
+      theme: ThemeData(
+          canvasColor: const Color(0xff464646), fontFamily: 'Helvetica'),
       title: 'Nicotine Tracker',
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
