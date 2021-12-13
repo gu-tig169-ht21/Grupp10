@@ -8,8 +8,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   int _counter = 0;
   int selectedIndex = 0;
+  int _costTotalCounter = 25;
+  int _costTodayCounter = 0;
+
+
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -26,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 2,
+        initialIndex: 0,
         child: Scaffold(
             appBar: AppBar(
                 backgroundColor: const Color(0xff2d2d2d),
@@ -51,10 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               value: 2),
                         ]),
                 bottom: TabBar(
-                    tabs: [
-                      Tab(
-                          child: (Text('Konsumtion',
-                              style: GoogleFonts.roboto()))),
+                    tabs: <Widget>[
+                      Tab(child: (Text('Konsumtion', style: GoogleFonts.roboto()))),
                       Tab(child: Text('Ekonomi', style: GoogleFonts.roboto())),
                     ],
                     indicatorColor: Colors.transparent,
@@ -87,41 +92,62 @@ class _MyHomePageState extends State<MyHomePage> {
                 selectedIndex = index;
               }),
             ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _timer(),
-                  Container(height: 80),
-                  _konsumtion(),
-                ],
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: const Color(0xff699985),
-              tooltip: 'Lägg till prilla',
-              child: const Icon(Icons.add),
-              onPressed: () {
-                _incrementCounter();
-                final snackBar = SnackBar(
-                  backgroundColor: Color(0xff282828),
-                  content: Text(
-                    'Du har lagt till en prilla',
-                    style: GoogleFonts.roboto(),
-                  ),
-                  action: SnackBarAction(
-                    textColor: Color(0xff699985),
-                    label: 'Ångra',
+            body: TabBarView(
+              children: [
+                Scaffold(
+                  body: 
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _timer(),
+                          Container(height: 80),
+                          _konsumtion(),
+                        ],
+                      ),
+                    ),
+
+                  floatingActionButton: FloatingActionButton(
+                    backgroundColor: const Color(0xff699985),
+                    tooltip: 'Lägg till prilla',
+                    child: const Icon(Icons.add),
                     onPressed: () {
-                      _decreaseCounter();
+                      _incrementCounter();
+                      final snackBar = SnackBar(
+                        backgroundColor: Color(0xff282828),
+                        content: Text(
+                          'Du har lagt till en prilla',
+                          style: GoogleFonts.roboto(),
+                        ),
+                        action: SnackBarAction(
+                          textColor: Color(0xff699985),
+                          label: 'Ångra',
+                          onPressed: () {
+                            _decreaseCounter();
+                          },
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                   ),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.endFloat
+                ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _kostnadTotalt(),
+                      Container(height: 80),
+                      _kostnadIdag(),
+                    ],
+                  ),
+                ),
+
+              ],
             ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.endFloat));
+
+  ));
   }
 
   Widget _timer() {
@@ -153,4 +179,51 @@ class _MyHomePageState extends State<MyHomePage> {
       const Text('prillor idag', style: TextStyle(color: Colors.white)),
     ]);
   }
+
+  Widget _kostnadTotalt() {
+    return Column(
+      children: [
+        const Text('Pengar du spenderat på snus sedan start', style: TextStyle(color: Colors.white)),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$_costTotalCounter',
+              style: const TextStyle(
+                color: Color(0xff95C8A8),
+                fontSize: 70.0,
+              ),
+            ),
+            const SizedBox(width: 5),
+            const Text('kr', style: TextStyle(color: Colors.white)),        
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _kostnadIdag() {
+    return Column(
+      children: [        
+        const Text('Pengar du spenderat på snus idag', style: TextStyle(color: Colors.white)),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,          
+          children: [
+            Text(
+              '$_costTodayCounter',
+              style: const TextStyle(
+                color: Color(0xff95C8A8),
+                fontSize: 70.0,
+              ),
+            ),
+            const SizedBox(width: 5),            
+            const Text('kr', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ],
+    );    
+  }
+
 }
