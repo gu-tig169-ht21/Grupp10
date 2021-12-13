@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -16,51 +17,54 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _decreaseCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 2,
-        //  initialIndex:
         child: Scaffold(
             appBar: AppBar(
-                backgroundColor: const Color(0xff464646),
+                backgroundColor: const Color(0xff2d2d2d),
                 title: const Text('Nicotine Tracker',
                     style: TextStyle(color: Colors.white)),
                 leading: PopupMenuButton(
-                    color: const Color(0xff464646),
+                    color: const Color(0xff282828),
                     icon: const Icon(Icons.menu, color: Colors.white),
                     onSelected: (value) {},
                     itemBuilder: (context) => [
                           const PopupMenuItem(
-                              child: Text(
-                                'Välj standardsnus',
-                                textAlign: TextAlign.right,
-                              ),
-                              textStyle: TextStyle(color: Colors.white),
+                              child: Text('Välj standardsnus',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(color: Colors.white)),
                               value: 0),
                           const PopupMenuItem(
-                              child: Text('Inställningar'),
-                              textStyle: TextStyle(color: Colors.white),
+                              child: Text('Inställningar',
+                                  style: TextStyle(color: Colors.white)),
                               value: 1),
                           const PopupMenuItem(
-                              child: Text('Integritet'),
-                              textStyle: TextStyle(color: Colors.white),
+                              child: Text('Integritet',
+                                  style: TextStyle(color: Colors.white)),
                               value: 2),
                         ]),
-                bottom: const TabBar(
-                  tabs: [
-                    Tab(text: 'Konsumtion'),
-                    Tab(text: 'Ekonomi'),
-                  ],
-                  indicatorColor: Colors.transparent,
-                  labelStyle: TextStyle(fontSize: 17, fontFamily: 'helvetica'),
-                  unselectedLabelStyle: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      fontFamily: 'helvetica'),
-                )),
+                bottom: TabBar(
+                    tabs: [
+                      Tab(
+                          child: (Text('Konsumtion',
+                              style: GoogleFonts.roboto()))),
+                      Tab(child: Text('Ekonomi', style: GoogleFonts.roboto())),
+                    ],
+                    indicatorColor: Colors.transparent,
+                    labelStyle: TextStyle(fontSize: 16),
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: 14,
+                    ))),
             bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: false,
+              //showSelectedLabels: false,
               showUnselectedLabels: false,
               items: const [
                 BottomNavigationBarItem(
@@ -76,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: 'Prognos',
                 ),
               ],
-              backgroundColor: const Color(0xff464646),
+              backgroundColor: const Color(0xff2d2d2d),
               unselectedItemColor: Colors.grey,
               selectedItemColor: Colors.white,
               currentIndex: selectedIndex,
@@ -95,10 +99,28 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             floatingActionButton: FloatingActionButton(
-              backgroundColor: const Color(0xff95C8A8),
-              onPressed: _incrementCounter,
+              backgroundColor: const Color(0xff699985),
               tooltip: 'Lägg till prilla',
               child: const Icon(Icons.add),
+              onPressed: () {
+                _incrementCounter();
+                final snackBar = SnackBar(
+                  backgroundColor: Color(0xff282828),
+                  content: Text(
+                    'Du har lagt till en prilla',
+                    style: GoogleFonts.roboto(),
+                  ),
+                  action: SnackBarAction(
+                    textColor: Color(0xff699985),
+                    label: 'Ångra',
+                    onPressed: () {
+                      _decreaseCounter();
+                    },
+                  ),
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.endFloat));
@@ -111,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Text(
         '0',
         style: TextStyle(
-          color: Color(0xff95C8A8),
+          color: Color(0xff699985),
           fontSize: 70.0,
         ),
       ),
@@ -126,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Text(
         '$_counter',
         style: const TextStyle(
-          color: Color(0xff95C8A8),
+          color: Color(0xff699985),
           fontSize: 70.0,
         ),
       ),

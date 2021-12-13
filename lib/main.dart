@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'views/home.dart';
 
 void main() {
@@ -11,10 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          canvasColor: const Color(0xff464646), fontFamily: 'Helvetica'),
       title: 'Nicotine Tracker',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(canvasColor: const Color(0xff2d2d2d)).copyWith(
+        textTheme: GoogleFonts.robotoTextTheme(),
+      ),
       home: const MyHomePage(),
     );
   }
