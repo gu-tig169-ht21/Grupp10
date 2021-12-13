@@ -10,7 +10,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int selectedIndex = 0;
-  int _costTotalCounter = 25;
+  int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
 
   void _incrementCounter() {
@@ -174,33 +174,50 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _timer() {
-    return Column(children: const [
-      Text('Du tog din senaste prilla för',
+    return Column(
+      children: [
+        const Text('Du tog din senaste prilla för',
           style: TextStyle(color: Colors.white)),
-      Text(
-        '0',
-        style: TextStyle(
-          color: Color(0xff699985),
-          fontSize: 70.0,
-        ),
-      ),
-      Text('minuter sedan', style: TextStyle(color: Colors.white)),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+            '0',
+            style: TextStyle(
+              color: Color(0xff699985),
+              fontSize: 70.0,
+            ),
+          ),
+            const SizedBox(width: 5),
+            const Text('minuter sedan', style: TextStyle(color: Colors.white)),                    
+          ],
+        )
     ]);
   }
 
   Widget _konsumtion() {
-    return Column(children: [
-      const Text('Du har totalt konsumerat',
+    return Column(
+      children: [
+        const Text('Du har totalt konsumerat',
           style: TextStyle(color: Colors.white)),
-      Text(
-        '$_counter',
-        style: const TextStyle(
-          color: Color(0xff699985),
-          fontSize: 70.0,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$_counter',
+              style: const TextStyle(
+                color: Color(0xff699985),
+                fontSize: 70.0,
+              ),
+            ),
+            const SizedBox(width: 5),            
+            const Text('prillor idag', style: TextStyle(color: Colors.white)),
+          ],
         ),
-      ),
-      const Text('prillor idag', style: TextStyle(color: Colors.white)),
-    ]);
+      ],
+    );
   }
 
   Widget _kostnadTotalt() {
