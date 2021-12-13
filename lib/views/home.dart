@@ -174,25 +174,24 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _timer() {
-    return Column(
-      children: [
-        const Text('Du tog din senaste prilla för',
+    return Column(children: [
+      const Text('Du tog din senaste prilla för',
           style: TextStyle(color: Colors.white)),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
             '0',
             style: TextStyle(
               color: Color(0xff699985),
               fontSize: 70.0,
             ),
           ),
-            const SizedBox(width: 5),
-            const Text('minuter sedan', style: TextStyle(color: Colors.white)),                    
-          ],
-        )
+          const SizedBox(width: 5),
+          const Text('minuter sedan', style: TextStyle(color: Colors.white)),
+        ],
+      )
     ]);
   }
 
@@ -200,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       children: [
         const Text('Du har totalt konsumerat',
-          style: TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -212,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontSize: 70.0,
               ),
             ),
-            const SizedBox(width: 5),            
+            const SizedBox(width: 5),
             const Text('prillor idag', style: TextStyle(color: Colors.white)),
           ],
         ),
