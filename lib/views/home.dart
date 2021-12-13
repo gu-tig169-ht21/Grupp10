@@ -21,6 +21,49 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void openMenu() {
+    showModalBottomSheet(
+        backgroundColor: Color.fromRGBO(70, 70, 70, 0.8),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                  leading: Icon(Icons.add, color: Colors.white),
+                  title: Text('Lägg Till Dosa',
+                      style: TextStyle(color: Colors.white)),
+                  onTap: () {}),
+              Divider(
+                height: 10,
+                color: Colors.black,
+                thickness: 0.2,
+              ),
+              ListTile(
+                  leading: Icon(Icons.settings, color: Colors.white),
+                  title: Text('Inställningar',
+                      style: TextStyle(color: Colors.white)),
+                  onTap: () {}),
+              Divider(
+                height: 10,
+                color: Colors.black,
+                thickness: 0.2,
+              ),
+              ListTile(
+                  leading: Icon(Icons.person, color: Colors.white),
+                  title: Text(
+                    'Integritet',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {}),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -31,27 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: const Color(0xff464646),
                 title: const Text('Nicotine Tracker',
                     style: TextStyle(color: Colors.white)),
-                leading: PopupMenuButton(
-                    color: const Color(0xff464646),
-                    icon: const Icon(Icons.menu, color: Colors.white),
-                    onSelected: (value) {},
-                    itemBuilder: (context) => [
-                          const PopupMenuItem(
-                              child: Text(
-                                'Välj standardsnus',
-                                textAlign: TextAlign.right,
-                              ),
-                              textStyle: TextStyle(color: Colors.white),
-                              value: 0),
-                          const PopupMenuItem(
-                              child: Text('Inställningar'),
-                              textStyle: TextStyle(color: Colors.white),
-                              value: 1),
-                          const PopupMenuItem(
-                              child: Text('Integritet'),
-                              textStyle: TextStyle(color: Colors.white),
-                              value: 2),
-                        ]),
+                leading: IconButton(
+                  color: const Color(0xff464646),
+                  icon: const Icon(Icons.menu, color: Colors.white),
+                  onPressed: () => openMenu(),
+                ),
                 bottom: const TabBar(
                   tabs: [
                     Tab(text: 'Konsumtion'),
