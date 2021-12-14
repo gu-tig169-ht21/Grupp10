@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,7 +11,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
 
@@ -68,6 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -98,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           bottomNavigationBar: BottomNavigationBar(
             //showSelectedLabels: false,
             showUnselectedLabels: false,
-            items: const [
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Hem',
@@ -115,10 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: const Color(0xff2d2d2d),
             unselectedItemColor: Colors.grey,
             selectedItemColor: Colors.white,
-            currentIndex: selectedIndex,
-            onTap: (index) => setState(() {
-              selectedIndex = index;
-            }),
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
           ),
           body: TabBarView(
             children: [
@@ -177,19 +183,25 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(children: [
       const Text('Du tog din senaste prilla för',
           style: TextStyle(color: Colors.white)),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+      Stack(
         children: [
-          Text(
-            '0',
-            style: TextStyle(
-              color: Color(0xff699985),
-              fontSize: 70.0,
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              '123',
+              style: TextStyle(fontSize: 70.0, color: Color(0xff699985)),
+            ),
+            //customlayout isåfall lalala
+          ),
+          Positioned.directional(
+            textDirection: TextDirection.rtl,
+            start: 75,
+            top: 30,
+            child: Text(
+              'minuter sedan',
+              style: TextStyle(color: Colors.white),
             ),
           ),
-          const SizedBox(width: 5),
-          const Text('minuter sedan', style: TextStyle(color: Colors.white)),
         ],
       )
     ]);
