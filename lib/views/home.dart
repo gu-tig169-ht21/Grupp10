@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../data/pouch.dart';
+import '../data/pouch_dao.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -14,8 +16,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
+  final pouchDao = PouchDao();
 
   void _incrementCounter() {
+    // lägger api-call här så länge - marcus
+    final pouch = Pouch('test', DateTime.now());
+    pouchDao.savePouch(pouch);
     setState(() {
       _counter++;
     });

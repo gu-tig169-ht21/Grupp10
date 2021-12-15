@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "775269442553",
+    "firebase_url": "https://nicotrack-dadbc-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "nicotrack-dadbc",
+    "storage_bucket": "nicotrack-dadbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775269442553:android:18b895c96ccd032526d328",
+        "android_client_info": {
+          "package_name": "se.gu.nicotrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775269442553-g09dcehois6esh3k84jso34hrk0kbtjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCem--eVU6b44u09TbNHfxWgKrVwpSNaSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775269442553-g09dcehois6esh3k84jso34hrk0kbtjl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

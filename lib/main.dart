@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'views/home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase/firebase_options.dart' as firebase_settings;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp(
+      options: firebase_settings.getOptions(),
+    );
+  } catch (ex) {
+    print('exploded: \n $ex');
+  }
+
   runApp(const MyApp());
 }
 
