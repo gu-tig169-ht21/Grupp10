@@ -26,8 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     // lägger api-call här så länge - marcus
-    final pouch = Pouch('test', DateTime.now());
-    pouchDao.savePouch(pouch);
+     final pouch = Pouch('test', DateTime.now());
+     pouchDao.savePouch(pouch);
     setState(() {
       _counter++;
     });
