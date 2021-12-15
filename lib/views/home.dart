@@ -15,6 +15,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -70,12 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -91,18 +91,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: const Icon(Icons.menu, color: Colors.white),
                 onPressed: () => openMenu(),
               ),
-              bottom: TabBar(
-                  tabs: <Widget>[
-                    Tab(
-                        child:
-                            (Text('Konsumtion', style: GoogleFonts.roboto()))),
-                    Tab(child: Text('Ekonomi', style: GoogleFonts.roboto())),
-                  ],
-                  indicatorColor: Colors.transparent,
-                  labelStyle: TextStyle(fontSize: 16),
-                  unselectedLabelStyle: TextStyle(
-                    fontSize: 14,
-                  ))),
+              bottom: _selectedIndex == 0
+                  ? TabBar(
+                      tabs: <Widget>[
+                          Tab(
+                              child: (Text('Konsumtion',
+                                  style: GoogleFonts.roboto()))),
+                          Tab(
+                              child:
+                                  Text('Ekonomi', style: GoogleFonts.roboto())),
+                        ],
+                      indicatorColor: Colors.transparent,
+                      labelStyle: TextStyle(fontSize: 16),
+                      unselectedLabelStyle: TextStyle(
+                        fontSize: 14,
+                      ))
+                  : null),
           bottomNavigationBar: BottomNavigationBar(
             //showSelectedLabels: false,
             showUnselectedLabels: false,
@@ -126,56 +130,61 @@ class _MyHomePageState extends State<MyHomePage> {
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
           ),
-          body: TabBarView(
-            children: [
-              Scaffold(
-                  body: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _timer(),
-                        Container(height: 80),
-                        _konsumtion(),
-                      ],
-                    ),
-                  ),
-                  floatingActionButton: FloatingActionButton(
-                    backgroundColor: const Color(0xff699985),
-                    tooltip: 'Lägg till prilla',
-                    child: const Icon(Icons.add),
-                    onPressed: () {
-                      _incrementCounter();
-                      final snackBar = SnackBar(
-                        backgroundColor: Color(0xff282828),
-                        content: Text(
-                          'Du har lagt till en prilla',
-                          style: GoogleFonts.roboto(),
+          body: _selectedIndex == 0
+              ? TabBarView(
+                  children: [
+                    Scaffold(
+                        body: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _timer(),
+                              Container(height: 80),
+                              _konsumtion(),
+                            ],
+                          ),
                         ),
-                        action: SnackBarAction(
-                          textColor: Color(0xff699985),
-                          label: 'Ångra',
+                        floatingActionButton: FloatingActionButton(
+                          backgroundColor: const Color(0xff699985),
+                          tooltip: 'Lägg till prilla',
+                          child: const Icon(Icons.add),
                           onPressed: () {
-                            _decreaseCounter();
+                            _incrementCounter();
+                            final snackBar = SnackBar(
+                              backgroundColor: Color(0xff282828),
+                              content: Text(
+                                'Du har lagt till en prilla',
+                                style: GoogleFonts.roboto(),
+                              ),
+                              action: SnackBarAction(
+                                textColor: Color(0xff699985),
+                                label: 'Ångra',
+                                onPressed: () {
+                                  _decreaseCounter();
+                                },
+                              ),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           },
                         ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
-                  ),
-                  floatingActionButtonLocation:
-                      FloatingActionButtonLocation.endFloat),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _kostnadTotalt(),
-                    Container(height: 80),
-                    _kostnadIdag(),
+                        floatingActionButtonLocation:
+                            FloatingActionButtonLocation.centerFloat),
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _kostnadTotalt(),
+                          Container(height: 80),
+                          _kostnadIdag(),
+                        ],
+                      ),
+                    )
                   ],
-                ),
-              ),
-            ],
-          ),
+                )
+              : _selectedIndex == 1
+                  ? Text('historik')
+                  : Text('prognos'),
         ));
   }
 
