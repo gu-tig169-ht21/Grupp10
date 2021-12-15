@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>775269442553-ac7m0lb72jcakghoqh2pdebqau48g8qd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.775269442553-ac7m0lb72jcakghoqh2pdebqau48g8qd</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAig0mz9UVZAJH1GXAXnGPHat6H-zGosmw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>775269442553</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>se.gu.nicotrack</string>
+	<key>PROJECT_ID</key>
+	<string>nicotrack-dadbc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nicotrack-dadbc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:775269442553:ios:ff11dfd4d2c2790c26d328</string>
+	<key>DATABASE_URL</key>
+	<string>https://nicotrack-dadbc-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
