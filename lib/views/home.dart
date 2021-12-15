@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_first_app/views/historik.dart';
+import 'package:my_first_app/views/prognos.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -183,8 +185,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 )
               : _selectedIndex == 1
-                  ? Text('historik')
-                  : Text('prognos'),
+                  ? MyHistorikPage()
+                  : MyPrognostPage(),
         ));
   }
 
