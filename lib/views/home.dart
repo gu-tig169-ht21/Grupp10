@@ -6,6 +6,10 @@ import 'package:my_first_app/views/historik.dart';
 import 'package:my_first_app/views/prognos.dart';
 import '../data/pouch.dart';
 import '../data/pouch_dao.dart';
+import 'timer.dart';
+import 'konsumtion.dart';
+import 'kostnad_totalt.dart';
+import 'kostnad_idag.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -146,9 +150,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              _timer(),
+                              Timer(),
                               Container(height: 80),
-                              _konsumtion(),
+                              Konsumtion(_counter),
                             ],
                           ),
                         ),
@@ -182,9 +186,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _kostnadTotalt(),
+                          KostnadTotalt(_costTotalCounter),
                           Container(height: 80),
-                          _kostnadIdag(),
+                          KostnadIdag(_costTodayCounter),
                         ],
                       ),
                     )
@@ -194,105 +198,5 @@ class _MyHomePageState extends State<MyHomePage> {
                   ? MyHistorikPage()
                   : MyPrognostPage(),
         ));
-  }
-
-  Widget _timer() {
-    return Column(children: [
-      const Text('Du tog din senaste prilla för',
-          style: TextStyle(color: Colors.white)),
-      Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              '123',
-              style: TextStyle(fontSize: 70.0, color: Color(0xff699985)),
-            ),
-            //customlayout isåfall lalala
-          ),
-          Positioned.directional(
-            textDirection: TextDirection.rtl,
-            start: 75,
-            top: 30,
-            child: Text(
-              'minuter sedan',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      )
-    ]);
-  }
-
-  Widget _konsumtion() {
-    return Column(
-      children: [
-        const Text('Du har totalt konsumerat',
-            style: TextStyle(color: Colors.white)),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '$_counter',
-              style: const TextStyle(
-                color: Color(0xff699985),
-                fontSize: 70.0,
-              ),
-            ),
-            const SizedBox(width: 5),
-            const Text('prillor idag', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _kostnadTotalt() {
-    return Column(
-      children: [
-        const Text('Pengar du spenderat på snus sedan start',
-            style: TextStyle(color: Colors.white)),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '$_costTotalCounter',
-              style: const TextStyle(
-                color: Color(0xff95C8A8),
-                fontSize: 70.0,
-              ),
-            ),
-            const SizedBox(width: 5),
-            const Text('kr', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _kostnadIdag() {
-    return Column(
-      children: [
-        const Text('Pengar du spenderat på snus idag',
-            style: TextStyle(color: Colors.white)),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '$_costTodayCounter',
-              style: const TextStyle(
-                color: Color(0xff95C8A8),
-                fontSize: 70.0,
-              ),
-            ),
-            const SizedBox(width: 5),
-            const Text('kr', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-      ],
-    );
   }
 }
