@@ -97,7 +97,9 @@ class _NewProductState extends State<NewProduct> {
                 primary: Color(0xff699985),
                 onPrimary: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: Text('SPARA'),
             ),
 //todo - kostnadsruta (välj snus har ett pris som också går till rutan)
