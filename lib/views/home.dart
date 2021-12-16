@@ -10,6 +10,7 @@ import 'timer.dart';
 import 'konsumtion.dart';
 import 'kostnad_totalt.dart';
 import 'kostnad_idag.dart';
+import 'produkt.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -51,10 +52,16 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                  leading: Icon(Icons.add, color: Colors.white),
-                  title: Text('Lägg till dosa',
-                      style: TextStyle(color: Colors.white)),
-                  onTap: () {}),
+                leading: Icon(Icons.add, color: Colors.white),
+                title: Text('Lägg till dosa',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewProduct()),
+                  );
+                },
+              ),
               Divider(
                 height: 10,
                 color: Colors.black,
