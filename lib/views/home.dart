@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
-
+//måste file namnet matcha klass namnet här
+//måste en klass ha en build metod om en widget används i en klass som redan har en build metod
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_first_app/views/historik.dart';
