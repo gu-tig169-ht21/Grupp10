@@ -1,18 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class NewProduct extends StatefulWidget {
-  const NewProduct({Key? key}) : super(key: key);
+class NyProdukt extends StatefulWidget {
+  const NyProdukt({Key? key}) : super(key: key);
   @override
-  State<NewProduct> createState() => _NewProductState();
+  State<NyProdukt> createState() => _NyProdukt();
 }
 
-class _NewProductState extends State<NewProduct> {
+class _NyProdukt extends State<NyProdukt> {
   String dropdownValue = 'Ex. Dosa';
 
   @override

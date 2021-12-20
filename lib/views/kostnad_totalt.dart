@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class KostnadTotalt extends StatelessWidget {
   KostnadTotalt(this._costTotalCounter);
 
-  int _costTotalCounter;
+  final int _costTotalCounter;
 
   @override
   Widget build(BuildContext context) {

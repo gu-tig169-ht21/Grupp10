@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Konsumtion extends StatelessWidget {
-  Konsumtion(this._counter);
+class TotalKonsumtionIdag extends StatelessWidget {
+  TotalKonsumtionIdag(this._counter);
 
-  int _counter;
+  final int _counter;
 
   @override
   Widget build(BuildContext context) {

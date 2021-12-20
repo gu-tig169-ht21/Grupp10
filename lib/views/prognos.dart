@@ -10,7 +10,7 @@ class MyPrognostPage extends StatefulWidget {
 class _MyPrognostPageState extends State<MyPrognostPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Center(
       child: Text('prognos'),
     ));

@@ -14,7 +14,7 @@ class _MyHistorikPageState extends State<MyHistorikPage> {
     return Scaffold(
         body: Center(
             child: ListView(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       children: [
         _graf(),
         // Container(height: 15),

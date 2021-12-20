@@ -6,11 +6,10 @@ import 'package:my_first_app/views/historik.dart';
 import 'package:my_first_app/views/prognos.dart';
 import '../data/pouch.dart';
 import '../data/pouch_dao.dart';
-import 'timer.dart';
-import 'konsumtion.dart';
-import 'kostnad_totalt.dart';
-import 'kostnad_idag.dart';
-import 'produkt.dart';
+import 'konsumtion_tab.dart';
+import 'ekonomi_tab.dart';
+import 'bottom_nav.dart';
+import 'show_modal_bottom_sheet.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -24,12 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
   final pouchDao = PouchDao();
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  bool _activeSnackbar = false;
 
   void _incrementCounter() {
     // lägger api-call här så länge - marcus
@@ -40,59 +34,24 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void openMenu() {
-    showModalBottomSheet(
-        backgroundColor: Color.fromRGBO(70, 70, 70, 0.8),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.add, color: Colors.white),
-                title: Text('Lägg till dosa',
-                    style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewProduct()),
-                  );
-                },
-              ),
-              Divider(
-                height: 10,
-                color: Colors.black,
-                thickness: 0.2,
-              ),
-              ListTile(
-                  leading: Icon(Icons.settings, color: Colors.white),
-                  title: Text('Inställningar',
-                      style: TextStyle(color: Colors.white)),
-                  onTap: () {}),
-              Divider(
-                height: 10,
-                color: Colors.black,
-                thickness: 0.2,
-              ),
-              ListTile(
-                  leading: Icon(Icons.person, color: Colors.white),
-                  title: Text(
-                    'Integritet',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {}),
-            ],
-          );
-        });
-  }
-
   void _decreaseCounter() {
     setState(() {
       _counter--;
     });
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  void _setActiveSnackbar() {
+    _activeSnackbar = true;
+  }
+
+  void openMenu() {
+    ShowModalBottomSheet.runShowModalButtomSheet(context);
   }
 
   @override
@@ -126,79 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontSize: 14,
                       ))
                   : null),
-          bottomNavigationBar: BottomNavigationBar(
-            //showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Hem',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.history),
-                label: 'Historik',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.timeline),
-                label: 'Prognos',
-              ),
-            ],
-            backgroundColor: const Color(0xff2d2d2d),
-            unselectedItemColor: Colors.grey,
-            selectedItemColor: Colors.white,
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-          ),
+          bottomNavigationBar: BottomNav(_selectedIndex, _onItemTapped),
           body: _selectedIndex == 0
               ? TabBarView(
                   children: [
-                    Scaffold(
-                        body: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Timer(),
-                              Container(height: 80),
-                              Konsumtion(_counter),
-                            ],
-                          ),
-                        ),
-                        floatingActionButton: FloatingActionButton(
-                          backgroundColor: const Color(0xff699985),
-                          tooltip: 'Lägg till prilla',
-                          child: const Icon(Icons.add),
-                          onPressed: () {
-                            _incrementCounter();
-                            final snackBar = SnackBar(
-                              backgroundColor: Color(0xff282828),
-                              content: Text(
-                                'Du har lagt till en prilla',
-                                style: GoogleFonts.roboto(),
-                              ),
-                              action: SnackBarAction(
-                                textColor: Color(0xff699985),
-                                label: 'Ångra',
-                                onPressed: () {
-                                  _decreaseCounter();
-                                },
-                              ),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          },
-                        ),
-                        floatingActionButtonLocation:
-                            FloatingActionButtonLocation.centerFloat),
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          KostnadTotalt(_costTotalCounter),
-                          Container(height: 80),
-                          KostnadIdag(_costTodayCounter),
-                        ],
-                      ),
-                    )
+                    KonsumtionTab(_counter, _incrementCounter, _decreaseCounter,
+                        _activeSnackbar, _setActiveSnackbar),
+                    EkonomiTab(_costTotalCounter, _costTodayCounter)
                   ],
                 )
               : _selectedIndex == 1
