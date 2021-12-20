@@ -8,25 +8,19 @@ class TimerKonsumtionMinuter extends StatelessWidget {
     return Column(children: [
       const Text('Du tog din senaste prilla för',
           style: TextStyle(color: Colors.white)),
-      Stack(
-        children: [
-          const Align(
-            alignment: Alignment.center,
-            child: Text(
-              '123',
-              style: TextStyle(fontSize: 70.0, color: Color(0xff699985)),
-            ),
-            //customlayout isåfall lalala
-          ),
-          Positioned.directional(
-            textDirection: TextDirection.rtl,
-            start: 75,
-            top: 30,
-            child: const Text(
-              'minuter sedan',
-              style: TextStyle(color: Colors.white),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            '123',
+            style: TextStyle(
+              color: Color(0xff699985),
+              fontSize: 70.0,
             ),
           ),
+          SizedBox(width: 5),
+          Text('prillor idag', style: TextStyle(color: Colors.white)),
         ],
       )
     ]);

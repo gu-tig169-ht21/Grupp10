@@ -217,9 +217,9 @@ class _NyProdukt extends State<NyProdukt> {
       onChanged: (newValue) {
         setState(() {
           _selectedSnus = newValue!;
-          // snusController.text = _selectedSnus.pris as String;
-          snusController.text = _selectedSnus.snusNamn;
-          // ^  ?
+          snusController.text = _selectedSnus.pris as String;
+          // snusController.text = _selectedSnus.snusNamn;
+          // ^  ? why no work som String
         });
       },
     );
