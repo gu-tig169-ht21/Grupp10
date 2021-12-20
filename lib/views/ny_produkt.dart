@@ -10,7 +10,74 @@ class NyProdukt extends StatefulWidget {
 }
 
 class _NyProdukt extends State<NyProdukt> {
+// temp här tills separat fil
+  void openMenu() {
+    showModalBottomSheet(
+        backgroundColor: Color.fromRGBO(70, 70, 70, 0.8),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.add, color: Colors.white),
+                title: Text('Lägg till dosa',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () {},
+              ),
+              Divider(
+                height: 10,
+                color: Colors.black,
+                thickness: 0.2,
+              ),
+              ListTile(
+                  leading: Icon(Icons.settings, color: Colors.white),
+                  title: Text('Inställningar',
+                      style: TextStyle(color: Colors.white)),
+                  onTap: () {}),
+              Divider(
+                height: 10,
+                color: Colors.black,
+                thickness: 0.2,
+              ),
+              ListTile(
+                  leading: Icon(Icons.person, color: Colors.white),
+                  title: Text(
+                    'Integritet',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {}),
+            ],
+          );
+        });
+  }
+
   String dropdownValue = 'Ex. Dosa';
+  TextEditingController snusController = TextEditingController();
+
+///////////
+  late List<DropdownMenuItem<SnusAlternativ>> _snusItems;
+  late SnusAlternativ _selectedSnus;
+
+  @override
+  void initState() {
+    List<SnusAlternativ> dosor = SnusAlternativ.allaDosor;
+
+    _snusItems = dosor.map<DropdownMenuItem<SnusAlternativ>>(
+      (SnusAlternativ snusAlternativ) {
+        return DropdownMenuItem<SnusAlternativ>(
+          value: snusAlternativ,
+          child: Text(snusAlternativ.snusNamn),
+        );
+      },
+    ).toList();
+    _selectedSnus = dosor[0];
+    super.initState();
+  }
+///////////
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +87,11 @@ class _NyProdukt extends State<NyProdukt> {
         title: const Text('Nicotine Tracker',
             style: TextStyle(color: Colors.white)),
         leading: IconButton(
-          color: const Color(0xff464646),
-          icon: const Icon(Icons.menu, color: Colors.white),
-          onPressed: null,
-          //   onPressed: () => openMenu(),
-        ),
+            color: const Color(0xff464646),
+            icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
       bottomNavigationBar: BottomNavigationBar(
         //showSelectedLabels: false,
@@ -53,13 +120,13 @@ class _NyProdukt extends State<NyProdukt> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: <Widget>[
             const SizedBox(
               height: 50,
             ),
             const Text('Välj ditt standardsnus',
                 style: TextStyle(color: Colors.white, fontSize: 16)),
-            _dropDownSnus(),
+            _dropDownSnusTwo(),
             const SizedBox(
               height: 25,
             ),
@@ -74,6 +141,7 @@ class _NyProdukt extends State<NyProdukt> {
             Container(
               padding: const EdgeInsets.fromLTRB(200, 15, 200, 15),
               child: TextField(
+                controller: snusController,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelStyle: TextStyle(color: Colors.white, fontSize: 12),
@@ -135,4 +203,38 @@ class _NyProdukt extends State<NyProdukt> {
       }).toList(),
     );
   }
+
+  Widget _dropDownSnusTwo() {
+    return DropdownButton<SnusAlternativ>(
+      value: _selectedSnus,
+      items: _snusItems,
+      icon: const Icon(
+        Icons.keyboard_arrow_down,
+        color: Colors.white,
+      ),
+      elevation: 16,
+      style: const TextStyle(color: Colors.white),
+      onChanged: (newValue) {
+        setState(() {
+          _selectedSnus = newValue!;
+          // snusController.text = _selectedSnus.pris as String;
+          snusController.text = _selectedSnus.snusNamn;
+          // ^  ?
+        });
+      },
+    );
+  }
+}
+
+class SnusAlternativ {
+  final int pris;
+  final String snusNamn;
+
+  SnusAlternativ(this.pris, this.snusNamn);
+
+  static List<SnusAlternativ> get allaDosor => [
+        SnusAlternativ(20, 'General Classic Portion'),
+        SnusAlternativ(30, 'Lundgrens Norrland'),
+        SnusAlternativ(10, 'Ettan Original Portion'),
+      ];
 }
