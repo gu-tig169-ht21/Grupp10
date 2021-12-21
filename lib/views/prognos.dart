@@ -38,7 +38,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                   color: Colors.grey, fontStyle: FontStyle.italic)),
         ],
       ),
-      Container(height: 40),
+      Container(height: 20),
       Column(
         children: [
           Text('Testa att ändra din konsumtion',
@@ -90,30 +90,29 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
         ],
       ),
       Container(height: 20),
-      _grafKonsumtion(),
+      _graf(),
       Column(
         children: [
-          Container(height: 20),
           Text(
-              'Om din dagliga snuskostnad istället läggs in på börsen med en årlig avkastning på 7% skulle du istället ha..',
+              'Grafen visar hur mycket pengar du kommer spendera på snus (orange) om du konsumerar lika mycket som förgående månad, samt vad du skulle kunna spara om du lägger in dina pengar på börsen med en förväntad årlig avkastning på 7% (grön).',
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                   color: Colors.grey, fontStyle: FontStyle.italic)),
         ],
       ),
-      Container(height: 5),
-      _grafBorsen(),
+      // Container(height: 5),
+      //  _grafBorsen(),
     ])));
   }
 
-  Widget _grafKonsumtion() {
+  Widget _graf() {
     return Container(
         padding: const EdgeInsets.all(10),
         child: Align(
             alignment: Alignment.center,
             child: Container(
                 width: double.infinity,
-                height: 150,
+                height: 300,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   color: const Color(0xff282828),
@@ -122,7 +121,8 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      Text('(graf som visar kostnad per år)',
+                      Text(
+                          '(graf som visar kostnad du lägger på snus per år + pengar du hade sparat om du hade lagt in pengarna på börsen istället)',
                           style: TextStyle(fontSize: 18, color: Colors.grey))
                     ]))));
   }
