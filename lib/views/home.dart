@@ -24,7 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
   final pouchDao = PouchDao();
-  bool _activeSnackbar = false;
 
   void _incrementCounter() {
     // lägger api-call här så länge - marcus
@@ -45,10 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  void _setActiveSnackbar() {
-    _activeSnackbar = true;
   }
 
   void openMenu() {
@@ -90,8 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
           body: _selectedIndex == 0
               ? TabBarView(
                   children: [
-                    KonsumtionTab(_counter, _incrementCounter, _decreaseCounter,
-                        _activeSnackbar, _setActiveSnackbar),
+                    KonsumtionTab(
+                      _counter,
+                      _incrementCounter,
+                      _decreaseCounter,
+                    ),
                     EkonomiTab(_costTotalCounter, _costTodayCounter)
                   ],
                 )

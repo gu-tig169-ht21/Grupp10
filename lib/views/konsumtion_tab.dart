@@ -4,16 +4,14 @@ import 'total_konsumtion_idag.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class KonsumtionTab extends StatelessWidget {
-  const KonsumtionTab(this._counter, this._incrementCounter,
-      this._decreaseCounter, this.activeSnackbar, this._setActiveSnackbar,
+  const KonsumtionTab(
+      this._counter, this._incrementCounter, this._decreaseCounter,
       {Key? key})
       : super(key: key);
 
   final int _counter;
   final Function _incrementCounter;
   final Function _decreaseCounter;
-  final bool activeSnackbar;
-  final Function _setActiveSnackbar;
 
   @override
   Widget build(BuildContext context) {
