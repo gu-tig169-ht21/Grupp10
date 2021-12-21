@@ -52,7 +52,7 @@ class _MyHistorikPageState extends State<MyHistorikPage> {
             alignment: Alignment.center,
             child: Container(
                 width: 250.0,
-                height: 150.0,
+                height: 250.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   color: const Color(0xff282828),
