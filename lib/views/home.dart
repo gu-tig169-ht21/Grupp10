@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               : _selectedIndex == 1
                   ? MyHistorikPage()
-                  : MyPrognostPage(),
+                  : MyPrognosPage(),
         ));
   }
 }
