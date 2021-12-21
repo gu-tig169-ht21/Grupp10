@@ -49,11 +49,7 @@ class KonsumtionTab extends StatelessWidget {
               ),
             );
 
-            if (activeSnackbar == true) {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            }
-            // fråga om en sånn här liten funktion som körs vid varje klick affectar performance
-            _setActiveSnackbar();
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           },
