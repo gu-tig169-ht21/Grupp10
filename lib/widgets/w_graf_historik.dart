@@ -17,6 +17,25 @@ class GrafHistorikWidget extends StatelessWidget {
                     const TextStyle(color: Colors.grey, fontSize: 12),
                 margin: 8,
                 reservedSize: 20,
+                getTitles: (value) {
+                  switch (value.toInt()) {
+                    case 1:
+                      return 'Mån';
+                    case 2:
+                      return 'Tis';
+                    case 3:
+                      return 'Ons';
+                    case 4:
+                      return 'Tors';
+                    case 5:
+                      return 'Fre';
+                    case 6:
+                      return 'Lör';
+                    case 7:
+                      return 'Sön';
+                  }
+                  return '';
+                },
               ),
               leftTitles: SideTitles(
                 showTitles: true,
