@@ -13,14 +13,14 @@ class TimerKonsumtionMinuter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Text(
-            '123',
+            '12',
             style: TextStyle(
               color: Color(0xff699985),
               fontSize: 70.0,
             ),
           ),
           SizedBox(width: 5),
-          Text('prillor idag', style: TextStyle(color: Colors.white)),
+          Text('minuter sedan', style: TextStyle(color: Colors.white)),
         ],
       )
     ]);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_first_app/widgets/w_graf_prognos.dart';
 
 class MyPrognosPage extends StatefulWidget {
   const MyPrognosPage({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
     return Scaffold(
         body: Center(
             child: ListView(padding: const EdgeInsets.all(10), children: [
-      Container(height: 20),
+      Container(height: 10),
       Column(
         children: [
           Text(
@@ -38,7 +39,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                   color: Colors.grey, fontStyle: FontStyle.italic)),
         ],
       ),
-      Container(height: 20),
+      Container(height: 10),
       Column(
         children: [
           Text('Testa att ändra din konsumtion',
@@ -89,7 +90,6 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
           Text('prillor/dag', style: TextStyle(color: Colors.white)),
         ],
       ),
-      Container(height: 20),
       _graf(),
       Column(
         children: [
@@ -100,52 +100,28 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                   color: Colors.grey, fontStyle: FontStyle.italic)),
         ],
       ),
-      // Container(height: 5),
-      //  _grafBorsen(),
     ])));
   }
 
   Widget _graf() {
     return Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Align(
             alignment: Alignment.center,
-            child: Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(
+            child: SizedBox(
+              width: double.infinity,
+              height: 350,
+              child: Card(
+                // elevation: 4,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
-                  color: const Color(0xff282828),
                 ),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                          '(graf som visar kostnad du lägger på snus per år + pengar du hade sparat om du hade lagt in pengarna på börsen istället)',
-                          style: TextStyle(fontSize: 18, color: Colors.grey))
-                    ]))));
-  }
-
-  Widget _grafBorsen() {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        child: Align(
-            alignment: Alignment.center,
-            child: Container(
-                width: double.infinity,
-                height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: const Color(0xff282828),
+                color: const Color(0xff111111),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 20, 20, 5),
+                  child: GrafPrognosWidget(),
                 ),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                          '(graf som visar vad man hade haft på börsen per år)',
-                          style: TextStyle(fontSize: 15, color: Colors.grey))
-                    ]))));
+              ),
+            )));
   }
 }
