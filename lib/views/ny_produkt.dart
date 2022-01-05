@@ -77,7 +77,7 @@ class _NyProdukt extends State<NyProdukt> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelStyle: TextStyle(color: Colors.white, fontSize: 14),
-                    labelText: 'Kr/prilla',
+                    labelText: 'Kr/dosa',
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white, width: 0.0),
                     ),
@@ -96,6 +96,10 @@ class _NyProdukt extends State<NyProdukt> {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
+                  var snusPris = int.parse(snusController.text);
+                  assert(snusPris is int);
+                  //int.parse(snusPris);
+                  print(snusPris);
                   Navigator.pop(context);
                 },
                 child: Text('SPARA'),
