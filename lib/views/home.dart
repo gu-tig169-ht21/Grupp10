@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final pouch = Pouch(DateTime.now());
     dbRepo.addPouch(pouch).then((value) {
       setState(() {
-        _counter = value;
+        _counter++;
       });
     });
   }

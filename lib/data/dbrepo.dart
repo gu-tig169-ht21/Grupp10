@@ -8,35 +8,33 @@ class DataRepo {
       FirebaseFirestore.instance.collection('users/test/pouches');
   final db = FirebaseFirestore.instance;
 
-  Future<int> addPouch(Pouch pouch) async {
+  Future<String> addPouch(Pouch pouch) async {
     int counter = 0;
+    String pouchId = "";
     DateTime now = DateTime.now();
     String today = "${now.year}-${now.month}-${now.day}";
 
     CollectionReference todayPouchesColl = FirebaseFirestore.instance
         .collection('users/test/dailyConsumption/$today/pouches');
 
-    todayPouchesColl.add(pouch.toJson());
+    await todayPouchesColl
+        .add(pouch.toJson())
+        .then((value) => pouchId = value.id);
 
     var todayDoc = db.collection('users/test/dailyConsumption').doc(today);
 
     await todayDoc.get().then((doc) {
       if (doc.exists) {
         todayDoc.update({"count": FieldValue.increment(1)});
-        var todayConsumption = DailyConsumption.fromJson(doc.data());
-        counter = todayConsumption.count + 1;
-        print(counter);
       } else {
         todayDoc.set({"count": 1});
-        counter = 1;
-        print(counter);
       }
     });
 
-    return counter;
+    return pouchId;
   }
 
-  Future<int> getTodayCount(DateTime date) async {
+  Future<int> getDayCount(DateTime date) async {
     int counter = 0;
     String dateString = "${date.year}-${date.month}-${date.day}";
 
@@ -60,6 +58,8 @@ class DataRepo {
     int currentYear = DateTime.now().year;
     DateTime startMonth = DateTime(currentYear, month, 1);
     DateTime endMonth = DateTime(currentYear, month + 1, 0);
+
+    var monthColl = db.collection('users/test/dailyConsumption');
 
     return counter;
   }
