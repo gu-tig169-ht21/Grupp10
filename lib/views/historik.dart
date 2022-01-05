@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_first_app/widgets/w_graf_historik.dart';
 
 class MyHistorikPage extends StatefulWidget {
   const MyHistorikPage({Key? key}) : super(key: key);
@@ -44,27 +45,28 @@ class _MyHistorikPageState extends State<MyHistorikPage> {
       ],
     )));
   }
+}
 
-  Widget _graf() {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        child: Align(
-            alignment: Alignment.center,
-            child: Container(
-                width: 250.0,
-                height: 250.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: const Color(0xff282828),
-                ),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('(graf eller kalender)',
-                          style: TextStyle(fontSize: 18, color: Colors.grey))
-                    ]))));
-  }
+Widget _graf() {
+  return Container(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            width: double.infinity,
+            height: 250,
+            child: Card(
+              // elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              color: const Color(0xff111111),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(5, 20, 20, 5),
+                child: GrafHistorikWidget(),
+              ),
+            ),
+          )));
 }
 
 Widget _lastWeek() {
