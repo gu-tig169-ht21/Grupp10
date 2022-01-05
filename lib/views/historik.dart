@@ -6,10 +6,12 @@ class MyHistorikPage extends StatefulWidget {
   const MyHistorikPage({Key? key}) : super(key: key);
 
   @override
-  _MyHistorikPageState createState() => _MyHistorikPageState();
+  MyHistorikPageState createState() => MyHistorikPageState();
 }
 
-class _MyHistorikPageState extends State<MyHistorikPage> {
+class MyHistorikPageState extends State<MyHistorikPage> {
+  static int senasteVeckanPrillor = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,7 @@ class _MyHistorikPageState extends State<MyHistorikPage> {
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
-        _lastWeek(),
+        _lastWeek(senasteVeckanPrillor),
         Container(height: 10),
         Row(
           children: [
@@ -69,7 +71,7 @@ Widget _graf() {
           )));
 }
 
-Widget _lastWeek() {
+Widget _lastWeek(senasteVeckanPrillor) {
   return Container(
       padding: const EdgeInsets.fromLTRB(60, 30, 60, 20),
       width: double.infinity,
@@ -80,17 +82,18 @@ Widget _lastWeek() {
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
-        Column(children: const [
-          Text('120', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+        Column(children: [
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: const [
-          Text('3', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
-        Column(children: const [
-          Text('60', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
+        Column(children: [
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('$senasteVeckanPrillor',
+              style: TextStyle(fontSize: 12, color: Colors.white)),
         ])
       ]));
 }
@@ -107,15 +110,15 @@ _lastMonth() {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: const [
-          Text('670', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: const [
-          Text('12', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: const [
-          Text('250', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ])
       ]));
@@ -133,17 +136,15 @@ _lastYear() {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: const [
-          Text('8000',
-              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: const [
-          Text('150', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: const [
-          Text('3000',
-              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ])
       ]));

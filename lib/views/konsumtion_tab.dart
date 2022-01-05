@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'timer_konsumtion_minuter.dart';
 import 'total_konsumtion_idag.dart';
 import 'package:google_fonts/google_fonts.dart';
+import './historik.dart';
+import './timer_konsumtion_minuter.dart';
 
 class KonsumtionTab extends StatelessWidget {
   const KonsumtionTab(
@@ -20,7 +22,7 @@ class KonsumtionTab extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const TimerKonsumtionMinuter(),
+              TimerKonsumtionMinuter(),
               Container(height: 80),
               TotalKonsumtionIdag(_counter),
             ],
@@ -43,6 +45,12 @@ class KonsumtionTab extends StatelessWidget {
                 label: 'Ångra',
                 onPressed: () {
                   _decreaseCounter();
+
+                  MyHistorikPageState.senasteVeckanPrillor -= 1;
+
+                  TimerKonsumtionMinuterState.runEqualXtoTemp();
+
+                  TimerKonsumtionMinuterState.revertTimeStamp();
                 },
               ),
             );
@@ -50,6 +58,12 @@ class KonsumtionTab extends StatelessWidget {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+            MyHistorikPageState.senasteVeckanPrillor += 1;
+
+            TimerKonsumtionMinuterState.senastePrillaTid = 0;
+
+            TimerKonsumtionMinuterState.x = 0;
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
