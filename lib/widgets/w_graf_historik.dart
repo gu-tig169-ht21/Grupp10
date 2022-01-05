@@ -121,7 +121,7 @@ class GrafHistorikWidget extends StatelessWidget {
                 isCurved: true,
                 barWidth: 3,
                 colors: [
-                  Color(0xffffbe66),
+                  Color(0xff699985),
                 ],
               )
             ]),
