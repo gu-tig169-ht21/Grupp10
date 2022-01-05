@@ -133,7 +133,7 @@ _lastYear() {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: const [
-          Text('8000',
+          Text('7300',
               style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
