@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_first_app/views/historik.dart';
 import 'package:my_first_app/views/prognos.dart';
 import '../data/pouch.dart';
-import '../data/pouch_dao.dart';
+import '../data/dbrepo.dart';
 import 'konsumtion_tab.dart';
 import 'ekonomi_tab.dart';
 import 'bottom_nav.dart';
@@ -23,14 +23,15 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
-  final pouchDao = PouchDao();
+  final DataRepo dbRepo = DataRepo();
 
   void _incrementCounter() {
     // lägger api-call här så länge - marcus
-    final pouch = Pouch('test', DateTime.now());
-    pouchDao.savePouch(pouch);
-    setState(() {
-      _counter++;
+    final pouch = Pouch(DateTime.now());
+    dbRepo.addPouch(pouch).then((value) {
+      setState(() {
+        _counter = value;
+      });
     });
   }
 
