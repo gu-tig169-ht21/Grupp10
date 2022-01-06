@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_first_app/widgets/w_graf_historik.dart';
+import 'ny_produkt.dart';
 
 class MyHistorikPage extends StatefulWidget {
   const MyHistorikPage({Key? key}) : super(key: key);
