@@ -9,9 +9,9 @@ import 'package:week_of_year/week_of_year.dart';
 class DataRepo {
   final db = FirebaseFirestore.instance;
 
-  Future<String> addPouch(Pouch pouch) async {
+  Future<DocumentReference> addPouch(Pouch pouch) async {
     int counter = 0;
-    String pouchId = "";
+    var pouchId;
     DateTime now = DateTime.now();
     String today = "${now.year}-${now.month}-${now.day}";
 
@@ -19,25 +19,10 @@ class DataRepo {
         .collection('users/test/dailyConsumption/$today/pouches');
 
     // TODO gör om pouchId till en DocumentReference istället för string
-    await todayPouchesColl
-        .add(pouch.toJson())
-        .then((value) => pouchId = value.id);
+    await todayPouchesColl.add(pouch.toJson()).then((doc) => pouchId = doc);
 
-    await incrementPouchCount();
+    await incrementPouchCount(1);
 
-/*
-    var todayDoc = db.collection('users/test/dailyConsumption').doc(today);
-    var userDoc = db.collection('users').doc('test');
-
-    await todayDoc.get().then((doc) {
-      if (doc.exists) {
-        todayDoc.update({"count": FieldValue.increment(1)});
-      } else {
-        todayDoc.set({"count": 1});
-      }
-      userDoc.update({"countTotal": FieldValue.increment(1)});
-    });
-*/
     return pouchId;
   }
 
@@ -124,18 +109,10 @@ class DataRepo {
     return counter;
   }
 
-  void removePouch(String docId) {
-    DateTime now = DateTime.now();
-    String today = "${now.year}-${now.month}-${now.day}";
-    var userDoc = db.collection('users').doc('test');
-    var dateDoc = db.collection('users/test/dailyConsumption').doc(today);
-    var pouchDoc =
-        db.collection('users/test/dailyConsumption/$today/pouches').doc(docId);
-
+  Future<void> removePouch(DocumentReference docId) async {
     // TODO gör om incrementPouchCount till att kunna hantera decrement och använd här?
-    pouchDoc.delete().then((_) {
-      userDoc.update({"countTotal": FieldValue.increment(-1)});
-      dateDoc.update({"count": FieldValue.increment(-1)});
+    await docId.delete().then((_) {
+      incrementPouchCount(-1);
     });
   }
 
@@ -161,7 +138,36 @@ class DataRepo {
     await boxColl.add({"name": name, "price": price});
   }
 
-  Future<void> incrementPouchCount() async {
+  Future<void> selectBox(Box box) async {
+    var userDoc = db.collection('users').doc('test');
+
+    await userDoc.update({"selectedBox": box.ref});
+  }
+
+  Future<Box> getSelectedBox() async {
+    var userDoc = db.collection('users').doc('test');
+    var boxDoc;
+    var box;
+
+    await userDoc.get().then((doc) {
+      if (doc.exists) {
+        boxDoc = doc.data()?["selectedBox"];
+      }
+    });
+
+    await boxDoc.get().then((doc) {
+      if (doc.exists) {
+        print("i exist: ${doc.data()}");
+      } else {
+        print('i dont exist :(');
+      }
+      box = Box.fromJson(doc.data() as Map<String, dynamic>, doc.reference);
+    });
+
+    return box;
+  }
+
+  Future<void> incrementPouchCount(int i) async {
     DateTime now = DateTime.now();
     String today = "${now.year}-${now.month}-${now.day}";
     var day = db.collection('users/test/dailyConsumption').doc(today);
@@ -176,38 +182,74 @@ class DataRepo {
 
     await day.get().then((doc) {
       if (doc.exists) {
-        day.update({"count": FieldValue.increment(1)});
+        day.update({"count": FieldValue.increment(i)});
       } else {
-        day.set({"count": 1});
+        day.set({"count": 1, "date": today});
       }
     });
 
-    await year.get().then((doc) {
+    year.get().then((doc) {
       if (doc.exists) {
-        year.update({"count": FieldValue.increment(1)});
+        year.update({"count": FieldValue.increment(i)});
       } else {
-        year.set({"count": 1});
+        year.set({"count": 1, "year": now.year});
       }
     });
 
-    await month.get().then((doc) {
+    month.get().then((doc) {
       if (doc.exists) {
-        month.update({"count": FieldValue.increment(1)});
+        month.update({"count": FieldValue.increment(i)});
       } else {
-        month.set({"count": 1});
+        month.set({"count": 1, "month": now.month});
       }
     });
 
-    await week.get().then((doc) {
+    week.get().then((doc) {
       if (doc.exists) {
-        week.update({"count": FieldValue.increment(1)});
+        week.update({"count": FieldValue.increment(i)});
       } else {
-        week.set({"count": 1});
+        week.set({"count": 1, "week": now.weekOfYear});
       }
     });
 
-    await total.update({"countTotal": FieldValue.increment(1)});
+    total.update({"countTotal": FieldValue.increment(i)});
   }
+
+  Future<DateTime> getLatestPouchTime() async {
+    // TODO STÄDA UPP
+    var daysColl = db
+        .collection('users/test/dailyConsumption')
+        .orderBy("date", descending: true)
+        .limit(1);
+
+    var something = await daysColl.get();
+
+    print(something.docs.first.data());
+
+    var lastDay = something.docs.first.id;
+
+    var pouchColl =
+        db.collection('users/test/dailyConsumption/$lastDay/pouches');
+
+    var pouchList =
+        await pouchColl.orderBy("date", descending: true).limit(1).get();
+
+    var dateString = pouchList.docs.first.data()["date"];
+
+    print(dateString);
+
+    DateTime lastPouch = DateTime.parse(dateString);
+
+    return lastPouch;
+  }
+
+// TODO fixa sökning för alla dagar i en vecka
+// TODO fixa fler funktioner till dosor KLAR?**********
+// TODO fixa vald dosa KLAR**********
+// TODO fixa senaste prillan timestamp KLAR*********
+// TODO fixa decrement KLAR?*************
+
+// TODO fixa date field till datum KLAR*********
 
 /*
   Future<DateTime> getLastPouchTime() {
