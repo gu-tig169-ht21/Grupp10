@@ -98,7 +98,6 @@ class _NyProdukt extends State<NyProdukt> {
                 onPressed: () {
                   var snusPris = int.parse(snusController.text);
                   assert(snusPris is int);
-                  //int.parse(snusPris);
                   print(snusPris);
                   Navigator.pop(context);
                 },
