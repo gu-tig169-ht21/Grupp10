@@ -34,20 +34,22 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
       Container(height: 10),
       Column(
         children: [
-          Text('Din nuvarande årliga konsumtion är',
+          const Text('Din nuvarande årliga konsumtion är',
               style: TextStyle(color: Colors.white)),
-        ],
-      ),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            '7300kr',
-            style: const TextStyle(
-              color: Color(0xff699985),
-              fontSize: 70.0,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '7300',
+                style: const TextStyle(
+                  color: Color(0xff699985),
+                  fontSize: 70.0,
+                ),
+              ),
+              const SizedBox(width: 5),
+              const Text('kr', style: TextStyle(color: Colors.white)),
+            ],
           ),
         ],
       ),
