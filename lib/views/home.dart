@@ -35,8 +35,10 @@ class MyHomePageState extends State<MyHomePage> {
   DateTime registerTimeAtMoveAwayFromHome = DateTime(0);
   static DateTime historikPageLeaveTime = DateTime(0);
 
-  static var weekTimer = 0;
+  static var weekTimer = 0; //resolve this variable, resolve this variable
   static var monthTimer = 0;
+  static var weeklyPrillaOnScreenDisplay = 0;
+  static var monthlyPrillaOnScreenDisplay = 0;
 
   static void recordHistorikPageLeaveTime(index) {
     historikPageLeaveTime = index;
