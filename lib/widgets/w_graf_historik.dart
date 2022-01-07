@@ -17,6 +17,7 @@ class GrafHistorikWidget extends StatelessWidget {
                     const TextStyle(color: Colors.grey, fontSize: 12),
                 margin: 8,
                 reservedSize: 20,
+                interval: 1,
                 getTitles: (value) {
                   switch (value.toInt()) {
                     case 1:

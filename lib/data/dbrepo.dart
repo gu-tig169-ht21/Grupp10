@@ -169,6 +169,7 @@ class DataRepo {
 
   Future<void> incrementPouchCount(int i) async {
     DateTime now = DateTime.now();
+    DateTime todayFormatted = DateTime(now.year, now.month, now.day);
     String today = "${now.year}-${now.month}-${now.day}";
     var day = db.collection('users/test/dailyConsumption').doc(today);
     var year = db.collection('users/test/counters').doc(now.year.toString());
@@ -184,7 +185,7 @@ class DataRepo {
       if (doc.exists) {
         day.update({"count": FieldValue.increment(i)});
       } else {
-        day.set({"count": 1, "date": today});
+        day.set({"count": 1, "date": todayFormatted.toString()});
       }
     });
 
@@ -243,7 +244,33 @@ class DataRepo {
     return lastPouch;
   }
 
-// TODO fixa sökning för alla dagar i en vecka
+  Future<List<int>> getWeekdaysCount(DateTime date) async {
+    DateTime firstwday =
+        DateTime(date.year, date.month, date.day - date.weekday + 1);
+    DateTime lastwday = DateTime(date.year, date.month, date.day);
+    List<int> list = [0, 0, 0, 0, 0, 0, 0];
+    var wq = db
+        .collection('users/test/dailyConsumption')
+        .orderBy("date", descending: false)
+        .where("date", isGreaterThanOrEqualTo: firstwday.toString())
+        .where("date", isLessThanOrEqualTo: lastwday.toString());
+
+    await wq.get().then((docs) {
+      if (docs.docs.isNotEmpty) {
+        for (var doc in docs.docs) {
+          DateTime daydate = DateTime.parse(doc.data()["date"]);
+          int i = daydate.weekday - 1;
+          list[i] = doc.data()["count"];
+        }
+      } else {
+        //print('här var det tomt');
+      }
+    });
+
+    return list;
+  }
+
+// TODO fixa sökning för alla dagar i en vecka KLAR*********
 // TODO fixa fler funktioner till dosor KLAR?**********
 // TODO fixa vald dosa KLAR**********
 // TODO fixa senaste prillan timestamp KLAR*********
