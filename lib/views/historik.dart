@@ -142,11 +142,11 @@ Widget _graf() {
             child: Card(
               // elevation: 4,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(25),
               ),
               color: const Color(0xff111111),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(5, 20, 20, 5),
+                padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
                 child: GrafHistorikWidget(),
               ),
             ),
@@ -159,7 +159,7 @@ Widget _lastWeek(weeklyPrillaOnScreenDisplay) {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(25),
         color: const Color(0xff282828),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
@@ -186,7 +186,7 @@ _lastMonth(monthlyPrillaOnScreenDisplay) {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(25),
         color: const Color(0xff282828),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
@@ -213,7 +213,7 @@ _lastYear() {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(25),
         color: const Color(0xff282828),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <

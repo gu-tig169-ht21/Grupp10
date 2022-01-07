@@ -18,7 +18,7 @@ class KostnadTotalt extends StatelessWidget {
             Text(
               '$_costTotalCounter',
               style: const TextStyle(
-                color: Color(0xff95C8A8),
+                color: Color(0xff699985),
                 fontSize: 70.0,
               ),
             ),
