@@ -2,8 +2,23 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+//snackbar shows one extra time with rhytmic add prilla change screen
+//could have just made a static method for registertimeatmoveintohome etc.
+
 class TimerKonsumtionMinuter extends StatefulWidget {
-  TimerKonsumtionMinuter({Key? key}) : super(key: key);
+  TimerKonsumtionMinuter(
+      this.initMyHomePageLatestTimeOfPrilla,
+      this.initMyHomePageTimeNow,
+      this.firstHomeWidgetBuild,
+      this.setFirstHomeWidgetBuild,
+      this.registerTimeAtMoveAwayFromHome,
+      this.setRegisterTimeAtMoveAwayFromHome);
+  DateTime initMyHomePageLatestTimeOfPrilla;
+  DateTime initMyHomePageTimeNow;
+  bool firstHomeWidgetBuild;
+  Function setFirstHomeWidgetBuild;
+  DateTime registerTimeAtMoveAwayFromHome;
+  Function setRegisterTimeAtMoveAwayFromHome;
 
   @override
   State<TimerKonsumtionMinuter> createState() => TimerKonsumtionMinuterState();
@@ -12,44 +27,115 @@ class TimerKonsumtionMinuter extends StatefulWidget {
 class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
   static int senastePrillaTid = 0;
   static int senastePrillaTidRecorder = 0;
-  static bool renderSenastePrillaTidRecorder = false;
   static int x = 0;
   static int temp = 0;
+  DateTime registerTimeAtMoveIntoHome = DateTime.now();
+  var oldNewDiff = 0;
 
-  TimerKonsumtionMinuterState() {
-    runStuff();
-  }
+  //senastePrillaTid ska va baserad på get hämtad siffra omväxlat till min
 
-  static void runEqualXtoTemp() {
-    x = temp;
-    print('hello');
-    print(x);
-    print(temp);
-  }
+  @override
+  void initState() {
+    super.initState();
 
-  void runStuff() async {
-    Timer.periodic(Duration(seconds: 1), (e) {
-      x++;
-      temp++;
+    if (widget.firstHomeWidgetBuild) {
+      //if widgetrebuild true
+      oldNewDiff = widget.initMyHomePageTimeNow //CONSIDER MAKING LOCAL VARIABLE
+          .difference(widget.initMyHomePageLatestTimeOfPrilla)
+          .inSeconds;
 
-      if (x == 8) {
+      x = oldNewDiff; //te.x 300
+
+      // x = remainder sec of old new diff
+
+      widget.setFirstHomeWidgetBuild();
+
+      //widger rebuild false
+    } else {
+      oldNewDiff = registerTimeAtMoveIntoHome
+          .difference(widget.registerTimeAtMoveAwayFromHome)
+          .inSeconds;
+
+      x = oldNewDiff; //tex 2m => 120s
+    }
+
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      //if on this screne, only update the time stamp
+
+      /* if (temp > 60 && x != 60) {
+          temp = x; //check this
+        } */
+
+      if (x == 59) {
+        //consider 60
         setState(() {
+          x = 0;
           senastePrillaTid += 1;
-          renderSenastePrillaTidRecorder = false;
+
+          if (senastePrillaTid > senastePrillaTidRecorder ||
+              senastePrillaTid == 1) {
+            senastePrillaTidRecorder = senastePrillaTid;
+          }
+        });
+      } else if (x > 59) {
+        int floorvalue = x.floor(); //math.floor? like 75 _> 70
+
+        int remainder = x - floorvalue; // = 5m
+
+        double mesh = senastePrillaTid.toDouble(); //2 to 2.0
+
+        mesh = (mesh +
+            (floorvalue /
+                60)); //2.0 + 70 / 60 to floor. remander add to remainder 3.16666
+
+        double a = mesh - mesh.floor();
+
+        double b = 60 * a; //dvs 10m
+
+        double doubleFinalPassedSeconds = remainder + b; //dvs 15
+
+        int intFinalPasssedSeconds = doubleFinalPassedSeconds.toInt();
+
+        //mesh.floor for senasteprilla //seconds remaining = mesh x 60 // secondsremaining + remainder
+
+        setState(() {
+          senastePrillaTid = mesh.floor().toInt();
+
+          // i think
+          //1 min, 20s //+1 to senasteprilla och 20s på x
         });
 
-        if (senastePrillaTid > senastePrillaTidRecorder) {
-          senastePrillaTidRecorder = senastePrillaTid;
-        }
+        x = intFinalPasssedSeconds;
+        temp = x;
+      }
 
-        x = 0;
-        temp = 0;
+      x++;
+
+      if (!mounted) {
+        widget.setRegisterTimeAtMoveAwayFromHome(DateTime.now());
+        timer.cancel();
       }
     });
   }
 
-  static void revertTimeStamp() {
-    renderSenastePrillaTidRecorder = true;
+  static void runEqualXtoTemp() {
+    x = temp;
+
+    //why no setstate
+  }
+
+  //timer widget in each widget
+
+  //register temp
+
+  static void registerTemp() {
+    temp = x;
+  }
+
+  static void setPrillaTidToRecordTid() {
+    senastePrillaTid = senastePrillaTidRecorder;
+
+    // https://stackoverflow.com/questions/46057353/controlling-state-from-outside-of-a-statefulwidget?rq=1
   }
 
   @override
@@ -62,9 +148,7 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            renderSenastePrillaTidRecorder
-                ? '$senastePrillaTidRecorder'
-                : '$senastePrillaTid',
+            '$senastePrillaTid',
             style: TextStyle(
               color: Color(0xff699985),
               fontSize: 70.0,

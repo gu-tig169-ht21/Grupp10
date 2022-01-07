@@ -15,15 +15,42 @@ import 'show_modal_bottom_sheet.dart';
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 0;
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
   final pouchDao = PouchDao();
+  DateTime initMyHomePageLatestTimeOfPrilla =
+      DateTime(2022, 1, 5, 23, 50, 30); // 2021 mar 21, 20:10:30
+  var initMyHomePageTimeNow = DateTime.now();
+  var firstHomeWidgetBuild = true;
+  static var firstHistorikWidgetBuild = true;
+  DateTime registerTimeAtMoveAwayFromHome = DateTime(0);
+  static DateTime historikPageLeaveTime = DateTime(0);
+
+  static var weekTimer = 0;
+  static var monthTimer = 0;
+
+  static void recordHistorikPageLeaveTime(index) {
+    historikPageLeaveTime = index;
+  }
+
+  void setRegisterTimeAtMoveAwayFromHome(index) {
+    //static vs passdown access to state
+    registerTimeAtMoveAwayFromHome = index;
+  }
+
+  void setFirstHomeWidgetBuild() {
+    firstHomeWidgetBuild = false;
+  }
+
+  static void setFirstHistorikWidgetBuild() {
+    firstHistorikWidgetBuild = false;
+  }
 
   void _incrementCounter() {
     // lägger api-call här så länge - marcus
@@ -86,9 +113,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ? TabBarView(
                   children: [
                     KonsumtionTab(
+                      initMyHomePageLatestTimeOfPrilla,
+                      initMyHomePageTimeNow,
+                      firstHomeWidgetBuild,
+                      setFirstHomeWidgetBuild,
                       _counter,
                       _incrementCounter,
                       _decreaseCounter,
+                      registerTimeAtMoveAwayFromHome,
+                      setRegisterTimeAtMoveAwayFromHome,
                     ),
                     EkonomiTab(_costTotalCounter, _costTodayCounter)
                   ],

@@ -7,13 +7,27 @@ import './timer_konsumtion_minuter.dart';
 
 class KonsumtionTab extends StatelessWidget {
   const KonsumtionTab(
-      this._counter, this._incrementCounter, this._decreaseCounter,
+      this.initMyHomePageLatestTimeOfPrilla,
+      this.initMyHomePageTimeNow,
+      this.firstHomeWidgetBuild,
+      this.setFirstHomeWidgetBuild,
+      this._counter,
+      this._incrementCounter,
+      this._decreaseCounter,
+      this.registerTimeAtMoveAwayFromHome,
+      this.setRegisterTimeAtMoveAwayFromHome,
       {Key? key})
       : super(key: key);
 
+  final DateTime initMyHomePageLatestTimeOfPrilla;
+  final DateTime initMyHomePageTimeNow;
+  final bool firstHomeWidgetBuild;
+  final Function setFirstHomeWidgetBuild;
   final int _counter;
   final Function _incrementCounter;
   final Function _decreaseCounter;
+  final DateTime registerTimeAtMoveAwayFromHome;
+  final Function setRegisterTimeAtMoveAwayFromHome;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,13 @@ class KonsumtionTab extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TimerKonsumtionMinuter(),
+              TimerKonsumtionMinuter(
+                  initMyHomePageLatestTimeOfPrilla,
+                  initMyHomePageTimeNow,
+                  firstHomeWidgetBuild,
+                  setFirstHomeWidgetBuild,
+                  registerTimeAtMoveAwayFromHome,
+                  setRegisterTimeAtMoveAwayFromHome),
               Container(height: 80),
               TotalKonsumtionIdag(_counter),
             ],
@@ -48,9 +68,15 @@ class KonsumtionTab extends StatelessWidget {
 
                   MyHistorikPageState.senasteVeckanPrillor -= 1;
 
+                  //decr week month etc counters too
+
+                  MyHistorikPageState.weeklyPrillaCounter -= 1;
+                  MyHistorikPageState.monthlyPrillaCounter -= 1;
+                  MyHistorikPageState.yearlyPrillaCounter -= 1;
+
                   TimerKonsumtionMinuterState.runEqualXtoTemp();
 
-                  TimerKonsumtionMinuterState.revertTimeStamp();
+                  TimerKonsumtionMinuterState.setPrillaTidToRecordTid();
                 },
               ),
             );
@@ -63,7 +89,13 @@ class KonsumtionTab extends StatelessWidget {
 
             TimerKonsumtionMinuterState.senastePrillaTid = 0;
 
+            TimerKonsumtionMinuterState.registerTemp();
+
             TimerKonsumtionMinuterState.x = 0;
+
+            MyHistorikPageState.weeklyPrillaCounter += 1;
+            MyHistorikPageState.monthlyPrillaCounter += 1;
+            MyHistorikPageState.yearlyPrillaCounter += 1;
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
