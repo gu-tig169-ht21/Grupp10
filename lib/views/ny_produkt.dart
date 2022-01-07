@@ -86,35 +86,39 @@ class _NyProdukt extends State<NyProdukt> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(
-                height: 50,
-              ),
+              // const SizedBox(
+              // height: 50,
+              //),
               const Text('Välj ditt standardsnus',
-                  style: TextStyle(color: Colors.white, fontSize: 16)),
+                  style: TextStyle(color: Colors.white)),
               _dropDownSnus(),
               const SizedBox(
                 height: 25,
               ),
               const Text(
                 'Hittar du inte ditt snus i listan ovan?',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style:
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
               ),
               const Text(
                 'Skriv in styckpriset manuellt!',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style:
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
                 child: TextField(
+                  cursorColor: Color(0xff699985),
                   controller: snusController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white, fontSize: 14),
-                    labelText: 'Kr/dosa',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 0.0),
-                    ),
-                  ),
+                      labelStyle: TextStyle(color: Colors.grey),
+                      labelText: 'Kr/dosa',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey))),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(
@@ -122,7 +126,7 @@ class _NyProdukt extends State<NyProdukt> {
                   ],
                 ),
               ),
-              const SizedBox(height: 150),
+              // const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xff699985),

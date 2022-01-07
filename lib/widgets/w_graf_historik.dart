@@ -40,19 +40,6 @@ class GrafHistorikWidget extends StatelessWidget {
               ),
               leftTitles: SideTitles(
                 showTitles: true,
-                /*getTitles: (value) {
-                  switch (value.toInt()) {
-                    case 20:
-                      return '200k';
-                    case 40:
-                      return '400k';
-                    case 60:
-                      return '600k';
-                    case 80:
-                      return '800k';
-                  }
-                  return '';
-                },*/
                 margin: 8,
                 reservedSize: 30,
                 getTextStyles: (context, value) =>

@@ -34,20 +34,22 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
       Container(height: 10),
       Column(
         children: [
-          Text('Din nuvarande årliga konsumtion',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-        ],
-      ),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            '7300kr',
-            style: const TextStyle(
-              color: Color(0xff699985),
-              fontSize: 70.0,
-            ),
+          const Text('Din nuvarande årliga konsumtion är',
+              style: TextStyle(color: Colors.white)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '7300',
+                style: const TextStyle(
+                  color: Color(0xff699985),
+                  fontSize: 70.0,
+                ),
+              ),
+              const SizedBox(width: 5),
+              const Text('kr', style: TextStyle(color: Colors.white)),
+            ],
           ),
         ],
       ),
@@ -79,7 +81,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
 
   Widget _graf() {
     return Container(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Align(
             alignment: Alignment.center,
             child: SizedBox(
@@ -88,11 +90,11 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
               child: Card(
                 // elevation: 4,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(25),
                 ),
                 color: const Color(0xff111111),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 20, 20, 5),
+                  padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
                   child: GrafPrognosWidget(),
                 ),
               ),

@@ -21,9 +21,6 @@ class MyHistorikPageState extends State<MyHistorikPage> {
   static var monthlyPrillaCounter = 0;
   static var yearlyPrillaCounter = 0;
 
-  var weeklyPrillaOnScreenDisplay = 0;
-  var monthlyPrillaOnScreenDisplay = 0;
-
   var abc = DateTime(2022, 8, 30, 13, 20, 10);
 
   //retrieve daily monthly yearly from database
@@ -38,20 +35,19 @@ class MyHistorikPageState extends State<MyHistorikPage> {
       //time from database and new time
 
       MyHomePageState.setFirstHistorikWidgetBuild();
-      print('1');
     } else {
-      print('$historikPageAccessTime');
-      print('${MyHomePageState.historikPageLeaveTime}');
-
       oldNewDiff = historikPageAccessTime
           .difference(MyHomePageState.historikPageLeaveTime)
           .inSeconds;
+
+      print('historik page accxess time = $historikPageAccessTime');
+      print(
+          'historik page accxess time = $MyHomePageState.historikPageLeaveTime');
 
       print('weekTimer before OldDiff thng ${MyHomePageState.weekTimer}');
 
       MyHomePageState.weekTimer += oldNewDiff;
       MyHomePageState.monthTimer += oldNewDiff;
-      print('2');
     }
 
     //firstappinitlogic vs not
@@ -62,9 +58,10 @@ class MyHistorikPageState extends State<MyHistorikPage> {
     Timer.periodic(Duration(seconds: 1), (timer) {
       print('weektimer is ${MyHomePageState.weekTimer}');
       if (MyHomePageState.weekTimer >= 10) {
+        //604 800
         //604800
         setState(() {
-          weeklyPrillaOnScreenDisplay = weeklyPrillaCounter;
+          MyHomePageState.weeklyPrillaOnScreenDisplay = weeklyPrillaCounter;
           weeklyPrillaCounter = 0;
           MyHomePageState.weekTimer = 0;
         });
@@ -73,7 +70,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
       if (MyHomePageState.monthTimer >= 40) {
         //604800
         setState(() {
-          monthlyPrillaOnScreenDisplay = monthlyPrillaCounter;
+          MyHomePageState.monthlyPrillaOnScreenDisplay = monthlyPrillaCounter;
           monthlyPrillaCounter = 0;
           MyHomePageState.monthTimer = 0;
         });
@@ -85,17 +82,13 @@ class MyHistorikPageState extends State<MyHistorikPage> {
       if (!mounted) {
         //record time of leaving
         MyHomePageState.recordHistorikPageLeaveTime(DateTime.now());
-        print('mounted record time was ${DateTime.now()}');
         timer.cancel();
       }
     });
-
-    print('weekly display $weeklyPrillaOnScreenDisplay');
   }
 
   @override
   Widget build(BuildContext context) {
-    print('im called');
     return Scaffold(
         body: Center(
             child: ListView(
@@ -109,7 +102,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
-        _lastWeek(weeklyPrillaOnScreenDisplay),
+        _lastWeek(MyHomePageState.weeklyPrillaOnScreenDisplay),
         Container(height: 10),
         Row(
           children: [
@@ -117,7 +110,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
-        _lastMonth(monthlyPrillaOnScreenDisplay),
+        _lastMonth(MyHomePageState.monthlyPrillaOnScreenDisplay),
         Container(height: 10),
         Row(
           children: [
@@ -142,11 +135,11 @@ Widget _graf() {
             child: Card(
               // elevation: 4,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(25),
               ),
               color: const Color(0xff111111),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(5, 20, 20, 5),
+                padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
                 child: GrafHistorikWidget(),
               ),
             ),
@@ -159,7 +152,7 @@ Widget _lastWeek(weeklyPrillaOnScreenDisplay) {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(25),
         color: const Color(0xff282828),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
@@ -186,7 +179,7 @@ _lastMonth(monthlyPrillaOnScreenDisplay) {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(25),
         color: const Color(0xff282828),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
@@ -213,7 +206,7 @@ _lastYear() {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(25),
         color: const Color(0xff282828),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
