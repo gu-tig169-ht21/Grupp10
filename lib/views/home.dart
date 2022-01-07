@@ -3,14 +3,17 @@
 //måste en klass ha en build metod om en widget används i en klass som redan har en build metod
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_first_app/data/pouch_dao.dart';
 import 'package:my_first_app/views/historik.dart';
+import 'package:my_first_app/views/ny_produkt.dart';
 import 'package:my_first_app/views/prognos.dart';
 import '../data/pouch.dart';
-import '../data/pouch_dao.dart';
+import '../data/dbrepo.dart';
 import 'konsumtion_tab.dart';
 import 'ekonomi_tab.dart';
 import 'bottom_nav.dart';
 import 'show_modal_bottom_sheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -52,18 +55,25 @@ class MyHomePageState extends State<MyHomePage> {
     firstHistorikWidgetBuild = false;
   }
 
+  final DataRepo dbRepo = DataRepo();
+
+  final appIsFirstLoaded = 'is_first_loaded';
+
   void _incrementCounter() {
     // lägger api-call här så länge - marcus
-    final pouch = Pouch('test', DateTime.now());
-    pouchDao.savePouch(pouch);
-    setState(() {
-      _counter++;
+    final pouch = Pouch(DateTime.now());
+    dbRepo.addPouch(pouch).then((value) {
+      setState(() {
+        _counter++;
+      });
     });
   }
 
   void _decreaseCounter() {
     setState(() {
-      _counter--;
+      if (_counter > 1) {
+        _counter--;
+      }
     });
   }
 
@@ -79,6 +89,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context));
     return DefaultTabController(
         length: 2,
         initialIndex: 0,
@@ -130,5 +141,40 @@ class MyHomePageState extends State<MyHomePage> {
                   ? MyHistorikPage()
                   : MyPrognosPage(),
         ));
+  }
+
+  showDialogIfFirstLoaded(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? isFirstLoaded = prefs.getBool(appIsFirstLoaded);
+    if (isFirstLoaded == null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.black45,
+              title: Text(
+                'Greetings Traveler',
+                style: TextStyle(color: Colors.white),
+              ),
+              content: Text(
+                'Börja med att lägga till ditt val av snus \n(detta kan när som helst ändras i menyn)',
+                style: TextStyle(color: Colors.white),
+              ),
+              actions: <Widget>[
+                TextButton(
+                    child: Text(
+                      'Välj Snus',
+                      style: TextStyle(color: Color(0xff95C8A8)),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => NyProdukt()));
+                      prefs.setBool(appIsFirstLoaded, false);
+                    })
+              ],
+            );
+          });
+    }
   }
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_first_app/widgets/w_graf_historik.dart';
+<<<<<<< HEAD
 import 'dart:async';
 import './home.dart';
+=======
+import 'ny_produkt.dart';
+>>>>>>> f8ab828d50f29d8fccdec451a1de744046a03e6d
 
 class MyHistorikPage extends StatefulWidget {
   const MyHistorikPage({Key? key}) : super(key: key);
@@ -218,7 +222,12 @@ _lastYear() {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: const [
+<<<<<<< HEAD
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+=======
+          Text('7300',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+>>>>>>> f8ab828d50f29d8fccdec451a1de744046a03e6d
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: const [

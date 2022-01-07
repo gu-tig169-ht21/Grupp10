@@ -10,7 +10,7 @@ class MyPrognosPage extends StatefulWidget {
 }
 
 class _MyPrognosPageState extends State<MyPrognosPage> {
-  int _counter = 0;
+  int _counter = 10;
 
   void _incrementCounter() {
     setState(() {
@@ -20,7 +20,9 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
 
   void _decreaseCounter() {
     setState(() {
-      _counter--;
+      if (_counter > 0) {
+        _counter--;
+      }
     });
   }
 
@@ -32,17 +34,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
       Container(height: 10),
       Column(
         children: [
-          Text(
-              'Den senaste månadaden har du i genomsnitt snusat 10 prillor per dag vilket har kostat dig ca 20kr dagligen.',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                  color: Colors.grey, fontStyle: FontStyle.italic)),
-        ],
-      ),
-      Container(height: 10),
-      Column(
-        children: [
-          Text('Testa att ändra din konsumtion',
+          Text('Din nuvarande årliga konsumtion',
               style: TextStyle(color: Colors.white, fontSize: 20)),
         ],
       ),
@@ -50,51 +42,33 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 25.0,
-            height: 25.0,
-            child: FloatingActionButton(
-              backgroundColor: const Color(0xff699985),
-              tooltip: 'Lägg till prilla',
-              child: const Icon(Icons.remove, size: 17.0),
-              onPressed: () {
-                _decreaseCounter();
-              },
-            ),
-          ),
-          const SizedBox(width: 15),
           Text(
-            '$_counter',
+            '7300kr',
             style: const TextStyle(
               color: Color(0xff699985),
               fontSize: 70.0,
             ),
           ),
-          const SizedBox(width: 15),
-          SizedBox(
-            width: 25.0,
-            height: 25.0,
-            child: FloatingActionButton(
-              backgroundColor: const Color(0xff699985),
-              tooltip: 'Lägg till prilla',
-              child: const Icon(Icons.add, size: 17.0),
-              onPressed: () {
-                _incrementCounter();
-              },
-            ),
-          ),
-        ],
-      ),
-      Column(
-        children: [
-          Text('prillor/dag', style: TextStyle(color: Colors.white)),
         ],
       ),
       _graf(),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.circle, color: Color(0xff699985), size: 10),
+          Text(' Konsumtion', style: TextStyle(color: Colors.white)),
+          SizedBox(width: 15),
+          Icon(Icons.circle, color: Color(0xffffbe66), size: 10),
+          Text(' Börsen', style: TextStyle(color: Colors.white))
+        ],
+      ),
+      SizedBox(height: 5),
       Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-              'Grafen visar hur mycket pengar du kommer spendera på snus (orange) om du konsumerar lika mycket som förgående månad, samt vad du skulle kunna spara om du lägger in dina pengar på börsen med en förväntad årlig avkastning på 7% (grön).',
+              'Den gröna linjen visar hur mycket pengar du kommer spendera på snus om du konsumerar lika mycket som förgående år. Den orangea linjen visar vad du skulle kunna spara om du istället lägger in samma summa på börsen med en förväntad årlig avkastning på 7%',
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                   color: Colors.grey, fontStyle: FontStyle.italic)),
@@ -110,7 +84,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
             alignment: Alignment.center,
             child: SizedBox(
               width: double.infinity,
-              height: 350,
+              height: 400,
               child: Card(
                 // elevation: 4,
                 shape: RoundedRectangleBorder(

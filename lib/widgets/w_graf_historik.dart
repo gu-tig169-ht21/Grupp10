@@ -17,6 +17,7 @@ class GrafHistorikWidget extends StatelessWidget {
                     const TextStyle(color: Colors.grey, fontSize: 12),
                 margin: 8,
                 reservedSize: 20,
+                interval: 1,
                 getTitles: (value) {
                   switch (value.toInt()) {
                     case 1:
@@ -121,7 +122,7 @@ class GrafHistorikWidget extends StatelessWidget {
                 isCurved: true,
                 barWidth: 3,
                 colors: [
-                  Color(0xffffbe66),
+                  Color(0xff699985),
                 ],
               )
             ]),
