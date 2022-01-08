@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_app/widgets/w_graf_prognos.dart';
+
+import '../widgets/w_graf_prognos.dart';
 
 class MyPrognosPage extends StatefulWidget {
   const MyPrognosPage({Key? key}) : super(key: key);
@@ -10,22 +13,6 @@ class MyPrognosPage extends StatefulWidget {
 }
 
 class _MyPrognosPageState extends State<MyPrognosPage> {
-  int _counter = 10;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decreaseCounter() {
-    setState(() {
-      if (_counter > 0) {
-        _counter--;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'kostnad_totalt.dart';
+
 import 'kostnad_idag.dart';
+import 'kostnad_totalt.dart';
 
 class EkonomiTab extends StatelessWidget {
   const EkonomiTab(this._costTotalCounter, this._costTodayCounter, {Key? key})
