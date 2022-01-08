@@ -8,10 +8,6 @@ import '../provider/pouch_provider.dart';
 //om man är för snabb får man fel;
 
 class TotalKonsumtionIdag extends StatefulWidget {
-  TotalKonsumtionIdag(this._counter);
-
-  final int _counter;
-
   @override
   State<TotalKonsumtionIdag> createState() => _TotalKonsumtionIdagState();
 }
@@ -19,25 +15,17 @@ class TotalKonsumtionIdag extends StatefulWidget {
 class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
   @override
   void initState() {
+    // TODO fixa bättre lösning
+    Future.delayed(
+        Duration.zero,
+        () async => Provider.of<PouchProvider>(context, listen: false)
+            .getDayCount(DateTime.now()));
     super.initState();
-
-    /*  Timer.periodic(Duration(seconds: 1), (timer) {
-      if (DateTime.now().hour >= 24) {}
-
-      if (!mounted) {
-        timer.cancel();
-      }
-    }); */
-
-/*if (kfokef >= 24){
-
-} */
-
-    var tkk = DateTime.now().hour;
   }
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
     return Consumer<PouchProvider>(
       builder: (context, state, child) => Column(
         children: [
@@ -47,13 +35,14 @@ class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '${state.countToday}',
-                style: const TextStyle(
-                  color: Color(0xff699985),
-                  fontSize: 70.0,
-                ),
-              ),
+              Consumer<PouchProvider>(
+                  builder: (context, state, child) => Text(
+                        '${provider.countToday}',
+                        style: const TextStyle(
+                          color: Color(0xff699985),
+                          fontSize: 70.0,
+                        ),
+                      )),
               const SizedBox(width: 5),
               const Text('prillor idag', style: TextStyle(color: Colors.white)),
             ],
