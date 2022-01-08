@@ -4,30 +4,27 @@ import 'total_konsumtion_idag.dart';
 import 'package:google_fonts/google_fonts.dart';
 import './historik.dart';
 import './timer_konsumtion_minuter.dart';
+import 'home.dart';
 
 class KonsumtionTab extends StatelessWidget {
-  const KonsumtionTab(
-      this.initMyHomePageLatestTimeOfPrilla,
-      this.initMyHomePageTimeNow,
+  KonsumtionTab(
       this.firstHomeWidgetBuild,
-      this.setFirstHomeWidgetBuild,
       this._counter,
       this._incrementCounter,
       this._decreaseCounter,
       this.registerTimeAtMoveAwayFromHome,
       this.setRegisterTimeAtMoveAwayFromHome,
+      this.abcd,
       {Key? key})
       : super(key: key);
 
-  final DateTime initMyHomePageLatestTimeOfPrilla;
-  final DateTime initMyHomePageTimeNow;
-  final bool firstHomeWidgetBuild;
-  final Function setFirstHomeWidgetBuild;
-  final int _counter;
-  final Function _incrementCounter;
-  final Function _decreaseCounter;
-  final DateTime registerTimeAtMoveAwayFromHome;
-  final Function setRegisterTimeAtMoveAwayFromHome;
+  bool firstHomeWidgetBuild;
+  int _counter;
+  Function _incrementCounter;
+  Function _decreaseCounter;
+  DateTime registerTimeAtMoveAwayFromHome;
+  Function setRegisterTimeAtMoveAwayFromHome;
+  Function abcd;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +34,11 @@ class KonsumtionTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TimerKonsumtionMinuter(
-                  initMyHomePageLatestTimeOfPrilla,
-                  initMyHomePageTimeNow,
-                  firstHomeWidgetBuild,
-                  setFirstHomeWidgetBuild,
-                  registerTimeAtMoveAwayFromHome,
-                  setRegisterTimeAtMoveAwayFromHome),
+                firstHomeWidgetBuild,
+                registerTimeAtMoveAwayFromHome,
+                setRegisterTimeAtMoveAwayFromHome,
+                abcd,
+              ),
               Container(height: 80),
               TotalKonsumtionIdag(_counter),
             ],
@@ -66,8 +62,6 @@ class KonsumtionTab extends StatelessWidget {
                 onPressed: () {
                   _decreaseCounter();
 
-                  MyHistorikPageState.senasteVeckanPrillor -= 1;
-
                   //decr week month etc counters too
 
                   MyHistorikPageState.weeklyPrillaCounter -= 1;
@@ -85,13 +79,13 @@ class KonsumtionTab extends StatelessWidget {
 
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-            MyHistorikPageState.senasteVeckanPrillor += 1;
+            //problem with 1 1 1 lies here
 
             TimerKonsumtionMinuterState.senastePrillaTid = 0;
 
             TimerKonsumtionMinuterState.registerTemp();
 
-            TimerKonsumtionMinuterState.x = 0;
+            MyHomePageState.senastePrillaIndicatorTimer = 0;
 
             MyHistorikPageState.weeklyPrillaCounter += 1;
             MyHistorikPageState.monthlyPrillaCounter += 1;

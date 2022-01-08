@@ -6,14 +6,16 @@ import './home.dart';
 import 'ny_produkt.dart';
 
 class MyHistorikPage extends StatefulWidget {
-  const MyHistorikPage({Key? key}) : super(key: key);
+  MyHistorikPage(
+      this.firstHistorikWidgetBuild, this.setFirstHistorikWidgetBuild);
+  bool firstHistorikWidgetBuild;
+  Function setFirstHistorikWidgetBuild;
 
   @override
   MyHistorikPageState createState() => MyHistorikPageState();
 }
 
 class MyHistorikPageState extends State<MyHistorikPage> {
-  static int senasteVeckanPrillor = 0;
   DateTime historikPageAccessTime = DateTime.now();
   var oldNewDiff = 0; //move up state
 
@@ -21,7 +23,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
   static var monthlyPrillaCounter = 0;
   static var yearlyPrillaCounter = 0;
 
-  var abc = DateTime(2022, 8, 30, 13, 20, 10);
+  var clock;
 
   //retrieve daily monthly yearly from database
 
@@ -29,62 +31,105 @@ class MyHistorikPageState extends State<MyHistorikPage> {
   void initState() {
     super.initState();
 
-    if (MyHomePageState.firstHistorikWidgetBuild) {
-      oldNewDiff = historikPageAccessTime.difference(abc).inSeconds;
+    oldNewDiff =
+        historikPageAccessTime.difference(MyHomePageState.abc).inSeconds;
 
-      //time from database and new time
+    print(oldNewDiff);
 
-      MyHomePageState.setFirstHistorikWidgetBuild();
-    } else {
-      oldNewDiff = historikPageAccessTime
-          .difference(MyHomePageState.historikPageLeaveTime)
-          .inSeconds;
+    //time from database and new time
 
-      print('historik page accxess time = $historikPageAccessTime');
-      print(
-          'historik page accxess time = $MyHomePageState.historikPageLeaveTime');
+    MyHomePageState.weekTimer += oldNewDiff;
+    MyHomePageState.monthTimer += oldNewDiff;
+    MyHomePageState.yearTimer += oldNewDiff;
 
-      print('weekTimer before OldDiff thng ${MyHomePageState.weekTimer}');
-
-      MyHomePageState.weekTimer += oldNewDiff;
-      MyHomePageState.monthTimer += oldNewDiff;
-    }
+    print('${MyHomePageState.weekTimer}');
+    print('${MyHomePageState.monthTimer}');
+    print('${MyHomePageState.yearTimer}');
 
     //firstappinitlogic vs not
     //when app starts, newtimeregistered when page is accesed, oldtime is retrieved from database
 
     //weektimer and month timer = x? if seconds = 22223434 reset new, if 569999999m reset month
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      print('weektimer is ${MyHomePageState.weekTimer}');
-      if (MyHomePageState.weekTimer >= 10) {
+    var w = MyHomePageState.weekTimer % 10;
+    var t = MyHomePageState.monthTimer % 40;
+    var y = MyHomePageState.yearTimer % 80;
+
+    if (w == 0) {
+      //604 800
+      //604800
+      setState(() {
+        MyHomePageState.weeklyPrillaOnScreenDisplay = weeklyPrillaCounter;
+        weeklyPrillaCounter = 0;
+      });
+    }
+
+    //fi week timer is between week and month
+
+    //om weektimer 10, old new diff 3
+
+    if (t == 0) {
+      //604800
+      setState(() {
+        MyHomePageState.monthlyPrillaOnScreenDisplay = monthlyPrillaCounter;
+        monthlyPrillaCounter = 0;
+      });
+    }
+
+    if (y == 0) {
+      //604800
+      setState(() {
+        MyHomePageState.yearlyPrillaOnScreenDisplay = yearlyPrillaCounter;
+        yearlyPrillaCounter = 0;
+      });
+    }
+
+    clock = Timer.periodic(Duration(seconds: 1), (timer) {
+      MyHomePageState.weekTimer++;
+      MyHomePageState.monthTimer++;
+      MyHomePageState.yearTimer++;
+
+      var w = MyHomePageState.weekTimer % 10;
+      var t = MyHomePageState.monthTimer % 40;
+      var y = MyHomePageState.yearTimer % 80;
+
+      print('weektimer is ${MyHomePageState.weekTimer % 10}');
+      print('monthtimer is ${MyHomePageState.monthTimer % 40}');
+      print('yeartimer is ${MyHomePageState.yearTimer % 80}');
+
+      if (w == 0) {
         //604 800
         //604800
         setState(() {
           MyHomePageState.weeklyPrillaOnScreenDisplay = weeklyPrillaCounter;
           weeklyPrillaCounter = 0;
-          MyHomePageState.weekTimer = 0;
         });
       }
 
-      if (MyHomePageState.monthTimer >= 40) {
+      if (t == 0) {
         //604800
         setState(() {
           MyHomePageState.monthlyPrillaOnScreenDisplay = monthlyPrillaCounter;
           monthlyPrillaCounter = 0;
-          MyHomePageState.monthTimer = 0;
         });
       }
 
-      MyHomePageState.weekTimer++;
-      MyHomePageState.monthTimer++;
-
-      if (!mounted) {
-        //record time of leaving
-        MyHomePageState.recordHistorikPageLeaveTime(DateTime.now());
-        timer.cancel();
+      if (y == 0) {
+        //604800
+        setState(() {
+          MyHomePageState.yearlyPrillaOnScreenDisplay = yearlyPrillaCounter;
+          yearlyPrillaCounter = 0;
+        });
       }
     });
+  }
+
+  @override
+  void dispose() {
+//record time of leaving
+    MyHomePageState.abc = DateTime.now();
+    clock.cancel();
+    super.dispose();
   }
 
   @override
@@ -118,7 +163,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
-        _lastYear(),
+        _lastYear(MyHomePageState.yearlyPrillaOnScreenDisplay),
       ],
     )));
   }
@@ -200,7 +245,7 @@ _lastMonth(monthlyPrillaOnScreenDisplay) {
       ]));
 }
 
-_lastYear() {
+_lastYear(yearlyPrillaOnScreenDisplay) {
   return Container(
       padding: const EdgeInsets.fromLTRB(60, 30, 60, 20),
       width: double.infinity,
@@ -219,8 +264,9 @@ _lastYear() {
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
-        Column(children: const [
-          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+        Column(children: [
+          Text('$yearlyPrillaOnScreenDisplay',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ])
       ]));

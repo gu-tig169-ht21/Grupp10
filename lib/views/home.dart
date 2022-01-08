@@ -27,18 +27,24 @@ class MyHomePageState extends State<MyHomePage> {
   int _costTotalCounter = 2555555;
   int _costTodayCounter = 0;
   final pouchDao = PouchDao();
-  DateTime initMyHomePageLatestTimeOfPrilla =
-      DateTime(2022, 1, 5, 23, 50, 30); // 2021 mar 21, 20:10:30
-  var initMyHomePageTimeNow = DateTime.now();
+  static var initMyHomePageLatestTimeOfPrilla =
+      DateTime(2021, 3, 27, 23, 50, 30); // 2021 mar 21, 20:10:30
+  static var abc = DateTime(2021, 1, 7, 13, 20,
+      10); // mimics datetime at close of app //  variable retrvied from database, when entire app disposes, upload that date to database
   var firstHomeWidgetBuild = true;
-  static var firstHistorikWidgetBuild = true;
+  var firstHistorikWidgetBuild = true;
   DateTime registerTimeAtMoveAwayFromHome = DateTime(0);
   static DateTime historikPageLeaveTime = DateTime(0);
 
   static var weekTimer = 0; //resolve this variable, resolve this variable
   static var monthTimer = 0;
+  static var yearTimer = 0;
+
   static var weeklyPrillaOnScreenDisplay = 0;
   static var monthlyPrillaOnScreenDisplay = 0;
+  static var yearlyPrillaOnScreenDisplay = 0;
+
+  static var senastePrillaIndicatorTimer = 0;
 
   static void recordHistorikPageLeaveTime(index) {
     historikPageLeaveTime = index;
@@ -49,11 +55,7 @@ class MyHomePageState extends State<MyHomePage> {
     registerTimeAtMoveAwayFromHome = index;
   }
 
-  void setFirstHomeWidgetBuild() {
-    firstHomeWidgetBuild = false;
-  }
-
-  static void setFirstHistorikWidgetBuild() {
+  void setFirstHistorikWidgetBuild() {
     firstHistorikWidgetBuild = false;
   }
 
@@ -73,9 +75,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   void _decreaseCounter() {
     setState(() {
-      if (_counter > 1) {
-        _counter--;
-      }
+      _counter--;
     });
   }
 
@@ -88,6 +88,8 @@ class MyHomePageState extends State<MyHomePage> {
   void openMenu() {
     ShowModalBottomSheet.runShowModalButtomSheet(context);
   }
+
+  void abcd() {}
 
   @override
   Widget build(BuildContext context) {
@@ -126,21 +128,20 @@ class MyHomePageState extends State<MyHomePage> {
               ? TabBarView(
                   children: [
                     KonsumtionTab(
-                      initMyHomePageLatestTimeOfPrilla,
-                      initMyHomePageTimeNow,
                       firstHomeWidgetBuild,
-                      setFirstHomeWidgetBuild,
                       _counter,
                       _incrementCounter,
                       _decreaseCounter,
                       registerTimeAtMoveAwayFromHome,
                       setRegisterTimeAtMoveAwayFromHome,
+                      abcd,
                     ),
                     EkonomiTab(_costTotalCounter, _costTodayCounter)
                   ],
                 )
               : _selectedIndex == 1
-                  ? MyHistorikPage()
+                  ? MyHistorikPage(
+                      firstHistorikWidgetBuild, setFirstHistorikWidgetBuild)
                   : MyPrognosPage(),
         ));
   }

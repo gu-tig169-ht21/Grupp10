@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'home.dart';
 import 'package:flutter/material.dart';
 
 //snackbar shows one extra time with rhytmic add prilla change screen
@@ -7,18 +7,16 @@ import 'package:flutter/material.dart';
 
 class TimerKonsumtionMinuter extends StatefulWidget {
   TimerKonsumtionMinuter(
-      this.initMyHomePageLatestTimeOfPrilla,
-      this.initMyHomePageTimeNow,
-      this.firstHomeWidgetBuild,
-      this.setFirstHomeWidgetBuild,
-      this.registerTimeAtMoveAwayFromHome,
-      this.setRegisterTimeAtMoveAwayFromHome);
-  DateTime initMyHomePageLatestTimeOfPrilla;
-  DateTime initMyHomePageTimeNow;
+    this.firstHomeWidgetBuild,
+    this.registerTimeAtMoveAwayFromHome,
+    this.setRegisterTimeAtMoveAwayFromHome,
+    this.abcd,
+  );
+
   bool firstHomeWidgetBuild;
-  Function setFirstHomeWidgetBuild;
   DateTime registerTimeAtMoveAwayFromHome;
   Function setRegisterTimeAtMoveAwayFromHome;
+  Function abcd;
 
   @override
   State<TimerKonsumtionMinuter> createState() => TimerKonsumtionMinuterState();
@@ -27,49 +25,92 @@ class TimerKonsumtionMinuter extends StatefulWidget {
 class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
   static int senastePrillaTid = 0;
   static int senastePrillaTidRecorder = 0;
-  static int x = 0;
   static int temp = 0;
   DateTime registerTimeAtMoveIntoHome = DateTime.now();
   var oldNewDiff = 0;
+  var clock;
+  DateTime initMyHomePageTimeNow = DateTime.now();
 
   //senastePrillaTid ska va baserad på get hämtad siffra omväxlat till min
 
   @override
   void initState() {
     super.initState();
+    initMyHomePageTimeNow = DateTime.now();
 
-    if (widget.firstHomeWidgetBuild) {
-      //if widgetrebuild true
-      oldNewDiff = widget.initMyHomePageTimeNow //CONSIDER MAKING LOCAL VARIABLE
-          .difference(widget.initMyHomePageLatestTimeOfPrilla)
-          .inSeconds;
+    //if widgetrebuild true
+    oldNewDiff = initMyHomePageTimeNow //CONSIDER MAKING LOCAL VARIABLE
+        .difference(MyHomePageState.initMyHomePageLatestTimeOfPrilla)
+        .inSeconds;
 
-      x = oldNewDiff; //te.x 300
+    print(oldNewDiff);
 
-      // x = remainder sec of old new diff
+    MyHomePageState.senastePrillaIndicatorTimer += oldNewDiff; //te.x 300
 
-      widget.setFirstHomeWidgetBuild();
+    // x = remainder sec of old new diff
 
-      //widger rebuild false
-    } else {
-      oldNewDiff = registerTimeAtMoveIntoHome
-          .difference(widget.registerTimeAtMoveAwayFromHome)
-          .inSeconds;
+    //widger rebuild false
 
-      x = oldNewDiff; //tex 2m => 120s
+    if (MyHomePageState.senastePrillaIndicatorTimer == 60) {
+      //consider 60
+      setState(() {
+        MyHomePageState.senastePrillaIndicatorTimer = 0;
+        senastePrillaTid += 1;
+
+        if (senastePrillaTid > senastePrillaTidRecorder ||
+            senastePrillaTid == 1) {
+          senastePrillaTidRecorder = senastePrillaTid;
+        }
+      });
+    } else if (MyHomePageState.senastePrillaIndicatorTimer > 60) {
+      int floorvalue = MyHomePageState.senastePrillaIndicatorTimer
+          .floor(); //math.floor? like 75 _> 70
+
+      int remainder =
+          MyHomePageState.senastePrillaIndicatorTimer - floorvalue; // = 5m
+
+      double mesh = senastePrillaTid.toDouble(); //2 to 2.0
+
+      mesh = (mesh +
+          (floorvalue /
+              60)); //2.0 + 70 / 60 to floor. remander add to remainder 3.16666
+
+      double a = mesh - mesh.floor();
+
+      double b = 60 * a; //dvs 10m
+
+      double doubleFinalPassedSeconds = remainder + b; //dvs 15
+
+      int intFinalPasssedSeconds = doubleFinalPassedSeconds.toInt();
+
+      //mesh.floor for senasteprilla //seconds remaining = mesh x 60 // secondsremaining + remainder
+
+      setState(() {
+        senastePrillaTid = mesh.floor().toInt();
+
+        // i think
+        //1 min, 20s //+1 to senasteprilla och 20s på x
+      });
+
+      MyHomePageState.senastePrillaIndicatorTimer = intFinalPasssedSeconds;
+      temp = MyHomePageState.senastePrillaIndicatorTimer;
     }
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    MyHomePageState.senastePrillaIndicatorTimer++;
+
+    clock = Timer.periodic(Duration(seconds: 1), (timer) {
+      print(
+          ' MyHomePageState.senastePrillaIndicatorTimer is ${MyHomePageState.senastePrillaIndicatorTimer}');
+      //göra till en widget or wha
       //if on this screne, only update the time stamp
 
       /* if (temp > 60 && x != 60) {
           temp = x; //check this
         } */
-
-      if (x == 59) {
+      if (MyHomePageState.senastePrillaIndicatorTimer == 60) {
         //consider 60
         setState(() {
-          x = 0;
+          MyHomePageState.senastePrillaIndicatorTimer = 0;
           senastePrillaTid += 1;
 
           if (senastePrillaTid > senastePrillaTidRecorder ||
@@ -77,10 +118,12 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
             senastePrillaTidRecorder = senastePrillaTid;
           }
         });
-      } else if (x > 59) {
-        int floorvalue = x.floor(); //math.floor? like 75 _> 70
+      } else if (MyHomePageState.senastePrillaIndicatorTimer > 60) {
+        int floorvalue = MyHomePageState.senastePrillaIndicatorTimer
+            .floor(); //math.floor? like 75 _> 70
 
-        int remainder = x - floorvalue; // = 5m
+        int remainder =
+            MyHomePageState.senastePrillaIndicatorTimer - floorvalue; // = 5m
 
         double mesh = senastePrillaTid.toDouble(); //2 to 2.0
 
@@ -105,21 +148,28 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
           //1 min, 20s //+1 to senasteprilla och 20s på x
         });
 
-        x = intFinalPasssedSeconds;
-        temp = x;
+        MyHomePageState.senastePrillaIndicatorTimer = intFinalPasssedSeconds;
+        temp = MyHomePageState.senastePrillaIndicatorTimer;
       }
 
-      x++;
+      MyHomePageState.senastePrillaIndicatorTimer++;
 
-      if (!mounted) {
-        widget.setRegisterTimeAtMoveAwayFromHome(DateTime.now());
-        timer.cancel();
-      }
+//dispose function instead
     });
   }
 
+  @override
+  void dispose() {
+    //vs deactivate
+
+    MyHomePageState.initMyHomePageLatestTimeOfPrilla = DateTime.now();
+
+    clock.cancel();
+    super.dispose();
+  }
+
   static void runEqualXtoTemp() {
-    x = temp;
+    MyHomePageState.senastePrillaIndicatorTimer = temp;
 
     //why no setstate
   }
@@ -129,7 +179,7 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
   //register temp
 
   static void registerTemp() {
-    temp = x;
+    temp = MyHomePageState.senastePrillaIndicatorTimer;
   }
 
   static void setPrillaTidToRecordTid() {
