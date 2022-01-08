@@ -112,10 +112,10 @@ class _NyProdukt extends State<NyProdukt> {
                   controller: snusController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                      labelStyle: TextStyle(color: Colors.grey),
+                      labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
                       labelText: 'Kr/dosa',
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 0.0),
+                        borderSide: BorderSide(color: Colors.grey, width: 0.0),
                       ),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey))),

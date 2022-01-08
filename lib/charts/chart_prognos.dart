@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class GrafPrognosWidget extends StatelessWidget {
+class LineChartPrognos extends StatelessWidget {
   @override
   Widget build(BuildContext context) => LineChart(LineChartData(
         lineTouchData: LineTouchData(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_app/widgets/w_graf_prognos.dart';
+import 'package:my_first_app/charts/chart_prognos.dart';
 
 class MyPrognosPage extends StatefulWidget {
   const MyPrognosPage({Key? key}) : super(key: key);
@@ -95,7 +95,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                 color: const Color(0xff111111),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
-                  child: GrafPrognosWidget(),
+                  child: LineChartPrognos(),
                 ),
               ),
             )));

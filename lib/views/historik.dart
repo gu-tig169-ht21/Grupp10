@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_app/widgets/w_graf_historik.dart';
+import 'package:my_first_app/charts/chart_historik.dart';
 import 'dart:async';
 import './home.dart';
 import 'ny_produkt.dart';
@@ -139,8 +139,8 @@ Widget _graf() {
               ),
               color: const Color(0xff111111),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
-                child: GrafHistorikWidget(),
+                padding: const EdgeInsets.fromLTRB(0, 15, 15, 0),
+                child: BarChartHistorik(),
               ),
             ),
           )));
