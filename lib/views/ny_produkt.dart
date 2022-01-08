@@ -2,7 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_first_app/models/mod_ny_produkt.dart';
+import 'package:provider/provider.dart';
+
+import '../data/box.dart';
+import '../provider/pouch_provider.dart';
 
 class NyProdukt extends StatefulWidget {
   const NyProdukt({Key? key}) : super(key: key);
@@ -11,16 +14,42 @@ class NyProdukt extends StatefulWidget {
 }
 
 class _NyProdukt extends State<NyProdukt> {
-  String dropdownValue = 'Ex. Dosa';
+  //String dropdownValue = 'Ex. Dosa';
   TextEditingController snusController = TextEditingController();
 
-  late List<DropdownMenuItem<SnusAlternativ>> _snusItems;
-  late SnusAlternativ _selectedSnus;
+  //late List<DropdownMenuItem<SnusAlternativ>> _snusItems;
+  late List<DropdownMenuItem<Box>> _snusItems = [];
+  Box? _selectedSnus;
 
   @override
   void initState() {
-    List<SnusAlternativ> dosor = SnusAlternativ.allaDosor;
+    List<Box> dosor = [];
 
+    List<Box> boxlist = [];
+
+    Provider.of<PouchProvider>(context, listen: false).getBoxes().then((value) {
+      setState(() {
+        dosor = value;
+        _snusItems = value.map((box) {
+          return DropdownMenuItem<Box>(
+            value: box,
+            child: Text(box.name),
+          );
+        }).toList();
+
+        Provider.of<PouchProvider>(context, listen: false)
+            .getSelectedBox()
+            .then((value) {
+          for (var box in dosor) {
+            if (box.ref == value.ref) {
+              _selectedSnus = box;
+            }
+          }
+          snusController.text = _selectedSnus!.price.toString();
+        });
+      });
+    });
+    /*
     _snusItems = dosor.map<DropdownMenuItem<SnusAlternativ>>(
       (SnusAlternativ snusAlternativ) {
         return DropdownMenuItem<SnusAlternativ>(
@@ -29,12 +58,16 @@ class _NyProdukt extends State<NyProdukt> {
         );
       },
     ).toList();
-    _selectedSnus = dosor[0];
+    */
+    //_selectedSnus = dosor[0];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    PouchProvider pouchProvider =
+        Provider.of<PouchProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff2d2d2d),
@@ -79,10 +112,10 @@ class _NyProdukt extends State<NyProdukt> {
                   controller: snusController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                      labelStyle: TextStyle(color: Colors.grey),
+                      labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
                       labelText: 'Kr/dosa',
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 0.0),
+                        borderSide: BorderSide(color: Colors.grey, width: 0.0),
                       ),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey))),
@@ -101,8 +134,11 @@ class _NyProdukt extends State<NyProdukt> {
                 ),
                 onPressed: () {
                   var snusPris = int.parse(snusController.text);
+                  _selectedSnus!.price = int.parse(snusController.text);
+
+                  Provider.of<PouchProvider>(context, listen: false)
+                      .updateBox(_selectedSnus!);
                   assert(snusPris is int);
-                  print(snusPris);
                   Navigator.pop(context);
                 },
                 child: Text('SPARA'),
@@ -118,21 +154,26 @@ class _NyProdukt extends State<NyProdukt> {
   }
 
   Widget _dropDownSnus() {
-    return DropdownButton<SnusAlternativ>(
-      value: _selectedSnus,
-      items: _snusItems,
-      icon: const Icon(
-        Icons.keyboard_arrow_down,
-        color: Colors.white,
-      ),
-      elevation: 16,
-      style: const TextStyle(color: Colors.white),
-      onChanged: (newValue) {
-        setState(() {
-          _selectedSnus = newValue!;
-          snusController.text = _selectedSnus.pris.toString();
-        });
-      },
-    );
+    PouchProvider pouchProvider =
+        Provider.of<PouchProvider>(context, listen: false);
+    return Consumer<PouchProvider>(
+        builder: (context, state, child) => DropdownButton<Box>(
+              value:
+                  _selectedSnus, //pouchProvider.selectedBox, boxlist[4] =! selectedSnus
+              items: _snusItems,
+              icon: const Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.white,
+              ),
+              elevation: 16,
+              style: const TextStyle(color: Colors.white),
+              onChanged: (newValue) {
+                setState(() {
+                  pouchProvider.selectBox(newValue!);
+                  _selectedSnus = newValue;
+                  snusController.text = _selectedSnus!.price.toString();
+                });
+              },
+            ));
   }
 }

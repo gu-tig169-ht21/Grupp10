@@ -1,6 +1,8 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'pouch.dart';
 import 'dart:math';
+
+import 'package:firebase_database/firebase_database.dart';
+
+import 'pouch.dart';
 
 class PouchDao {
   final DatabaseReference _pouchesRef =

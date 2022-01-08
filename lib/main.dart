@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'views/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase/firebase_options.dart' as firebase_settings;
+import 'provider/pouch_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +17,14 @@ void main() async {
     print('exploded: \n $ex');
   }
 
-  runApp(const MyApp());
+  //runApp(const MyApp());
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => PouchProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

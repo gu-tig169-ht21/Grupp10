@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'historik.dart';
 import 'timer_konsumtion_minuter.dart';
 import 'total_konsumtion_idag.dart';
 import 'package:google_fonts/google_fonts.dart';

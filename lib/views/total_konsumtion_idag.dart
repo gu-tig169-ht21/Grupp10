@@ -1,5 +1,9 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:provider/provider.dart';
+
+import '../provider/pouch_provider.dart';
 
 //om man är för snabb får man fel;
 
@@ -34,26 +38,28 @@ class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text('Du har totalt konsumerat',
-            style: TextStyle(color: Colors.white)),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '${widget._counter}',
-              style: const TextStyle(
-                color: Color(0xff699985),
-                fontSize: 70.0,
+    return Consumer<PouchProvider>(
+      builder: (context, state, child) => Column(
+        children: [
+          const Text('Du har totalt konsumerat',
+              style: TextStyle(color: Colors.white)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${state.countToday}',
+                style: const TextStyle(
+                  color: Color(0xff699985),
+                  fontSize: 70.0,
+                ),
               ),
-            ),
-            const SizedBox(width: 5),
-            const Text('prillor idag', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-      ],
+              const SizedBox(width: 5),
+              const Text('prillor idag', style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
