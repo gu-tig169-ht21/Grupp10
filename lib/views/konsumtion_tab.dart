@@ -1,33 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/data/pouch.dart';
+import 'package:my_first_app/provider/pouch_provider.dart';
+import 'package:provider/provider.dart';
 import 'timer_konsumtion_minuter.dart';
 import 'total_konsumtion_idag.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './historik.dart';
 import './timer_konsumtion_minuter.dart';
 
 class KonsumtionTab extends StatelessWidget {
-  const KonsumtionTab(
-      this.initMyHomePageLatestTimeOfPrilla,
-      this.initMyHomePageTimeNow,
-      this.firstHomeWidgetBuild,
-      this.setFirstHomeWidgetBuild,
-      this._counter,
-      this._incrementCounter,
-      this._decreaseCounter,
-      this.registerTimeAtMoveAwayFromHome,
-      this.setRegisterTimeAtMoveAwayFromHome,
-      {Key? key})
-      : super(key: key);
-
-  final DateTime initMyHomePageLatestTimeOfPrilla;
-  final DateTime initMyHomePageTimeNow;
-  final bool firstHomeWidgetBuild;
-  final Function setFirstHomeWidgetBuild;
-  final int _counter;
-  final Function _incrementCounter;
-  final Function _decreaseCounter;
-  final DateTime registerTimeAtMoveAwayFromHome;
-  final Function setRegisterTimeAtMoveAwayFromHome;
+  const KonsumtionTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +17,9 @@ class KonsumtionTab extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TimerKonsumtionMinuter(
-                  initMyHomePageLatestTimeOfPrilla,
-                  initMyHomePageTimeNow,
-                  firstHomeWidgetBuild,
-                  setFirstHomeWidgetBuild,
-                  registerTimeAtMoveAwayFromHome,
-                  setRegisterTimeAtMoveAwayFromHome),
+              TimerKonsumtionMinuter(),
               Container(height: 80),
-              TotalKonsumtionIdag(_counter),
+              TotalKonsumtionIdag(),
             ],
           ),
         ),
@@ -53,7 +28,7 @@ class KonsumtionTab extends StatelessWidget {
           tooltip: 'Lägg till prilla',
           child: const Icon(Icons.add),
           onPressed: () {
-            _incrementCounter();
+            _incrementCounter(context);
             final snackBar = SnackBar(
               backgroundColor: const Color(0xff282828),
               content: Text(
@@ -64,19 +39,7 @@ class KonsumtionTab extends StatelessWidget {
                 textColor: const Color(0xff699985),
                 label: 'Ångra',
                 onPressed: () {
-                  _decreaseCounter();
-
-                  MyHistorikPageState.senasteVeckanPrillor -= 1;
-
-                  //decr week month etc counters too
-
-                  MyHistorikPageState.weeklyPrillaCounter -= 1;
-                  MyHistorikPageState.monthlyPrillaCounter -= 1;
-                  MyHistorikPageState.yearlyPrillaCounter -= 1;
-
-                  TimerKonsumtionMinuterState.runEqualXtoTemp();
-
-                  TimerKonsumtionMinuterState.setPrillaTidToRecordTid();
+                  _decreaseCounter(context);
                 },
               ),
             );
@@ -84,20 +47,21 @@ class KonsumtionTab extends StatelessWidget {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-            MyHistorikPageState.senasteVeckanPrillor += 1;
-
-            TimerKonsumtionMinuterState.senastePrillaTid = 0;
-
-            TimerKonsumtionMinuterState.registerTemp();
-
-            TimerKonsumtionMinuterState.x = 0;
-
-            MyHistorikPageState.weeklyPrillaCounter += 1;
-            MyHistorikPageState.monthlyPrillaCounter += 1;
-            MyHistorikPageState.yearlyPrillaCounter += 1;
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
+  }
+
+  void _incrementCounter(context) {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
+    DateTime now = DateTime.now();
+    var newPouch = Pouch(now);
+    provider.addPouch(newPouch);
+  }
+
+  void _decreaseCounter(context) {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
+    DateTime now = DateTime.now();
+    provider.undoPouch().then((_) => null);
   }
 }

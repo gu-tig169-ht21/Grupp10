@@ -13,78 +13,9 @@ class MyHistorikPage extends StatefulWidget {
 }
 
 class MyHistorikPageState extends State<MyHistorikPage> {
-  static int senasteVeckanPrillor = 0;
-  DateTime historikPageAccessTime = DateTime.now();
-  var oldNewDiff = 0; //move up state
-
-  static var weeklyPrillaCounter = 0;
-  static var monthlyPrillaCounter = 0;
-  static var yearlyPrillaCounter = 0;
-
-  var abc = DateTime(2022, 8, 30, 13, 20, 10);
-
-  //retrieve daily monthly yearly from database
-
   @override
   void initState() {
     super.initState();
-
-    if (MyHomePageState.firstHistorikWidgetBuild) {
-      oldNewDiff = historikPageAccessTime.difference(abc).inSeconds;
-
-      //time from database and new time
-
-      MyHomePageState.setFirstHistorikWidgetBuild();
-    } else {
-      oldNewDiff = historikPageAccessTime
-          .difference(MyHomePageState.historikPageLeaveTime)
-          .inSeconds;
-
-      print('historik page accxess time = $historikPageAccessTime');
-      print(
-          'historik page accxess time = $MyHomePageState.historikPageLeaveTime');
-
-      print('weekTimer before OldDiff thng ${MyHomePageState.weekTimer}');
-
-      MyHomePageState.weekTimer += oldNewDiff;
-      MyHomePageState.monthTimer += oldNewDiff;
-    }
-
-    //firstappinitlogic vs not
-    //when app starts, newtimeregistered when page is accesed, oldtime is retrieved from database
-
-    //weektimer and month timer = x? if seconds = 22223434 reset new, if 569999999m reset month
-
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      print('weektimer is ${MyHomePageState.weekTimer}');
-      if (MyHomePageState.weekTimer >= 10) {
-        //604 800
-        //604800
-        setState(() {
-          MyHomePageState.weeklyPrillaOnScreenDisplay = weeklyPrillaCounter;
-          weeklyPrillaCounter = 0;
-          MyHomePageState.weekTimer = 0;
-        });
-      }
-
-      if (MyHomePageState.monthTimer >= 40) {
-        //604800
-        setState(() {
-          MyHomePageState.monthlyPrillaOnScreenDisplay = monthlyPrillaCounter;
-          monthlyPrillaCounter = 0;
-          MyHomePageState.monthTimer = 0;
-        });
-      }
-
-      MyHomePageState.weekTimer++;
-      MyHomePageState.monthTimer++;
-
-      if (!mounted) {
-        //record time of leaving
-        MyHomePageState.recordHistorikPageLeaveTime(DateTime.now());
-        timer.cancel();
-      }
-    });
   }
 
   @override

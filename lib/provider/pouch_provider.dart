@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../data/dbrepo.dart';
@@ -14,13 +15,17 @@ class PouchProvider extends ChangeNotifier {
   int countYear = 0;
   int countMonth = 0;
 
+  int minutesSinceLast = 0;
+
   //List<FlSpot> fllist = [];
 
-  DateTime lastPouch = DateTime.now();
+  DateTime? lastPouch;
 
   Box? selectedBox;
 
-  void getDayCount(DateTime date) {
+  DocumentReference? lastPouchDoc;
+
+  Future<void> getDayCount(DateTime date) async {
     dbRepo.getDayCount(date).then((count) {
       countToday = count;
       notifyListeners();
@@ -65,5 +70,44 @@ class PouchProvider extends ChangeNotifier {
     notifyListeners();
 
     return box;
+  }
+
+  Future<void> getLastPouchTimeInMinutes() async {
+    lastPouch ??= await dbRepo.getLatestPouchTime();
+
+    minutesSinceLast = DateTime.now().difference(lastPouch!).inMinutes;
+
+    notifyListeners();
+    print(minutesSinceLast);
+    print(lastPouch);
+  }
+
+  Future<void> addPouch(Pouch pouch) async {
+    lastPouch = pouch.date;
+    _clientIncrement();
+    lastPouchDoc = await dbRepo.addPouch(pouch);
+  }
+
+  Future<void> undoPouch() async {
+    _clientDecrement();
+    await dbRepo.removePouch(lastPouchDoc!);
+  }
+
+  void _clientIncrement() {
+    countToday++;
+    countWeek++;
+    countMonth++;
+    countYear++;
+    countTotal++;
+    notifyListeners();
+  }
+
+  void _clientDecrement() {
+    countToday--;
+    countWeek--;
+    countMonth--;
+    countYear--;
+    countTotal--;
+    notifyListeners();
   }
 }

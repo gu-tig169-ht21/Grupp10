@@ -4,9 +4,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_first_app/data/pouch_dao.dart';
+import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:my_first_app/views/historik.dart';
 import 'package:my_first_app/views/ny_produkt.dart';
 import 'package:my_first_app/views/prognos.dart';
+import 'package:provider/provider.dart';
 import '../data/pouch.dart';
 import '../data/dbrepo.dart';
 import 'konsumtion_tab.dart';
@@ -64,11 +66,15 @@ class MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     // lägger api-call här så länge - marcus
     final pouch = Pouch(DateTime.now());
+    Provider.of<PouchProvider>(context, listen: false)
+        .getLastPouchTimeInMinutes();
+    /*
     dbRepo.addPouch(pouch).then((value) {
       setState(() {
         _counter++;
       });
     });
+    */
   }
 
   void _decreaseCounter() {
@@ -125,17 +131,7 @@ class MyHomePageState extends State<MyHomePage> {
           body: _selectedIndex == 0
               ? TabBarView(
                   children: [
-                    KonsumtionTab(
-                      initMyHomePageLatestTimeOfPrilla,
-                      initMyHomePageTimeNow,
-                      firstHomeWidgetBuild,
-                      setFirstHomeWidgetBuild,
-                      _counter,
-                      _incrementCounter,
-                      _decreaseCounter,
-                      registerTimeAtMoveAwayFromHome,
-                      setRegisterTimeAtMoveAwayFromHome,
-                    ),
+                    KonsumtionTab(),
                     EkonomiTab(_costTotalCounter, _costTodayCounter)
                   ],
                 )
