@@ -1,21 +1,21 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
-//måste file namnet matcha klass namnet här
-//måste en klass ha en build metod om en widget används i en klass som redan har en build metod
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_app/data/pouch_dao.dart';
 import 'package:my_first_app/provider/pouch_provider.dart';
-import 'package:my_first_app/views/historik.dart';
-import 'package:my_first_app/views/ny_produkt.dart';
-import 'package:my_first_app/views/prognos.dart';
 import 'package:provider/provider.dart';
-import '../data/pouch.dart';
-import '../data/dbrepo.dart';
-import 'konsumtion_tab.dart';
-import 'ekonomi_tab.dart';
-import 'bottom_nav.dart';
-import 'show_modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'bottom_nav.dart';
+import 'ekonomi_tab.dart';
+import 'historik.dart';
+import 'konsumtion_tab.dart';
+import 'ny_produkt.dart';
+import 'prognos.dart';
+import 'show_modal_bottom_sheet.dart';
+import '../data/dbrepo.dart';
+import '../data/pouch.dart';
+import '../data/pouch_dao.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);

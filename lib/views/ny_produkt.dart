@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_first_app/models/mod_ny_produkt.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
+
 import '../data/box.dart';
+import '../provider/pouch_provider.dart';
 
 class NyProdukt extends StatefulWidget {
   const NyProdukt({Key? key}) : super(key: key);
@@ -112,10 +112,10 @@ class _NyProdukt extends State<NyProdukt> {
                   controller: snusController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                      labelStyle: TextStyle(color: Colors.grey),
+                      labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
                       labelText: 'Kr/dosa',
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 0.0),
+                        borderSide: BorderSide(color: Colors.grey, width: 0.0),
                       ),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey))),
@@ -139,7 +139,6 @@ class _NyProdukt extends State<NyProdukt> {
                   Provider.of<PouchProvider>(context, listen: false)
                       .updateBox(_selectedSnus!);
                   assert(snusPris is int);
-                  print(snusPris);
                   Navigator.pop(context);
                 },
                 child: Text('SPARA'),
@@ -176,21 +175,5 @@ class _NyProdukt extends State<NyProdukt> {
                 });
               },
             ));
-    return DropdownButton<Box>(
-      value: _selectedSnus,
-      items: _snusItems,
-      icon: const Icon(
-        Icons.keyboard_arrow_down,
-        color: Colors.white,
-      ),
-      elevation: 16,
-      style: const TextStyle(color: Colors.white),
-      onChanged: (newValue) {
-        setState(() {
-          _selectedSnus = newValue!;
-          snusController.text = _selectedSnus!.price.toString();
-        });
-      },
-    );
   }
 }

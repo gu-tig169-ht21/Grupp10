@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../data/dbrepo.dart';
-import '../data/box.dart';
-import '../data/pouch.dart';
 import 'package:week_of_year/week_of_year.dart';
+
+import '../data/box.dart';
+import '../data/dbrepo.dart';
+import '../data/pouch.dart';
 
 class PouchProvider extends ChangeNotifier {
   final dbRepo = DataRepo();

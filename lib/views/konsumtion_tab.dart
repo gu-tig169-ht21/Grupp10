@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_app/data/pouch.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../data/pouch.dart';
+import '../provider/pouch_provider.dart';
+import 'historik.dart';
 import 'timer_konsumtion_minuter.dart';
 import 'total_konsumtion_idag.dart';
-import 'package:google_fonts/google_fonts.dart';
-import './timer_konsumtion_minuter.dart';
 
 class KonsumtionTab extends StatelessWidget {
   const KonsumtionTab({Key? key}) : super(key: key);
