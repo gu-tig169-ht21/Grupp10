@@ -24,66 +24,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _selectedIndex = 0;
-  int _costTotalCounter = 2555555;
-  int _costTodayCounter = 0;
-  final pouchDao = PouchDao();
-  static var initMyHomePageLatestTimeOfPrilla =
-      DateTime(2021, 3, 27, 23, 50, 30); // 2021 mar 21, 20:10:30
-  static var abc = DateTime(2021, 1, 7, 13, 20,
-      10); // mimics datetime at close of app //  variable retrvied from database, when entire app disposes, upload that date to database
-  var firstHomeWidgetBuild = true;
-  var firstHistorikWidgetBuild = true;
-  DateTime registerTimeAtMoveAwayFromHome = DateTime(0);
-  static DateTime historikPageLeaveTime = DateTime(0);
-
-  static var weekTimer = 0; //resolve this variable, resolve this variable
-  static var monthTimer = 0;
-  static var yearTimer = 0;
-
-  static var weeklyPrillaOnScreenDisplay = 0;
-  static var monthlyPrillaOnScreenDisplay = 0;
-  static var yearlyPrillaOnScreenDisplay = 0;
-
-  static var senastePrillaIndicatorTimer = 0;
-
-  static void recordHistorikPageLeaveTime(index) {
-    historikPageLeaveTime = index;
-  }
-
-  void setRegisterTimeAtMoveAwayFromHome(index) {
-    //static vs passdown access to state
-    registerTimeAtMoveAwayFromHome = index;
-  }
-
-  void setFirstHistorikWidgetBuild() {
-    firstHistorikWidgetBuild = false;
-  }
-
-  final DataRepo dbRepo = DataRepo();
 
   final appIsFirstLoaded = 'is_first_loaded';
-
-  void _incrementCounter() {
-    // lägger api-call här så länge - marcus
-    final pouch = Pouch(DateTime.now());
-    Provider.of<PouchProvider>(context, listen: false)
-        .getLastPouchTimeInMinutes();
-    /*
-    dbRepo.addPouch(pouch).then((value) {
-      setState(() {
-        _counter++;
-      });
-    });
-    */
-  }
-
-  void _decreaseCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -132,14 +75,10 @@ class MyHomePageState extends State<MyHomePage> {
           bottomNavigationBar: BottomNav(_selectedIndex, _onItemTapped),
           body: _selectedIndex == 0
               ? TabBarView(
-                  children: [
-                    KonsumtionTab(),
-                    EkonomiTab(_costTotalCounter, _costTodayCounter)
-                  ],
+                  children: [KonsumtionTab(), EkonomiTab()],
                 )
               : _selectedIndex == 1
-                  ? MyHistorikPage(
-                      firstHistorikWidgetBuild, setFirstHistorikWidgetBuild)
+                  ? MyHistorikPage()
                   : MyPrognosPage(),
         ));
   }

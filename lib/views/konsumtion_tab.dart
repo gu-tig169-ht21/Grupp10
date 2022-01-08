@@ -66,7 +66,6 @@ class KonsumtionTab extends StatelessWidget {
 
   void _decreaseCounter(context) {
     var provider = Provider.of<PouchProvider>(context, listen: false);
-    DateTime now = DateTime.now();
-    provider.undoPouch().then((_) => null);
+    provider.undoPouch().then((_) => provider.getLastPouchTimeInMinutes());
   }
 }

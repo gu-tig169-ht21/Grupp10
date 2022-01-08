@@ -3,15 +3,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_first_app/provider/pouch_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'home.dart';
 import '../charts/chart_historik.dart';
 
 class MyHistorikPage extends StatefulWidget {
-  MyHistorikPage(
-      this.firstHistorikWidgetBuild, this.setFirstHistorikWidgetBuild);
-  bool firstHistorikWidgetBuild;
-  Function setFirstHistorikWidgetBuild;
+  const MyHistorikPage({Key? key}) : super(key: key);
 
   @override
   MyHistorikPageState createState() => MyHistorikPageState();
@@ -20,15 +19,10 @@ class MyHistorikPage extends StatefulWidget {
 class MyHistorikPageState extends State<MyHistorikPage> {
   @override
   void initState() {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
+    Future.delayed(Duration.zero, () => provider.getWeekList());
     super.initState();
   }
-
-  @override
-  /* void dispose() {
-//record time of leaving
-    MyHomePageState.abc = DateTime.now();
-    super.dispose();
-  } */
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +31,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
             child: ListView(
       padding: const EdgeInsets.all(10),
       children: [
-        _graf(),
+        Consumer<PouchProvider>(builder: (context, state, child) => _graf()),
         // Container(height: 15),
         Row(
           children: [
@@ -45,7 +39,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
-        _lastWeek(MyHomePageState.weeklyPrillaOnScreenDisplay),
+        _lastWeek(context),
         Container(height: 10),
         Row(
           children: [
@@ -53,7 +47,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
-        _lastMonth(MyHomePageState.monthlyPrillaOnScreenDisplay),
+        _lastMonth(context),
         Container(height: 10),
         Row(
           children: [
@@ -61,7 +55,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
-        _lastYear(MyHomePageState.yearlyPrillaOnScreenDisplay),
+        _lastYear(context),
       ],
     )));
   }
@@ -89,7 +83,8 @@ Widget _graf() {
           )));
 }
 
-Widget _lastWeek(weeklyPrillaOnScreenDisplay) {
+Widget _lastWeek(context) {
+  var provider = Provider.of<PouchProvider>(context, listen: false);
   return Container(
       padding: const EdgeInsets.fromLTRB(60, 30, 60, 20),
       width: double.infinity,
@@ -101,22 +96,26 @@ Widget _lastWeek(weeklyPrillaOnScreenDisplay) {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: [
-          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+          Text('${provider.countWeek * provider.selectedBox!.price}',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
-        Column(children: const [
-          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+        Column(children: [
+          Text('${(provider.countWeek ~/ 21)}',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: [
-          Text('$weeklyPrillaOnScreenDisplay',
+          Text(
+              '${Provider.of<PouchProvider>(context, listen: false).countWeek}',
               style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ])
       ]));
 }
 
-_lastMonth(monthlyPrillaOnScreenDisplay) {
+_lastMonth(context) {
+  var provider = Provider.of<PouchProvider>(context, listen: false);
   return Container(
       padding: const EdgeInsets.fromLTRB(60, 30, 60, 20),
       width: double.infinity,
@@ -127,23 +126,26 @@ _lastMonth(monthlyPrillaOnScreenDisplay) {
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
-        Column(children: const [
-          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+        Column(children: [
+          Text('${provider.countMonth * provider.selectedBox!.price}',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
-        Column(children: const [
-          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+        Column(children: [
+          Text('${provider.countMonth ~/ 21}',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: [
-          Text('$monthlyPrillaOnScreenDisplay',
+          Text('${provider.countMonth}',
               style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ])
       ]));
 }
 
-_lastYear(yearlyPrillaOnScreenDisplay) {
+_lastYear(context) {
+  var provider = Provider.of<PouchProvider>(context, listen: false);
   return Container(
       padding: const EdgeInsets.fromLTRB(60, 30, 60, 20),
       width: double.infinity,
@@ -154,16 +156,18 @@ _lastYear(yearlyPrillaOnScreenDisplay) {
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
-        Column(children: const [
-          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+        Column(children: [
+          Text('${provider.countYear * provider.selectedBox!.price}',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
-        Column(children: const [
-          Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+        Column(children: [
+          Text('${provider.countYear ~/ 21}',
+              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ]),
         Column(children: [
-          Text('$yearlyPrillaOnScreenDisplay',
+          Text('${provider.countYear}',
               style: TextStyle(fontSize: 28, color: Color(0xff699985))),
           Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
         ])

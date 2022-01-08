@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_first_app/provider/pouch_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../charts/chart_prognos.dart';
 
@@ -15,6 +17,8 @@ class MyPrognosPage extends StatefulWidget {
 class _MyPrognosPageState extends State<MyPrognosPage> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
+
     return Scaffold(
         body: Center(
             child: ListView(padding: const EdgeInsets.all(10), children: [
@@ -28,7 +32,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '7300',
+                '${_calculateProjectedCost(provider.countYear, provider.selectedBox!.price)}',
                 style: const TextStyle(
                   color: Color(0xff699985),
                   fontSize: 70.0,
@@ -67,6 +71,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
   }
 
   Widget _graf() {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
     return Container(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Align(
@@ -82,9 +87,29 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                 color: const Color(0xff111111),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
-                  child: LineChartPrognos(),
+                  child: LineChartPrognos(_calculateProjectedCost(
+                      provider.countYear, provider.selectedBox!.price)),
                 ),
               ),
             )));
+  }
+
+  int _calculateProjectedCost(int currentYearCount, int price) {
+    DateTime now = DateTime.now();
+    DateTime firstDay = DateTime(now.year);
+    DateTime firstDay2 = DateTime(now.year + 1);
+
+    // inDays rundar ner, lägg till +1
+    int dayOfYear = now.difference(firstDay).inDays + 1;
+
+    double avgCount = currentYearCount / dayOfYear;
+
+    int daysInYear = firstDay2.difference(firstDay).inDays;
+
+    double projectedCount = avgCount * daysInYear;
+
+    int projectedCost = (projectedCount * price).round();
+
+    return projectedCost;
   }
 }

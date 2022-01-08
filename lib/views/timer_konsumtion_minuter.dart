@@ -14,7 +14,7 @@ class TimerKonsumtionMinuter extends StatefulWidget {
 }
 
 class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
-  Timer? timer;
+  Timer? _timer;
 
   //senastePrillaTid ska va baserad på get hämtad siffra omväxlat till min
 
@@ -23,19 +23,19 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
     // TODO fixa annan lösning här
     Future.delayed(
         Duration.zero,
-        () async => Provider.of<PouchProvider>(context, listen: false)
+        () => Provider.of<PouchProvider>(context, listen: false)
             .getLastPouchTimeInMinutes());
 
-    timer = Timer.periodic(
-        const Duration(minutes: 1),
-        (Timer timer) => Provider.of<PouchProvider>(context, listen: false)
-            .getLastPouchTimeInMinutes());
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      Provider.of<PouchProvider>(context, listen: false)
+          .getLastPouchTimeInMinutes();
+    });
     super.initState();
   }
 
   @override
   void dispose() {
-    timer!.cancel;
+    _timer!.cancel();
     super.dispose();
   }
 

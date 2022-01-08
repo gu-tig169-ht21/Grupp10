@@ -16,10 +16,6 @@ class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
   @override
   void initState() {
     // TODO fixa bättre lösning
-    Future.delayed(
-        Duration.zero,
-        () async => Provider.of<PouchProvider>(context, listen: false)
-            .getDayCount(DateTime.now()));
     super.initState();
   }
 

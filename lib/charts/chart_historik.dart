@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:my_first_app/provider/pouch_provider.dart';
+import 'package:provider/provider.dart';
+import 'dart:math';
 
 //gör om till bar chart
 
@@ -7,95 +10,112 @@ class BarChartHistorik extends StatelessWidget {
   final List<Color> barcolor = [
     const Color(0xff699985),
   ];
+
   @override
-  Widget build(BuildContext context) => BarChart(
-        BarChartData(
-          maxY: 20,
-          minY: 0,
-          groupsSpace: 10,
-          barTouchData: BarTouchData(enabled: true),
-          gridData: FlGridData(
-            show: false,
-          ),
-          titlesData: FlTitlesData(
-            bottomTitles: SideTitles(
-              showTitles: true,
-              getTextStyles: (context, value) =>
-                  const TextStyle(color: Colors.grey, fontSize: 12),
-              margin: 8,
-              reservedSize: 20,
-            ),
-            leftTitles: SideTitles(
-              showTitles: true,
-              //margin: 8,
-              reservedSize: 30,
-              getTextStyles: (context, value) =>
-                  const TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-            topTitles: SideTitles(showTitles: false),
-            rightTitles: SideTitles(
-              showTitles: false,
-            ),
-          ),
-          borderData: FlBorderData(show: false),
-          barGroups: [
-            BarChartGroupData(x: 1, barRods: [
-              BarChartRodData(
-                colors: barcolor,
-                y: 11,
-                width: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ]),
-            BarChartGroupData(x: 2, barRods: [
-              BarChartRodData(
-                colors: barcolor,
-                y: 7,
-                width: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ]),
-            BarChartGroupData(x: 3, barRods: [
-              BarChartRodData(
-                colors: barcolor,
-                y: 14,
-                width: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ]),
-            BarChartGroupData(x: 4, barRods: [
-              BarChartRodData(
-                colors: barcolor,
-                y: 10,
-                width: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ]),
-            BarChartGroupData(x: 5, barRods: [
-              BarChartRodData(
-                colors: barcolor,
-                y: 16,
-                width: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ]),
-            BarChartGroupData(x: 6, barRods: [
-              BarChartRodData(
-                colors: barcolor,
-                y: 8,
-                width: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ]),
-            BarChartGroupData(x: 7, barRods: [
-              BarChartRodData(
-                colors: barcolor,
-                y: 13,
-                width: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ])
-          ],
+  Widget build(BuildContext context) {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
+    double maxY = provider.weekList.reduce(max).toDouble() * 1.2;
+
+    return BarChart(
+      BarChartData(
+        maxY: maxY,
+        minY: 25,
+        groupsSpace: 10,
+        barTouchData: BarTouchData(enabled: true),
+        gridData: FlGridData(
+          show: false,
         ),
-      );
+        titlesData: FlTitlesData(
+          bottomTitles: SideTitles(
+            showTitles: true,
+            getTextStyles: (context, value) =>
+                const TextStyle(color: Colors.grey, fontSize: 12),
+            margin: 8,
+            reservedSize: 20,
+          ),
+          leftTitles: SideTitles(
+            showTitles: true,
+            //margin: 8,
+            reservedSize: 30,
+            getTextStyles: (context, value) =>
+                const TextStyle(color: Colors.grey, fontSize: 12),
+          ),
+          topTitles: SideTitles(showTitles: false),
+          rightTitles: SideTitles(
+            showTitles: false,
+          ),
+        ),
+        borderData: FlBorderData(show: false),
+        barGroups: [
+          BarChartGroupData(x: 1, barRods: [
+            BarChartRodData(
+              colors: barcolor,
+              y: provider.weekList[0].toDouble(),
+              width: 10,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ]),
+          BarChartGroupData(x: 2, barRods: [
+            BarChartRodData(
+              colors: barcolor,
+              y: provider.weekList[1].toDouble(),
+              width: 10,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ]),
+          BarChartGroupData(x: 3, barRods: [
+            BarChartRodData(
+              colors: barcolor,
+              y: provider.weekList[2].toDouble(),
+              width: 10,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ]),
+          BarChartGroupData(x: 4, barRods: [
+            BarChartRodData(
+              colors: barcolor,
+              y: provider.weekList[3].toDouble(),
+              width: 10,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ]),
+          BarChartGroupData(x: 5, barRods: [
+            BarChartRodData(
+              colors: barcolor,
+              y: provider.weekList[4].toDouble(),
+              width: 10,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ]),
+          BarChartGroupData(x: 6, barRods: [
+            BarChartRodData(
+              colors: barcolor,
+              y: provider.weekList[5].toDouble(),
+              width: 10,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ]),
+          BarChartGroupData(x: 7, barRods: [
+            BarChartRodData(
+              colors: barcolor,
+              y: provider.weekList[6].toDouble(),
+              width: 10,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ])
+        ],
+      ),
+    );
+  }
+}
+
+BarChartGroupData _bar(int index, int count, List<Color> color) {
+  return BarChartGroupData(x: index, barRods: [
+    BarChartRodData(
+      colors: color,
+      y: count.toDouble(),
+      width: 10,
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ]);
 }

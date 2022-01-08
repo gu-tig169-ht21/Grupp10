@@ -21,21 +21,33 @@ class PouchProvider extends ChangeNotifier {
   //List<FlSpot> fllist = [];
 
   DateTime? lastPouch;
+  DateTime? oldLastPouch;
 
   Box? selectedBox;
 
   DocumentReference? lastPouchDoc;
 
-  Future<void> getDayCount(DateTime date) async {
-    dbRepo.getDayCount(date).then((count) {
-      countToday = count;
-      notifyListeners();
-    });
-  }
+  List<int> weekList = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+  ];
 
-  void getWeekCount() {
-    dbRepo.getWeekCount(DateTime.now().weekOfYear).then((count) {
-      countWeek = count;
+  PouchProvider() {
+    Future.delayed(Duration.zero, () async {
+      DateTime now = DateTime.now();
+      countToday = await dbRepo.getDayCount(now);
+      countTotal = await dbRepo.getTotalCount();
+      countWeek = await dbRepo.getWeekCount(now.weekOfYear);
+      countYear = await dbRepo.getYearCount(now.year);
+      countMonth = await dbRepo.getMonthCount(now.month);
+      lastPouch = await dbRepo.getLatestPouchTime();
+      minutesSinceLast = now.difference(lastPouch!).inMinutes;
+      selectedBox = await dbRepo.getSelectedBox();
       notifyListeners();
     });
   }
@@ -74,24 +86,28 @@ class PouchProvider extends ChangeNotifier {
   }
 
   Future<void> getLastPouchTimeInMinutes() async {
-    lastPouch ??= await dbRepo.getLatestPouchTime();
-
     minutesSinceLast = DateTime.now().difference(lastPouch!).inMinutes;
 
     notifyListeners();
-    print(minutesSinceLast);
-    print(lastPouch);
   }
 
   Future<void> addPouch(Pouch pouch) async {
+    oldLastPouch = lastPouch;
     lastPouch = pouch.date;
     _clientIncrement();
     lastPouchDoc = await dbRepo.addPouch(pouch);
   }
 
   Future<void> undoPouch() async {
+    lastPouch = oldLastPouch;
     _clientDecrement();
     await dbRepo.removePouch(lastPouchDoc!);
+  }
+
+  Future<void> getWeekList() async {
+    DateTime now = DateTime.now();
+    weekList = await dbRepo.getWeekdaysCount(now);
+    notifyListeners();
   }
 
   void _clientIncrement() {
