@@ -8,6 +8,7 @@ class EkonomiTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

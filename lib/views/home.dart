@@ -31,6 +31,7 @@ class MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }
 
