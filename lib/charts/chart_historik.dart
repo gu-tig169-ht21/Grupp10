@@ -11,6 +11,8 @@ class BarChartHistorik extends StatelessWidget {
     const Color(0xff699985),
   ];
 
+  BarChartHistorik({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<PouchProvider>(context, listen: false);
@@ -18,8 +20,8 @@ class BarChartHistorik extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        maxY: maxY,
-        minY: 25,
+        maxY: [25, maxY].reduce(max).toDouble(),
+        minY: 0,
         groupsSpace: 10,
         barTouchData: BarTouchData(enabled: true),
         gridData: FlGridData(

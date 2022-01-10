@@ -35,7 +35,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
         // Container(height: 15),
         Row(
           children: [
-            Text('FÖRRA VECKAN',
+            Text('DENNA VECKAN',
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
@@ -43,7 +43,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
         Container(height: 10),
         Row(
           children: [
-            Text('FÖRRA MÅNADEN',
+            Text('DENNA MÅNADEN',
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
@@ -51,7 +51,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
         Container(height: 10),
         Row(
           children: [
-            Text('FÖRRA ÅRET',
+            Text('HELA ÅRET',
                 style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
           ],
         ),
