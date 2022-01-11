@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../data/box.dart';
@@ -180,7 +181,7 @@ class _NyProdukt extends State<NyProdukt> {
                   dropdownColor: const Color.fromRGBO(30, 30, 30, 0.9),
 
                   elevation: 16,
-                  style: const TextStyle(color: Colors.white),
+                  style: GoogleFonts.raleway(color: Colors.white, fontSize: 12),
                   onChanged: (newValue) {
                     setState(() {
                       state.selectBox(newValue!);
