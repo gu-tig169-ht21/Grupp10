@@ -94,25 +94,30 @@ Widget _lastWeek(context) {
         borderRadius: BorderRadius.circular(25),
         color: const Color(0xff282828),
       ),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
-          Widget>[
-        Column(children: [
-          Text('${provider.countWeek * provider.selectedBox!.price}',
-              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
-        ]),
-        Column(children: [
-          Text('${(provider.countWeek ~/ 21)}',
-              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
-        ]),
-        Column(children: [
-          Text(
-              '${Provider.of<PouchProvider>(context, listen: false).countWeek}',
-              style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
-        ])
-      ]));
+      child: Consumer<PouchProvider>(
+        builder: (context, state, child) => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(children: [
+                Text('${provider.countWeek * provider.selectedBox!.price}',
+                    style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+                Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
+              ]),
+              Column(children: [
+                Text('${(provider.countWeek ~/ 21)}',
+                    style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+                Text('dosor',
+                    style: TextStyle(fontSize: 12, color: Colors.white)),
+              ]),
+              Column(children: [
+                Text(
+                    '${Provider.of<PouchProvider>(context, listen: false).countWeek}',
+                    style: TextStyle(fontSize: 28, color: Color(0xff699985))),
+                Text('prillor',
+                    style: TextStyle(fontSize: 12, color: Colors.white)),
+              ])
+            ]),
+      ));
 }
 
 _lastMonth(context) {

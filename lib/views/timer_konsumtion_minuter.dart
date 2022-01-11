@@ -21,15 +21,15 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
   @override
   void initState() {
     // TODO fixa annan lösning här
-    Future.delayed(
-        Duration.zero,
-        () => Provider.of<PouchProvider>(context, listen: false)
-            .getLastPouchTimeInMinutes());
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      Provider.of<PouchProvider>(context, listen: false)
-          .getLastPouchTimeInMinutes();
+    Future.delayed(Duration.zero, () {
+      var provider = Provider.of<PouchProvider>(context, listen: false);
+      provider.getLastPouchTimeInMinutes();
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+        provider.getLastPouchTimeInMinutes();
+      });
     });
+
     super.initState();
   }
 
