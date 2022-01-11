@@ -85,6 +85,7 @@ Widget _graf() {
 
 Widget _lastWeek(context) {
   var provider = Provider.of<PouchProvider>(context, listen: false);
+
   return Container(
       padding: const EdgeInsets.fromLTRB(60, 30, 60, 20),
       width: double.infinity,

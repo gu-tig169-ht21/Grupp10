@@ -50,7 +50,7 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
         children: [
           Consumer<PouchProvider>(
               builder: (context, state, child) => Text(
-                    '${Provider.of<PouchProvider>(context, listen: false).minutesSinceLast}',
+                    '${state.minutesSinceLast}',
                     style: TextStyle(
                       color: Color(0xff699985),
                       fontSize: 70.0,

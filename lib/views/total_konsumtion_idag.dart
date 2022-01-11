@@ -33,7 +33,7 @@ class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
             children: [
               Consumer<PouchProvider>(
                   builder: (context, state, child) => Text(
-                        '${provider.countToday}',
+                        '${state.countToday}',
                         style: const TextStyle(
                           color: Color(0xff699985),
                           fontSize: 70.0,

@@ -17,6 +17,7 @@ class KonsumtionTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<PouchProvider>(context, listen: false);
     return Scaffold(
         body: Center(
           child: Column(
@@ -44,7 +45,7 @@ class KonsumtionTab extends StatelessWidget {
                 textColor: const Color(0xff699985),
                 label: 'Ångra',
                 onPressed: () {
-                  _decreaseCounter(context);
+                  _decreaseCounter(provider);
                 },
               ),
             );
@@ -64,8 +65,8 @@ class KonsumtionTab extends StatelessWidget {
     provider.addPouch(newPouch);
   }
 
-  void _decreaseCounter(context) {
-    var provider = Provider.of<PouchProvider>(context, listen: false);
+  void _decreaseCounter(PouchProvider provider) {
+    //var provider = Provider.of<PouchProvider>(context, listen: false);
     provider.undoPouch().then((_) => provider.getLastPouchTimeInMinutes());
   }
 }

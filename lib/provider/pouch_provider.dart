@@ -18,8 +18,6 @@ class PouchProvider extends ChangeNotifier {
 
   int minutesSinceLast = 0;
 
-  //List<FlSpot> fllist = [];
-
   DateTime? lastPouch;
   DateTime? oldLastPouch;
 
