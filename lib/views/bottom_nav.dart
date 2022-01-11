@@ -10,6 +10,7 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      elevation: 32.0,
       //showSelectedLabels: false,
       showUnselectedLabels: false,
       selectedFontSize: 12,
