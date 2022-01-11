@@ -10,10 +10,8 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      //showSelectedLabels: false,
-      showUnselectedLabels: false,
       selectedFontSize: 12,
-      unselectedFontSize: 12,
+      unselectedFontSize: 0.0,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
