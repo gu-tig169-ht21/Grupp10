@@ -30,7 +30,7 @@ class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
       builder: (context, state, child) => Column(
         children: [
           const Text('Du har totalt konsumerat',
-              style: TextStyle(color: Colors.white)),
+              style: TextStyle(color: Colors.white, fontSize: 12)),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -40,11 +40,12 @@ class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
                         '${provider.countToday}',
                         style: const TextStyle(
                           color: Color(0xff699985),
-                          fontSize: 70.0,
+                          fontSize: 50.0,
                         ),
                       )),
               const SizedBox(width: 5),
-              const Text('prillor idag', style: TextStyle(color: Colors.white)),
+              const Text('prillor idag',
+                  style: TextStyle(color: Colors.white, fontSize: 12)),
             ],
           ),
         ],

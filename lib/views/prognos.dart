@@ -22,7 +22,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
       Column(
         children: [
           const Text('Din nuvarande årliga konsumtion är',
-              style: TextStyle(color: Colors.white)),
+              style: TextStyle(color: Colors.white, fontSize: 12)),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -31,11 +31,12 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                 '7300',
                 style: const TextStyle(
                   color: Color(0xff699985),
-                  fontSize: 70.0,
+                  fontSize: 50.0,
                 ),
               ),
               const SizedBox(width: 5),
-              const Text('kr', style: TextStyle(color: Colors.white)),
+              const Text('kr',
+                  style: TextStyle(color: Colors.white, fontSize: 12)),
             ],
           ),
         ],
@@ -45,10 +46,11 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.circle, color: Color(0xff699985), size: 10),
-          Text(' Konsumtion', style: TextStyle(color: Colors.white)),
+          Text(' Konsumtion',
+              style: TextStyle(color: Colors.white, fontSize: 11)),
           SizedBox(width: 15),
           Icon(Icons.circle, color: Color(0xffffbe66), size: 10),
-          Text(' Börsen', style: TextStyle(color: Colors.white))
+          Text(' Börsen', style: TextStyle(color: Colors.white, fontSize: 11))
         ],
       ),
       SizedBox(height: 5),
@@ -59,8 +61,10 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
           Text(
               'Den gröna linjen visar hur mycket pengar du kommer spendera på snus om du konsumerar lika mycket som förgående år. Den orangea linjen visar vad du skulle kunna spara om du istället lägger in samma summa på börsen med en förväntad årlig avkastning på 7%',
               textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                  color: Colors.grey, fontStyle: FontStyle.italic)),
+              style: GoogleFonts.raleway(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 12)),
         ],
       ),
     ])));
@@ -68,18 +72,17 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
 
   Widget _graf() {
     return Container(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Align(
             alignment: Alignment.center,
             child: SizedBox(
               width: double.infinity,
               height: 400,
               child: Card(
-                // elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
-                color: const Color(0xff111111),
+                color: const Color(0xff101010),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
                   child: LineChartPrognos(),

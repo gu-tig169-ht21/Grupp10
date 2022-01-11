@@ -38,11 +38,23 @@ class MyHistorikPageState extends State<MyHistorikPage> {
       padding: const EdgeInsets.all(10),
       children: [
         _graf(),
-        // Container(height: 15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.circle, color: Color(0xffbcbcbc), size: 10),
+            Text(' Förra veckan eller genomsnitt?',
+                style: TextStyle(color: Colors.white, fontSize: 11)),
+            SizedBox(width: 15),
+            Icon(Icons.circle, color: Color(0xff699985), size: 10),
+            Text(' Denna vecka',
+                style: TextStyle(color: Colors.white, fontSize: 12))
+          ],
+        ),
+        SizedBox(height: 5),
         Row(
           children: [
             Text('FÖRRA VECKAN',
-                style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
+                style: GoogleFonts.raleway(fontSize: 12, color: Colors.grey)),
           ],
         ),
         _lastWeek(MyHomePageState.weeklyPrillaOnScreenDisplay),
@@ -50,7 +62,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
         Row(
           children: [
             Text('FÖRRA MÅNADEN',
-                style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
+                style: GoogleFonts.raleway(fontSize: 12, color: Colors.grey)),
           ],
         ),
         _lastMonth(MyHomePageState.monthlyPrillaOnScreenDisplay),
@@ -58,7 +70,7 @@ class MyHistorikPageState extends State<MyHistorikPage> {
         Row(
           children: [
             Text('FÖRRA ÅRET',
-                style: GoogleFonts.roboto(fontSize: 12, color: Colors.grey)),
+                style: GoogleFonts.raleway(fontSize: 12, color: Colors.grey)),
           ],
         ),
         _lastYear(MyHomePageState.yearlyPrillaOnScreenDisplay),
@@ -76,13 +88,12 @@ Widget _graf() {
             width: double.infinity,
             height: 250,
             child: Card(
-              // elevation: 4,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
-              color: const Color(0xff111111),
+              color: const Color(0xff101010),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 15, 15, 0),
+                padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
                 child: BarChartHistorik(),
               ),
             ),
@@ -96,22 +107,22 @@ Widget _lastWeek(weeklyPrillaOnScreenDisplay) {
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: const Color(0xff282828),
+        color: const Color(0xff1c1c1c),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: [
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('kr', style: TextStyle(fontSize: 11, color: Colors.white)),
         ]),
         Column(children: const [
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('dosor', style: TextStyle(fontSize: 11, color: Colors.white)),
         ]),
         Column(children: [
           Text('$weeklyPrillaOnScreenDisplay',
               style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('prillor', style: TextStyle(fontSize: 11, color: Colors.white)),
         ])
       ]));
 }
@@ -123,22 +134,22 @@ _lastMonth(monthlyPrillaOnScreenDisplay) {
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: const Color(0xff282828),
+        color: const Color(0xff1c1c1c),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: const [
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('kr', style: TextStyle(fontSize: 11, color: Colors.white)),
         ]),
         Column(children: const [
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('dosor', style: TextStyle(fontSize: 11, color: Colors.white)),
         ]),
         Column(children: [
           Text('$monthlyPrillaOnScreenDisplay',
               style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('prillor', style: TextStyle(fontSize: 11, color: Colors.white)),
         ])
       ]));
 }
@@ -150,22 +161,22 @@ _lastYear(yearlyPrillaOnScreenDisplay) {
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: const Color(0xff282828),
+        color: const Color(0xff1c1c1c),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
           Widget>[
         Column(children: const [
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('kr', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('kr', style: TextStyle(fontSize: 11, color: Colors.white)),
         ]),
         Column(children: const [
           Text('0', style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('dosor', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('dosor', style: TextStyle(fontSize: 11, color: Colors.white)),
         ]),
         Column(children: [
           Text('$yearlyPrillaOnScreenDisplay',
               style: TextStyle(fontSize: 28, color: Color(0xff699985))),
-          Text('prillor', style: TextStyle(fontSize: 12, color: Colors.white)),
+          Text('prillor', style: TextStyle(fontSize: 11, color: Colors.white)),
         ])
       ]));
 }

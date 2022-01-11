@@ -35,9 +35,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Nicotine Tracker',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(canvasColor: const Color(0xff2d2d2d)).copyWith(
-        textTheme: GoogleFonts.robotoTextTheme(),
-      ),
+      theme: ThemeData(canvasColor: const Color(0xff202020))
+          .copyWith(textTheme: GoogleFonts.ralewayTextTheme()),
       home: const MyHomePage(),
     );
   }

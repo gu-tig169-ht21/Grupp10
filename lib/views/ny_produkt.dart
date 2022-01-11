@@ -70,7 +70,7 @@ class _NyProdukt extends State<NyProdukt> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff2d2d2d),
+        backgroundColor: const Color(0xff202020),
         title: const Text('Nicotine Tracker',
             style: TextStyle(color: Colors.white)),
         leading: IconButton(
@@ -86,24 +86,31 @@ class _NyProdukt extends State<NyProdukt> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // const SizedBox(
-              // height: 50,
-              //),
               const Text('Välj ditt standardsnus',
-                  style: TextStyle(color: Colors.white)),
+                  style: TextStyle(color: Colors.white, fontSize: 13)),
+              const SizedBox(
+                height: 10,
+              ),
               _dropDownSnus(),
               const SizedBox(
-                height: 25,
+                height: 30,
               ),
               const Text(
                 'Hittar du inte ditt snus i listan ovan?',
-                style:
-                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 12),
               ),
               const Text(
                 'Skriv in styckpriset manuellt!',
-                style:
-                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 12),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
@@ -115,8 +122,9 @@ class _NyProdukt extends State<NyProdukt> {
                       labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
                       labelText: 'Kr/dosa',
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 0.0),
-                      ),
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 0.1),
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey))),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -126,23 +134,25 @@ class _NyProdukt extends State<NyProdukt> {
                   ],
                 ),
               ),
-              // const SizedBox(height: 30),
+              const SizedBox(height: 10),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff699985),
-                  onPrimary: Colors.white,
-                ),
-                onPressed: () {
-                  var snusPris = int.parse(snusController.text);
-                  _selectedSnus!.price = int.parse(snusController.text);
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0xff699985),
+                      onPrimary: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30))),
+                  onPressed: () {
+                    var snusPris = int.parse(snusController.text);
+                    _selectedSnus!.price = int.parse(snusController.text);
 
-                  Provider.of<PouchProvider>(context, listen: false)
-                      .updateBox(_selectedSnus!);
-                  assert(snusPris is int);
-                  Navigator.pop(context);
-                },
-                child: Text('SPARA'),
-              ),
+                    Provider.of<PouchProvider>(context, listen: false)
+                        .updateBox(_selectedSnus!);
+                    assert(snusPris is int);
+                    Navigator.pop(context);
+                  },
+                  child: Text('SPARA',
+                      style: TextStyle(fontSize: 11)) //Icon(Icons.save),
+                  ),
 //todo - kostnadsruta (välj snus har ett pris som också går till rutan)
 
 //todo - spara
@@ -157,23 +167,29 @@ class _NyProdukt extends State<NyProdukt> {
     PouchProvider pouchProvider =
         Provider.of<PouchProvider>(context, listen: false);
     return Consumer<PouchProvider>(
-        builder: (context, state, child) => DropdownButton<Box>(
-              value:
-                  _selectedSnus, //pouchProvider.selectedBox, boxlist[4] =! selectedSnus
-              items: _snusItems,
-              icon: const Icon(
-                Icons.keyboard_arrow_down,
-                color: Colors.white,
-              ),
-              elevation: 16,
-              style: const TextStyle(color: Colors.white),
-              onChanged: (newValue) {
-                setState(() {
-                  pouchProvider.selectBox(newValue!);
-                  _selectedSnus = newValue;
-                  snusController.text = _selectedSnus!.price.toString();
-                });
-              },
-            ));
+        builder: (context, state, child) => DropdownButtonHideUnderline(
+            child: ButtonTheme(
+                alignedDropdown: true,
+                child: DropdownButton<Box>(
+                  value:
+                      _selectedSnus, //pouchProvider.selectedBox, boxlist[4] =! selectedSnus
+                  items: _snusItems,
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  dropdownColor: const Color.fromRGBO(30, 30, 30, 0.9),
+
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.white),
+                  onChanged: (newValue) {
+                    setState(() {
+                      pouchProvider.selectBox(newValue!);
+                      _selectedSnus = newValue;
+                      snusController.text = _selectedSnus!.price.toString();
+                    });
+                  },
+                ))));
   }
 }

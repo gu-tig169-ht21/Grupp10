@@ -12,7 +12,7 @@ class KostnadTotalt extends StatelessWidget {
     return Column(
       children: [
         const Text('Pengar du spenderat på snus sedan start',
-            style: TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white, fontSize: 12)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,11 +21,12 @@ class KostnadTotalt extends StatelessWidget {
               '$_costTotalCounter',
               style: const TextStyle(
                 color: Color(0xff699985),
-                fontSize: 70.0,
+                fontSize: 50.0,
               ),
             ),
             const SizedBox(width: 5),
-            const Text('kr', style: TextStyle(color: Colors.white)),
+            const Text('kr',
+                style: TextStyle(color: Colors.white, fontSize: 12)),
           ],
         ),
       ],

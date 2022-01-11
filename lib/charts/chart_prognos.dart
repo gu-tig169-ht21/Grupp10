@@ -16,21 +16,19 @@ class LineChartPrognos extends StatelessWidget {
         maxX: 30,
         minY: 0,
         maxY: 800000,
-        backgroundColor: const Color(0xff111111),
         titlesData: FlTitlesData(
           bottomTitles: SideTitles(
             showTitles: true,
             getTextStyles: (context, value) =>
-                const TextStyle(color: Colors.grey, fontSize: 12),
+                const TextStyle(color: Colors.grey, fontSize: 11),
             margin: 8,
-            reservedSize: 20,
           ),
           leftTitles: SideTitles(
             showTitles: true,
             margin: 8,
             reservedSize: 30,
             getTextStyles: (context, value) =>
-                const TextStyle(color: Colors.grey, fontSize: 12),
+                const TextStyle(color: Colors.grey, fontSize: 11),
           ),
           topTitles: SideTitles(showTitles: false),
           rightTitles: SideTitles(

@@ -105,7 +105,7 @@ class MyHomePageState extends State<MyHomePage> {
         initialIndex: 0,
         child: Scaffold(
           appBar: AppBar(
-              backgroundColor: const Color(0xff2d2d2d),
+              backgroundColor: const Color(0xff202020), //Color(0xff2d2d2d),
               title: const Text('Nicotine Tracker',
                   style: TextStyle(color: Colors.white)),
               leading: IconButton(
@@ -118,15 +118,15 @@ class MyHomePageState extends State<MyHomePage> {
                       tabs: <Widget>[
                           Tab(
                               child: (Text('Konsumtion',
-                                  style: GoogleFonts.roboto()))),
+                                  style: GoogleFonts.raleway(fontSize: 13)))),
                           Tab(
-                              child:
-                                  Text('Ekonomi', style: GoogleFonts.roboto())),
+                              child: Text('Ekonomi',
+                                  style: GoogleFonts.raleway(fontSize: 13))),
                         ],
                       indicatorColor: Colors.transparent,
-                      labelStyle: TextStyle(fontSize: 16),
+                      labelStyle: TextStyle(fontSize: 12),
                       unselectedLabelStyle: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                       ))
                   : null),
           bottomNavigationBar: BottomNav(_selectedIndex, _onItemTapped),

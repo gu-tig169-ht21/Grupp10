@@ -35,10 +35,10 @@ class KonsumtionTab extends StatelessWidget {
           onPressed: () {
             _incrementCounter(context);
             final snackBar = SnackBar(
-              backgroundColor: const Color(0xff282828),
+              backgroundColor: const Color(0xff1c1c1c),
               content: Text(
                 'Du har lagt till en prilla',
-                style: GoogleFonts.roboto(),
+                style: GoogleFonts.raleway(),
               ),
               action: SnackBarAction(
                 textColor: const Color(0xff699985),

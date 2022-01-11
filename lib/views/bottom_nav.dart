@@ -12,6 +12,8 @@ class BottomNav extends StatelessWidget {
     return BottomNavigationBar(
       //showSelectedLabels: false,
       showUnselectedLabels: false,
+      selectedFontSize: 12,
+      unselectedFontSize: 12,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -26,7 +28,7 @@ class BottomNav extends StatelessWidget {
           label: 'Prognos',
         ),
       ],
-      backgroundColor: const Color(0xff2d2d2d),
+      backgroundColor: const Color(0xff202020),
       unselectedItemColor: Colors.grey,
       selectedItemColor: Colors.white,
       currentIndex: _selectedIndex,

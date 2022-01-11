@@ -43,7 +43,7 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
   Widget build(BuildContext context) {
     return Column(children: [
       const Text('Du tog din senaste prilla för',
-          style: TextStyle(color: Colors.white)),
+          style: TextStyle(color: Colors.white, fontSize: 12)),
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -53,11 +53,12 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
                     '${Provider.of<PouchProvider>(context, listen: false).minutesSinceLast}',
                     style: TextStyle(
                       color: Color(0xff699985),
-                      fontSize: 70.0,
+                      fontSize: 50.0,
                     ),
                   )),
           SizedBox(width: 5),
-          Text('minuter sedan', style: TextStyle(color: Colors.white)),
+          Text('minuter sedan',
+              style: TextStyle(color: Colors.white, fontSize: 12)),
         ],
       )
     ]);

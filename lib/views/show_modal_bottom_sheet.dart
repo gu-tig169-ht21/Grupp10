@@ -9,7 +9,7 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
 
   static void runShowModalButtomSheet(context) {
     showModalBottomSheet(
-        backgroundColor: const Color.fromRGBO(70, 70, 70, 0.8),
+        backgroundColor: const Color.fromRGBO(30, 30, 30, 0.8),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
         isScrollControlled: true,
@@ -21,7 +21,7 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.add, color: Colors.white),
                 title: const Text('Lägg till dosa',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Colors.white, fontSize: 12)),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -37,7 +37,7 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
               ListTile(
                   leading: const Icon(Icons.settings, color: Colors.white),
                   title: const Text('Inställningar',
-                      style: TextStyle(color: Colors.white)),
+                      style: TextStyle(color: Colors.white, fontSize: 12)),
                   onTap: () {}),
               const Divider(
                 height: 10,
@@ -48,7 +48,7 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
                   leading: const Icon(Icons.person, color: Colors.white),
                   title: const Text(
                     'Integritet',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                   onTap: () {}),
             ],
