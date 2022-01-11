@@ -28,10 +28,10 @@ class _NyProdukt extends State<NyProdukt> {
 
     List<Box> boxlist = [];
 
-    Provider.of<PouchProvider>(context, listen: false).getBoxes().then((value) {
+    Provider.of<PouchProvider>(context, listen: false).getBoxes().then((list) {
       setState(() {
-        dosor = value;
-        _snusItems = value.map((box) {
+        dosor = list;
+        _snusItems = list.map((box) {
           return DropdownMenuItem<Box>(
             value: box,
             child: Text(box.name),
