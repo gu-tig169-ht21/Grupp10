@@ -10,6 +10,7 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      elevation: 32.0,
       selectedFontSize: 12,
       unselectedFontSize: 0.0,
       items: const <BottomNavigationBarItem>[
