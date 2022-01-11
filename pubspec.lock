@@ -7,7 +7,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.2"
+    version: "2.8.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -21,7 +21,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.1.0"
   charcode:
     dependency: transitive
     description:
@@ -218,6 +218,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.12.11"
   material_color_utilities:
     dependency: transitive
@@ -226,6 +227,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
+=======
+    version: "0.12.10"
+>>>>>>> aa696a222c7c9346dffff3a2c04637081d8c37ca
   meta:
     dependency: transitive
     description:
@@ -426,7 +430,11 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.4.8"
+=======
+    version: "0.4.2"
+>>>>>>> aa696a222c7c9346dffff3a2c04637081d8c37ca
   typed_data:
     dependency: transitive
     description:
@@ -440,7 +448,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.0"
   week_of_year:
     dependency: "direct main"
     description:

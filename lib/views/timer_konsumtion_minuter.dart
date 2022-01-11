@@ -14,28 +14,28 @@ class TimerKonsumtionMinuter extends StatefulWidget {
 }
 
 class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
-  Timer? timer;
+  Timer? _timer;
 
   //senastePrillaTid ska va baserad på get hämtad siffra omväxlat till min
 
   @override
   void initState() {
     // TODO fixa annan lösning här
-    Future.delayed(
-        Duration.zero,
-        () async => Provider.of<PouchProvider>(context, listen: false)
-            .getLastPouchTimeInMinutes());
 
-    timer = Timer.periodic(
-        const Duration(minutes: 1),
-        (Timer timer) => Provider.of<PouchProvider>(context, listen: false)
-            .getLastPouchTimeInMinutes());
+    Future.delayed(Duration.zero, () {
+      var provider = Provider.of<PouchProvider>(context, listen: false);
+      provider.getLastPouchTimeInMinutes();
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+        provider.getLastPouchTimeInMinutes();
+      });
+    });
+
     super.initState();
   }
 
   @override
   void dispose() {
-    timer!.cancel;
+    _timer!.cancel();
     super.dispose();
   }
 
@@ -50,7 +50,7 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
         children: [
           Consumer<PouchProvider>(
               builder: (context, state, child) => Text(
-                    '${Provider.of<PouchProvider>(context, listen: false).minutesSinceLast}',
+                    '${state.minutesSinceLast}',
                     style: TextStyle(
                       color: Color(0xff699985),
                       fontSize: 50.0,

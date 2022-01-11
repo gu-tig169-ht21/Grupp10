@@ -164,8 +164,6 @@ class _NyProdukt extends State<NyProdukt> {
   }
 
   Widget _dropDownSnus() {
-    PouchProvider pouchProvider =
-        Provider.of<PouchProvider>(context, listen: false);
     return Consumer<PouchProvider>(
         builder: (context, state, child) => DropdownButtonHideUnderline(
             child: ButtonTheme(
@@ -185,7 +183,7 @@ class _NyProdukt extends State<NyProdukt> {
                   style: const TextStyle(color: Colors.white),
                   onChanged: (newValue) {
                     setState(() {
-                      pouchProvider.selectBox(newValue!);
+                      state.selectBox(newValue!);
                       _selectedSnus = newValue;
                       snusController.text = _selectedSnus!.price.toString();
                     });

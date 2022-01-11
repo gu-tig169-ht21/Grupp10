@@ -4,11 +4,7 @@ import 'kostnad_idag.dart';
 import 'kostnad_totalt.dart';
 
 class EkonomiTab extends StatelessWidget {
-  const EkonomiTab(this._costTotalCounter, this._costTodayCounter, {Key? key})
-      : super(key: key);
-
-  final int _costTotalCounter;
-  final int _costTodayCounter;
+  const EkonomiTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +12,9 @@ class EkonomiTab extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          KostnadTotalt(_costTotalCounter),
+          KostnadTotalt(),
           Container(height: 80),
-          KostnadIdag(_costTodayCounter),
+          KostnadIdag(),
         ],
       ),
     );
