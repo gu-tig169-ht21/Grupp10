@@ -214,9 +214,9 @@ class DataRepo {
         .orderBy("date", descending: true)
         .limit(1);
 
-    var something = await daysColl.get();
+    var days = await daysColl.get();
 
-    var lastDay = something.docs.first.id;
+    var lastDay = days.docs.first.id;
 
     var pouchColl =
         db.collection('users/test/dailyConsumption/$lastDay/pouches');
@@ -225,8 +225,6 @@ class DataRepo {
         await pouchColl.orderBy("date", descending: true).limit(1).get();
 
     var dateString = pouchList.docs.first.data()["date"];
-
-    print(dateString);
 
     DateTime lastPouch = DateTime.parse(dateString);
 
@@ -258,20 +256,4 @@ class DataRepo {
 
     return list;
   }
-
-// TODO fixa sökning för alla dagar i en vecka KLAR*********
-// TODO fixa fler funktioner till dosor KLAR?**********
-// TODO fixa vald dosa KLAR**********
-// TODO fixa senaste prillan timestamp KLAR*********
-// TODO fixa decrement KLAR?*************
-
-// TODO fixa date field till datum KLAR*********
-
-/*
-  Future<DateTime> getLastPouchTime() {
-    db.collection('users/test/dailyConsumption');
-
-    return DateTime.now();
-  }
-  */
 }

@@ -86,10 +86,12 @@ class PouchProvider extends ChangeNotifier {
     return box;
   }
 
-  Future<void> getLastPouchTimeInMinutes() async {
-    minutesSinceLast = DateTime.now().difference(lastPouch!).inMinutes;
+  void getLastPouchTimeInMinutes() {
+    if (lastPouch != null) {
+      minutesSinceLast = DateTime.now().difference(lastPouch!).inMinutes;
 
-    notifyListeners();
+      notifyListeners();
+    }
   }
 
   Future<void> addPouch(Pouch pouch) async {
