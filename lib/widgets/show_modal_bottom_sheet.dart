@@ -6,19 +6,24 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
 
   static void runShowModalButtomSheet(context) {
     showModalBottomSheet(
-        backgroundColor: const Color.fromRGBO(30, 30, 30, 0.8),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return Column(
+      backgroundColor: const Color.fromRGBO(30, 30, 30, 0.8),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 45),
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
+                shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(30))),
                 leading: const Icon(Icons.add, color: Colors.white),
                 title: const Text('Lägg till dosa',
-                    style: TextStyle(color: Colors.white, fontSize: 12)),
+                    style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -26,30 +31,10 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
                   );
                 },
               ),
-              const Divider(
-                height: 10,
-                color: Colors.black,
-                thickness: 0.2,
-              ),
-              ListTile(
-                  leading: const Icon(Icons.settings, color: Colors.white),
-                  title: const Text('Inställningar',
-                      style: TextStyle(color: Colors.white, fontSize: 12)),
-                  onTap: () {}),
-              const Divider(
-                height: 10,
-                color: Colors.black,
-                thickness: 0.2,
-              ),
-              ListTile(
-                  leading: const Icon(Icons.person, color: Colors.white),
-                  title: const Text(
-                    'Integritet',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                  onTap: () {}),
             ],
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
