@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:week_of_year/week_of_year.dart';
 
 import '../data/box.dart';
-import '../data/dbrepo.dart';
+import '../data/dbRepo.dart';
 import '../data/pouch.dart';
 
 class PouchProvider extends ChangeNotifier {
-  final dbRepo = DataRepo();
+  final _dbRepo = DataRepo();
 
   int countToday = 0;
   int countTotal = 0;
@@ -19,11 +18,11 @@ class PouchProvider extends ChangeNotifier {
   int minutesSinceLast = 0;
 
   DateTime? lastPouch;
-  DateTime? oldLastPouch;
+  DateTime? _oldLastPouch;
 
   Box? selectedBox;
 
-  DocumentReference? lastPouchDoc;
+  DocumentReference? _lastPouchDoc;
 
   List<int> weekList = [
     0,
@@ -36,45 +35,50 @@ class PouchProvider extends ChangeNotifier {
   ];
 
   PouchProvider() {
-    Future.delayed(Duration.zero, () async {
-      DateTime now = DateTime.now();
-      countToday = await dbRepo.getDayCount(now);
-      countTotal = await dbRepo.getTotalCount();
-      countWeek = await dbRepo.getWeekCount(now.weekOfYear);
-      countYear = await dbRepo.getYearCount(now.year);
-      countMonth = await dbRepo.getMonthCount(now.month);
-      lastPouch = await dbRepo.getLatestPouchTime();
-      minutesSinceLast = now.difference(lastPouch!).inMinutes;
-      selectedBox = await dbRepo.getSelectedBox();
-      notifyListeners();
-    });
+    _initData();
+  }
+
+  Future<void> _initData() async {
+    DateTime now = DateTime.now();
+    countToday = await _dbRepo.getDayCount(now);
+    countTotal = await _dbRepo.getTotalCount();
+    countWeek = await _dbRepo.getWeekCount(now.weekOfYear);
+    countYear = await _dbRepo.getYearCount(now.year);
+    countMonth = await _dbRepo.getMonthCount(now.month);
+    lastPouch = await _dbRepo.getLatestPouchTime();
+    minutesSinceLast = now.difference(lastPouch!).inMinutes;
+    selectedBox = await _dbRepo.getSelectedBox();
+    weekList = await _dbRepo.getWeekdaysCount(now);
+    notifyListeners();
   }
 
   Future<List<Box>> getBoxes() async {
-    var list;
+    List<Box> list;
 
-    list = await dbRepo.getBoxes();
+    list = await _dbRepo.getBoxes();
 
     return list;
   }
 
   void updateBox(Box box) {
-    dbRepo.updateBox(box);
+    _dbRepo.updateBox(box);
+    selectedBox = box;
+    notifyListeners();
   }
 
   void addBox(String name, int price) {
-    dbRepo.addBox(name, price);
+    _dbRepo.addBox(name, price);
   }
 
   void selectBox(Box box) {
-    dbRepo.selectBox(box);
+    _dbRepo.selectBox(box);
     selectedBox = box;
   }
 
   Future<Box> getSelectedBox() async {
     Box box;
 
-    box = await dbRepo.getSelectedBox();
+    box = await _dbRepo.getSelectedBox();
 
     selectedBox = box;
 
@@ -90,25 +94,27 @@ class PouchProvider extends ChangeNotifier {
   }
 
   Future<void> addPouch(Pouch pouch) async {
-    oldLastPouch = lastPouch;
+    _oldLastPouch = lastPouch;
     lastPouch = pouch.date;
     _clientIncrement();
-    lastPouchDoc = await dbRepo.addPouch(pouch);
+    _lastPouchDoc = await _dbRepo.addPouch(pouch);
   }
 
   Future<void> undoPouch() async {
-    lastPouch = oldLastPouch;
+    lastPouch = _oldLastPouch;
     _clientDecrement();
-    await dbRepo.removePouch(lastPouchDoc!);
+    await _dbRepo.removePouch(_lastPouchDoc!);
   }
 
   Future<void> getWeekList() async {
     DateTime now = DateTime.now();
-    weekList = await dbRepo.getWeekdaysCount(now);
+    weekList = await _dbRepo.getWeekdaysCount(now);
     notifyListeners();
   }
 
   void _clientIncrement() {
+    int day = DateTime.now().weekday;
+    weekList[day - 1]++;
     countToday++;
     countWeek++;
     countMonth++;
@@ -118,6 +124,8 @@ class PouchProvider extends ChangeNotifier {
   }
 
   void _clientDecrement() {
+    int day = DateTime.now().weekday;
+    weekList[day - 1]--;
     countToday--;
     countWeek--;
     countMonth--;

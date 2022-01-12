@@ -21,7 +21,7 @@ class LineChartPrognos extends StatelessWidget {
       maxX: 30,
       minY: 0,
       maxY: _getProjected30YearMax(prognos),
-      backgroundColor: const Color(0xff111111),
+      backgroundColor: const Color(0xff101010),
       titlesData: FlTitlesData(
         bottomTitles: SideTitles(
           showTitles: true,

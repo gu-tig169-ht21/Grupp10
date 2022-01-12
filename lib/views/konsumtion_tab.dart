@@ -4,13 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../data/pouch.dart';
 import '../provider/pouch_provider.dart';
-import 'historik.dart';
 import 'timer_konsumtion_minuter.dart';
 import 'total_konsumtion_idag.dart';
-import 'package:google_fonts/google_fonts.dart';
-import './historik.dart';
 import './timer_konsumtion_minuter.dart';
-import 'home.dart';
 
 class KonsumtionTab extends StatelessWidget {
   const KonsumtionTab({Key? key}) : super(key: key);
@@ -34,8 +30,11 @@ class KonsumtionTab extends StatelessWidget {
           tooltip: 'Lägg till prilla',
           child: const Icon(Icons.add),
           onPressed: () {
-            _incrementCounter(context);
+            _incrementCounter(provider);
             final snackBar = SnackBar(
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
               backgroundColor: const Color(0xff1c1c1c),
               content: Text(
                 'Du har lagt till en prilla',
@@ -58,15 +57,13 @@ class KonsumtionTab extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }
 
-  void _incrementCounter(context) {
-    var provider = Provider.of<PouchProvider>(context, listen: false);
+  void _incrementCounter(PouchProvider provider) {
     DateTime now = DateTime.now();
     var newPouch = Pouch(now);
     provider.addPouch(newPouch);
   }
 
   void _decreaseCounter(PouchProvider provider) {
-    //var provider = Provider.of<PouchProvider>(context, listen: false);
     provider.undoPouch().then((_) => provider.getLastPouchTimeInMinutes());
   }
 }

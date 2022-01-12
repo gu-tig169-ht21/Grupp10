@@ -17,8 +17,6 @@ void main() async {
     print('exploded: \n $ex');
   }
 
-  //runApp(const MyApp());
-
   runApp(
     ChangeNotifierProvider(
       create: (context) => PouchProvider(),
@@ -41,5 +39,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// dokumentation för vilken font tabs etc väljer

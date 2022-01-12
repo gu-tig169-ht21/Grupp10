@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'bottom_nav.dart';
@@ -13,9 +11,6 @@ import 'konsumtion_tab.dart';
 import 'ny_produkt.dart';
 import 'prognos.dart';
 import 'show_modal_bottom_sheet.dart';
-import '../data/dbrepo.dart';
-import '../data/pouch.dart';
-import '../data/pouch_dao.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -89,6 +84,8 @@ class MyHomePageState extends State<MyHomePage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
               backgroundColor: Colors.black45,
               title: Text(
                 'Greetings Traveler',
@@ -102,7 +99,7 @@ class MyHomePageState extends State<MyHomePage> {
                 TextButton(
                     child: Text(
                       'Välj Snus',
-                      style: TextStyle(color: Color(0xff95C8A8)),
+                      style: TextStyle(color: Color(0xff699985)),
                     ),
                     onPressed: () {
                       Navigator.pop(context);

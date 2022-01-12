@@ -16,119 +16,85 @@ class BarChartHistorik extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<PouchProvider>(context, listen: false);
-    double maxY = provider.weekList.reduce(max).toDouble() * 1.2;
-
-    return BarChart(
-      BarChartData(
-        maxY: [25, maxY].reduce(max).toDouble(),
-        minY: 0,
-        groupsSpace: 10,
-        barTouchData: BarTouchData(enabled: true),
-        gridData: FlGridData(
-          show: false,
+    return Consumer<PouchProvider>(
+      builder: (context, state, child) => BarChart(
+        BarChartData(
+          maxY: _getMaxY(state.weekList),
+          minY: 0,
+          groupsSpace: 10,
+          barTouchData: BarTouchData(enabled: true),
+          gridData: FlGridData(
+            show: false,
+          ),
+          titlesData: FlTitlesData(
+            bottomTitles: SideTitles(
+              showTitles: true,
+              getTitles: _getTiles,
+              getTextStyles: (context, value) =>
+                  const TextStyle(color: Colors.grey, fontSize: 11),
+              margin: 8,
+              reservedSize: 20,
+            ),
+            leftTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 30,
+              getTextStyles: (context, value) =>
+                  const TextStyle(color: Colors.grey, fontSize: 12),
+            ),
+            topTitles: SideTitles(showTitles: false),
+            rightTitles: SideTitles(
+              showTitles: false,
+            ),
+          ),
+          borderData: FlBorderData(show: false),
+          barGroups: _getBarList(state.weekList, barcolor),
         ),
-        titlesData: FlTitlesData(
-          bottomTitles: SideTitles(
-            showTitles: true,
-            getTitles: (value) {
-              switch (value.toInt()) {
-                case 1:
-                  return 'Mån';
-                case 2:
-                  return 'Tis';
-                case 3:
-                  return 'Ons';
-                case 4:
-                  return 'Tors';
-                case 5:
-                  return 'Fre';
-                case 6:
-                  return 'Lör';
-                case 7:
-                  return 'Sön';
-              }
-              return '';
-            },
-            getTextStyles: (context, value) =>
-                const TextStyle(color: Colors.grey, fontSize: 11),
-            margin: 8,
-            reservedSize: 20,
-          ),
-          leftTitles: SideTitles(
-            showTitles: true,
-            //margin: 8,
-            reservedSize: 30,
-            getTextStyles: (context, value) =>
-                const TextStyle(color: Colors.grey, fontSize: 12),
-          ),
-          topTitles: SideTitles(showTitles: false),
-          rightTitles: SideTitles(
-            showTitles: false,
-          ),
-        ),
-        borderData: FlBorderData(show: false),
-        barGroups: [
-          BarChartGroupData(x: 1, barRods: [
-            BarChartRodData(
-              colors: barcolor,
-              y: provider.weekList[0].toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ]),
-          BarChartGroupData(x: 2, barRods: [
-            BarChartRodData(
-              colors: barcolor,
-              y: provider.weekList[1].toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ]),
-          BarChartGroupData(x: 3, barRods: [
-            BarChartRodData(
-              colors: barcolor,
-              y: provider.weekList[2].toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ]),
-          BarChartGroupData(x: 4, barRods: [
-            BarChartRodData(
-              colors: barcolor,
-              y: provider.weekList[3].toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ]),
-          BarChartGroupData(x: 5, barRods: [
-            BarChartRodData(
-              colors: barcolor,
-              y: provider.weekList[4].toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ]),
-          BarChartGroupData(x: 6, barRods: [
-            BarChartRodData(
-              colors: barcolor,
-              y: provider.weekList[5].toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ]),
-          BarChartGroupData(x: 7, barRods: [
-            BarChartRodData(
-              colors: barcolor,
-              y: provider.weekList[6].toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ])
-        ],
       ),
     );
   }
+}
+
+List<BarChartGroupData> _getBarList(List<int> list, List<Color> barcolor) {
+  List<BarChartGroupData> newlist = [];
+
+  list.asMap().forEach((index, value) {
+    newlist.add(_bar(index + 1, value, barcolor));
+  });
+
+  return newlist;
+}
+
+double _getMaxY(List<int> list) {
+  double maxY = 25.0;
+  double highestCount;
+
+  highestCount = list.reduce(max).toDouble();
+
+  if (highestCount > maxY) {
+    maxY = highestCount * 1.2;
+  }
+
+  return maxY;
+}
+
+String _getTiles(double d) {
+  switch (d.toInt()) {
+    case 1:
+      return 'Mån';
+    case 2:
+      return 'Tis';
+    case 3:
+      return 'Ons';
+    case 4:
+      return 'Tors';
+    case 5:
+      return 'Fre';
+    case 6:
+      return 'Lör';
+    case 7:
+      return 'Sön';
+  }
+  return '';
 }
 
 BarChartGroupData _bar(int index, int count, List<Color> color) {
@@ -137,7 +103,10 @@ BarChartGroupData _bar(int index, int count, List<Color> color) {
       colors: color,
       y: count.toDouble(),
       width: 10,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+      ),
     ),
   ]);
 }
