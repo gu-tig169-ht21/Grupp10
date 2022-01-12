@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'bottom_nav.dart';
 import 'ekonomi_tab.dart';
 import 'historik.dart';
@@ -60,14 +57,14 @@ class MyHomePageState extends State<MyHomePage> {
                                   style: GoogleFonts.raleway(fontSize: 13))),
                         ],
                       indicatorColor: Colors.transparent,
-                      labelStyle: TextStyle(fontSize: 12),
-                      unselectedLabelStyle: TextStyle(
+                      labelStyle: const TextStyle(fontSize: 12),
+                      unselectedLabelStyle: const TextStyle(
                         fontSize: 12,
                       ))
                   : null),
           bottomNavigationBar: BottomNav(_selectedIndex, _onItemTapped),
           body: _selectedIndex == 0
-              ? TabBarView(
+              ? const TabBarView(
                   children: [KonsumtionTab(), EkonomiTab()],
                 )
               : _selectedIndex == 1
@@ -87,17 +84,17 @@ class MyHomePageState extends State<MyHomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
               backgroundColor: Colors.black45,
-              title: Text(
+              title: const Text(
                 'Greetings Traveler',
                 style: TextStyle(color: Colors.white),
               ),
-              content: Text(
+              content: const Text(
                 'Börja med att lägga till ditt val av snus \n(detta kan när som helst ändras i menyn)',
                 style: TextStyle(color: Colors.white),
               ),
               actions: <Widget>[
                 TextButton(
-                    child: Text(
+                    child: const Text(
                       'Välj Snus',
                       style: TextStyle(color: Color(0xff699985)),
                     ),

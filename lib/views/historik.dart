@@ -1,12 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_app/views/history_box.dart';
 import 'package:week_of_year/week_of_year.dart';
-
-import '../charts/chart_historik.dart';
+import '/charts/chart_historik.dart';
+import '/views/history_box.dart';
 
 class MyHistorikPage extends StatefulWidget {
   const MyHistorikPage({Key? key}) : super(key: key);
@@ -29,12 +25,12 @@ class MyHistorikPageState extends State<MyHistorikPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.circle, color: Color(0xff699985), size: 10),
+                const Icon(Icons.circle, color: Color(0xff699985), size: 10),
                 Text(' Antal prillor per dag för vecka $veckonr',
-                    style: TextStyle(color: Colors.white, fontSize: 12))
+                    style: const TextStyle(color: Colors.white, fontSize: 12))
               ],
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Row(
               children: [
                 Text('DENNA VECKAN',

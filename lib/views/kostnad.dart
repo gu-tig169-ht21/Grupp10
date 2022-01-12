@@ -1,19 +1,17 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
+import '/provider/pouch_provider.dart';
 
 class Kostnad extends StatelessWidget {
   late final String _titleString;
   late final Function _priceW;
 
-  Kostnad.idag() {
+  Kostnad.idag({Key? key}) : super(key: key) {
     _titleString = 'Pengar du spenderat på snus idag';
     _priceW = _kostnadIdag;
   }
 
-  Kostnad.totalt() {
+  Kostnad.totalt({Key? key}) : super(key: key) {
     _titleString = 'Pengar du spenderat på snus sedan start';
     _priceW = _kostnadTotalt;
   }

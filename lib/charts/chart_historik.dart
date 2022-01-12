@@ -1,8 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
+import '/provider/pouch_provider.dart';
 
 //gör om till bar chart
 

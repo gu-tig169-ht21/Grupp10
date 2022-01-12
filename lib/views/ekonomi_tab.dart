@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'kostnad.dart';
+import '/provider/pouch_provider.dart';
 
 class EkonomiTab extends StatelessWidget {
   const EkonomiTab({Key? key}) : super(key: key);

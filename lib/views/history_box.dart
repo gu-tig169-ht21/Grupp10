@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
+import '/provider/pouch_provider.dart';
 
 class HistoryBox extends StatelessWidget {
   late final String _case;

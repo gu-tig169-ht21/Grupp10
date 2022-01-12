@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:firebase_database/firebase_database.dart';
-
 import 'pouch.dart';
 
 class PouchDao {

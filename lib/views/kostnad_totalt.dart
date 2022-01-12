@@ -1,10 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
+import '/provider/pouch_provider.dart';
 
 class KostnadTotalt extends StatelessWidget {
+  const KostnadTotalt({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<PouchProvider>(context, listen: false);

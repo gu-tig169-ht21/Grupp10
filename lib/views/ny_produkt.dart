@@ -1,12 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../data/box.dart';
-import '../provider/pouch_provider.dart';
+import '/data/box.dart';
+import '/provider/pouch_provider.dart';
 
 class NyProdukt extends StatefulWidget {
   const NyProdukt({Key? key}) : super(key: key);
@@ -22,12 +19,12 @@ class _NyProdukt extends State<NyProdukt> {
   @override
   void initState() {
     List<Box> dosor = [];
-    List<Box> boxlist = [];
+    // List<Box> boxlist = [];
 
-    Provider.of<PouchProvider>(context, listen: false).getBoxes().then((list) {
+    Provider.of<PouchProvider>(context, listen: false).getBoxes().then((value) {
       setState(() {
-        dosor = list;
-        _snusItems = list.map((box) {
+        dosor = value;
+        _snusItems = value.map((box) {
           return DropdownMenuItem<Box>(
             value: box,
             child: Text(box.name),
@@ -101,10 +98,10 @@ class _NyProdukt extends State<NyProdukt> {
               Container(
                 padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
                 child: TextField(
-                  cursorColor: Color(0xff699985),
+                  cursorColor: const Color(0xff699985),
                   controller: snusController,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                       labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
                       labelText: 'Kr/dosa',
                       enabledBorder: OutlineInputBorder(
@@ -113,7 +110,8 @@ class _NyProdukt extends State<NyProdukt> {
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey))),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(
                         RegExp(r'(^\d*\.?\d{0,2})'))
@@ -123,7 +121,7 @@ class _NyProdukt extends State<NyProdukt> {
               const SizedBox(height: 10),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xff699985),
+                    primary: const Color(0xff699985),
                     onPrimary: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30))),
@@ -134,7 +132,7 @@ class _NyProdukt extends State<NyProdukt> {
                       .updateBox(_selectedSnus!);
                   Navigator.pop(context);
                 },
-                child: Text('SPARA', style: TextStyle(fontSize: 11)),
+                child: const Text('SPARA', style: TextStyle(fontSize: 11)),
               ),
             ],
           ),

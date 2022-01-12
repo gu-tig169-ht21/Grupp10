@@ -1,14 +1,12 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
+import '/provider/pouch_provider.dart';
 
 class LineChartPrognos extends StatelessWidget {
   final int prognos;
 
-  const LineChartPrognos(this.prognos);
+  const LineChartPrognos(this.prognos, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +69,7 @@ class LineChartPrognos extends StatelessWidget {
             spots: _getProjected30YearGain(prognos),
             isCurved: true,
             barWidth: 3,
-            colors: [Color(0xffffbe66)],
+            colors: [const Color(0xffffbe66)],
             dotData: FlDotData(show: false),
           ),
           LineChartBarData(
@@ -80,7 +78,7 @@ class LineChartPrognos extends StatelessWidget {
             isCurved: true,
             barWidth: 3,
             colors: [
-              Color(0xff699985),
+              const Color(0xff699985),
             ],
             dotData: FlDotData(show: false),
           ),
