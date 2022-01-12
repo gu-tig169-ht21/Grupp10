@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'views/home.dart';
+import 'screens/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase/firebase_options.dart' as firebase_settings;
-import 'provider/pouch_provider.dart';
+import 'services/pouch_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -14,6 +14,7 @@ void main() async {
       options: firebase_settings.getOptions(),
     );
   } catch (ex) {
+    // ignore: avoid_print
     print('exploded: \n $ex');
   }
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(canvasColor: const Color(0xff202020))
           .copyWith(textTheme: GoogleFonts.ralewayTextTheme()),
-      home: const MyHomePage(),
+      home: const Home(),
     );
   }
 }

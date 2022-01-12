@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
-import '/provider/pouch_provider.dart';
+import '../services/pouch_provider.dart';
 
 class LineChartPrognos extends StatelessWidget {
   const LineChartPrognos({Key? key}) : super(key: key);

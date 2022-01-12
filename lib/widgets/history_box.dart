@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/provider/pouch_provider.dart';
+import '../services/pouch_provider.dart';
 
 class HistoryBox extends StatelessWidget {
   late final String _case;

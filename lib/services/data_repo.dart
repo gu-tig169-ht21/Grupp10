@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:week_of_year/week_of_year.dart';
-import 'box.dart';
-import 'pouch.dart';
+import '../models/box.dart';
+import '../models/pouch.dart';
 
 class DataRepo {
   final db = FirebaseFirestore.instance;
 
   Future<DocumentReference> addPouch(Pouch pouch) async {
+    // ignore: prefer_typing_uninitialized_variables
     var pouchDoc;
     DateTime now = DateTime.now();
     String today = "${now.year}-${now.month}-${now.day}";
@@ -143,7 +144,9 @@ class DataRepo {
 
   Future<Box> getSelectedBox() async {
     var userDoc = db.collection('users').doc('test');
+    // ignore: prefer_typing_uninitialized_variables
     var boxDoc;
+    // ignore: prefer_typing_uninitialized_variables
     var box;
 
     await userDoc.get().then((doc) {
@@ -253,8 +256,6 @@ class DataRepo {
           int i = daydate.weekday - 1;
           list[i] = doc.data()["count"];
         }
-      } else {
-        //print('här var det tomt');
       }
     });
 

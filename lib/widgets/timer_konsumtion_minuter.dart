@@ -1,15 +1,16 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
+import '../services/pouch_provider.dart';
 
 class TimerKonsumtionMinuter extends StatefulWidget {
+  const TimerKonsumtionMinuter({Key? key}) : super(key: key);
+
   @override
-  State<TimerKonsumtionMinuter> createState() => TimerKonsumtionMinuterState();
+  _TimerKonsumtionMinuterState createState() => _TimerKonsumtionMinuterState();
 }
 
-class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
+class _TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
   Timer? _timer;
 
   @override
@@ -45,13 +46,13 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
           Consumer<PouchProvider>(
               builder: (context, state, child) => Text(
                     '${state.minutesSinceLast}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xff699985),
                       fontSize: 50.0,
                     ),
                   )),
-          SizedBox(width: 5),
-          Text('minuter sedan',
+          const SizedBox(width: 5),
+          const Text('minuter sedan',
               style: TextStyle(color: Colors.white, fontSize: 12)),
         ],
       )

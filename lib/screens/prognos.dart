@@ -1,20 +1,17 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
 import 'package:provider/provider.dart';
+import '../services/pouch_provider.dart';
+import '../widgets/chart_prognos.dart';
 
-import '../charts/chart_prognos.dart';
-
-class MyPrognosPage extends StatefulWidget {
-  const MyPrognosPage({Key? key}) : super(key: key);
+class Prognos extends StatefulWidget {
+  const Prognos({Key? key}) : super(key: key);
 
   @override
-  _MyPrognosPageState createState() => _MyPrognosPageState();
+  _PrognosState createState() => _PrognosState();
 }
 
-class _MyPrognosPageState extends State<MyPrognosPage> {
+class _PrognosState extends State<Prognos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +20,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
           Container(height: 10),
           Column(
             children: [
-              const Text('Din förväntade årliga konsumtion är',
+              const Text('Din nuvarande årliga konsumtion är',
                   style: TextStyle(color: Colors.white, fontSize: 12)),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +45,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
           _graf(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Icon(Icons.circle, color: Color(0xff699985), size: 10),
               Text(' Konsumtion',
                   style: TextStyle(color: Colors.white, fontSize: 11)),
@@ -58,13 +55,13 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                   style: TextStyle(color: Colors.white, fontSize: 11))
             ],
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                  'Den gröna linjen visar hur mycket pengar du förväntas spendera på snus i år. Den orangea linjen visar vad du skulle kunna spara om du istället lägger in samma summa på börsen med en förväntad årlig avkastning på 7%',
+                  'Den gröna linjen visar hur mycket pengar du kommer spendera på snus om du konsumerar lika mycket som förgående år. Den orangea linjen visar vad du skulle kunna spara om du istället lägger in samma summa på börsen med en förväntad årlig avkastning på 7%',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.raleway(
                       color: Colors.grey,
@@ -90,8 +87,8 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
               borderRadius: BorderRadius.circular(25),
             ),
             color: const Color(0xff101010),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(5, 25, 25, 5),
               child: LineChartPrognos(),
             ),
           ),
@@ -103,7 +100,6 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
   int _calculateProjectedCost(PouchProvider state) {
     int currentYearCount = state.countYear;
     int price = state.selectedBox!.price;
-    int boxPouches = state.selectedBox!.pouches;
     DateTime now = DateTime.now();
     DateTime firstDay = DateTime(now.year);
     DateTime firstDay2 = DateTime(now.year + 1);
@@ -117,7 +113,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
 
     double projectedCount = avgCount * daysInYear;
 
-    int projectedCost = (projectedCount * (price / boxPouches)).round();
+    int projectedCost = (projectedCount * price).round();
 
     return projectedCost;
   }

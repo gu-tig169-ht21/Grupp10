@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-
-import 'ny_produkt.dart';
+import '../screens/ny_produkt.dart';
 
 abstract class ShowModalBottomSheet extends StatelessWidget {
   const ShowModalBottomSheet({Key? key}) : super(key: key);
@@ -25,7 +22,7 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => NyProdukt()),
+                    MaterialPageRoute(builder: (context) => const NyProdukt()),
                   );
                 },
               ),

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '/data/box.dart';
-import '/provider/pouch_provider.dart';
+import '../models/box.dart';
+import '../services/pouch_provider.dart';
 
 class NyProdukt extends StatefulWidget {
   const NyProdukt({Key? key}) : super(key: key);
   @override
-  State<NyProdukt> createState() => _NyProdukt();
+  _NyProdukt createState() => _NyProdukt();
 }
 
 class _NyProdukt extends State<NyProdukt> {

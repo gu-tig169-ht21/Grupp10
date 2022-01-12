@@ -2,9 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
-import '/provider/pouch_provider.dart';
-
-//gör om till bar chart
+import '../services/pouch_provider.dart';
 
 class BarChartHistorik extends StatelessWidget {
   final List<Color> barcolor = [

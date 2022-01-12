@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'kostnad.dart';
+import '../../widgets/kostnad.dart';
 
 class EkonomiTab extends StatelessWidget {
   const EkonomiTab({Key? key}) : super(key: key);

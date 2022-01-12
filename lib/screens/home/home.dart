@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'bottom_nav.dart';
-import 'ekonomi_tab.dart';
-import 'historik.dart';
 import 'konsumtion_tab.dart';
-import 'ny_produkt.dart';
-import 'prognos.dart';
-import 'show_modal_bottom_sheet.dart';
+import 'ekonomi_tab.dart';
+import '../historik.dart';
+import '../ny_produkt.dart';
+import '../prognos.dart';
+import '../../widgets/bottom_nav.dart';
+import '../../widgets/show_modal_bottom_sheet.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
   @override
-  State<MyHomePage> createState() => MyHomePageState();
+  _HomeState createState() => _HomeState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
+class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final appIsFirstLoaded = 'is_first_loaded';
@@ -38,7 +38,7 @@ class MyHomePageState extends State<MyHomePage> {
         initialIndex: 0,
         child: Scaffold(
           appBar: AppBar(
-              backgroundColor: const Color(0xff202020), //Color(0xff2d2d2d),
+              backgroundColor: const Color(0xff202020),
               title: const Text('Nicotine Tracker',
                   style: TextStyle(color: Colors.white)),
               leading: IconButton(
@@ -68,8 +68,8 @@ class MyHomePageState extends State<MyHomePage> {
                   children: [KonsumtionTab(), EkonomiTab()],
                 )
               : _selectedIndex == 1
-                  ? const MyHistorikPage()
-                  : const MyPrognosPage(),
+                  ? const Historik()
+                  : const Prognos(),
         ));
   }
 

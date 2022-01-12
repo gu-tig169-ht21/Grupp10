@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:week_of_year/week_of_year.dart';
-import '/charts/chart_historik.dart';
-import '/views/history_box.dart';
+import '../widgets/chart_historik.dart';
+import '../widgets/history_box.dart';
 
-class MyHistorikPage extends StatefulWidget {
-  const MyHistorikPage({Key? key}) : super(key: key);
+class Historik extends StatefulWidget {
+  const Historik({Key? key}) : super(key: key);
 
   @override
-  MyHistorikPageState createState() => MyHistorikPageState();
+  _HistorikState createState() => _HistorikState();
 }
 
-class MyHistorikPageState extends State<MyHistorikPage> {
+class _HistorikState extends State<Historik> {
   @override
   Widget build(BuildContext context) {
     int veckonr = DateTime.now().weekOfYear;

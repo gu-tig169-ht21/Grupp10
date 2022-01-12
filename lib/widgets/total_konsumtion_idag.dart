@@ -1,13 +1,12 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../provider/pouch_provider.dart';
+import '../services/pouch_provider.dart';
 
 class TotalKonsumtionIdag extends StatefulWidget {
+  const TotalKonsumtionIdag({Key? key}) : super(key: key);
+
   @override
-  State<TotalKonsumtionIdag> createState() => _TotalKonsumtionIdagState();
+  _TotalKonsumtionIdagState createState() => _TotalKonsumtionIdagState();
 }
 
 class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
