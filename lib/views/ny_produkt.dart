@@ -22,7 +22,6 @@ class _NyProdukt extends State<NyProdukt> {
   @override
   void initState() {
     List<Box> dosor = [];
-    List<Box> boxlist = [];
     var provider = Provider.of<PouchProvider>(context, listen: false);
 
     provider.getBoxes().then((list) {

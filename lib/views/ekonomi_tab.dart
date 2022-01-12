@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_app/provider/pouch_provider.dart';
-import 'package:provider/provider.dart';
 
 import 'kostnad.dart';
 
@@ -9,7 +7,6 @@ class EkonomiTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<PouchProvider>(context, listen: false);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
