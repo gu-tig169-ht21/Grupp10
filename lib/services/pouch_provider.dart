@@ -72,6 +72,7 @@ class PouchProvider extends ChangeNotifier {
   void selectBox(Box box) {
     _dbRepo.selectBox(box);
     selectedBox = box;
+    notifyListeners();
   }
 
   Future<Box> getSelectedBox() async {
