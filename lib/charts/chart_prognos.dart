@@ -13,7 +13,13 @@ class LineChartPrognos extends StatelessWidget {
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
             tooltipBgColor: Colors.white10,
-            tooltipRoundedRadius: 8,
+            tooltipRoundedRadius: 10,
+            getTooltipItems: (touchedSpots) {
+              return touchedSpots
+                  .map((e) => LineTooltipItem(
+                      '${e.y.toInt()} kr', TextStyle(color: e.bar.colors[0])))
+                  .toList();
+            },
           ),
         ),
         minX: 0,
@@ -43,19 +49,6 @@ class LineChartPrognos extends StatelessWidget {
         ),
         gridData: FlGridData(
           show: false,
-          getDrawingHorizontalLine: (value) {
-            return FlLine(
-              color: Colors.grey,
-              strokeWidth: 0.3,
-            );
-          },
-          drawVerticalLine: true,
-          getDrawingVerticalLine: (value) {
-            return FlLine(
-              color: Colors.grey,
-              strokeWidth: 0.3,
-            );
-          },
         ),
         borderData: FlBorderData(
           show: false,

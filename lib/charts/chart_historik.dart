@@ -22,7 +22,16 @@ class BarChartHistorik extends StatelessWidget {
           maxY: _getMaxY(state.weekList),
           minY: 0,
           groupsSpace: 10,
-          barTouchData: BarTouchData(enabled: true),
+          barTouchData: BarTouchData(
+            enabled: true,
+            touchTooltipData: BarTouchTooltipData(
+              tooltipBgColor: Colors.white10,
+              tooltipRoundedRadius: 10,
+              getTooltipItem: (group, groupIndex, rod, rodIndex) =>
+                  BarTooltipItem('${rod.y.toInt()} prillor',
+                      TextStyle(color: rod.colors[0])),
+            ),
+          ),
           gridData: FlGridData(
             show: false,
           ),
