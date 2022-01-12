@@ -84,6 +84,8 @@ class MyHomePageState extends State<MyHomePage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
               backgroundColor: Colors.black45,
               title: Text(
                 'Greetings Traveler',
@@ -97,7 +99,7 @@ class MyHomePageState extends State<MyHomePage> {
                 TextButton(
                     child: Text(
                       'Välj Snus',
-                      style: TextStyle(color: Color(0xff95C8A8)),
+                      style: TextStyle(color: Color(0xff699985)),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
