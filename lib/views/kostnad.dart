@@ -6,16 +6,16 @@ import 'package:provider/provider.dart';
 
 class Kostnad extends StatelessWidget {
   late final String _titleString;
-  late final Widget _priceW;
+  late final Function _priceW;
 
   Kostnad.idag() {
     _titleString = 'Pengar du spenderat på snus idag';
-    _priceW = _kostnadIdag();
+    _priceW = _kostnadIdag;
   }
 
   Kostnad.totalt() {
     _titleString = 'Pengar du spenderat på snus sedan start';
-    _priceW = _kostnadTotalt();
+    _priceW = _kostnadTotalt;
   }
 
   @override
@@ -28,7 +28,7 @@ class Kostnad extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _priceW,
+            _priceW(),
             const SizedBox(width: 5),
             const Text('kr',
                 style: TextStyle(color: Colors.white, fontSize: 12)),

@@ -184,7 +184,11 @@ class DataRepo {
 
     await day.get().then((doc) {
       if (doc.exists) {
-        day.update({"count": FieldValue.increment(i)});
+        if (doc.data()?["count"] + i == 0) {
+          day.delete();
+        } else {
+          day.update({"count": FieldValue.increment(i)});
+        }
       } else {
         day.set({"count": 1, "date": todayFormatted.toString()});
       }

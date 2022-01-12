@@ -106,12 +106,6 @@ class PouchProvider extends ChangeNotifier {
     await _dbRepo.removePouch(_lastPouchDoc!);
   }
 
-  Future<void> getWeekList() async {
-    DateTime now = DateTime.now();
-    weekList = await _dbRepo.getWeekdaysCount(now);
-    notifyListeners();
-  }
-
   void _clientIncrement() {
     int day = DateTime.now().weekday;
     weekList[day - 1]++;
