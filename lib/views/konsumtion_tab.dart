@@ -32,6 +32,7 @@ class KonsumtionTab extends StatelessWidget {
           onPressed: () {
             _incrementCounter(provider);
             final snackBar = SnackBar(
+              behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
               backgroundColor: const Color(0xff1c1c1c),

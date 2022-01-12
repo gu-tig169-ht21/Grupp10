@@ -15,17 +15,13 @@ class NyProdukt extends StatefulWidget {
 }
 
 class _NyProdukt extends State<NyProdukt> {
-  //String dropdownValue = 'Ex. Dosa';
   TextEditingController snusController = TextEditingController();
-
-  //late List<DropdownMenuItem<SnusAlternativ>> _snusItems;
   late List<DropdownMenuItem<Box>> _snusItems = [];
   Box? _selectedSnus;
 
   @override
   void initState() {
     List<Box> dosor = [];
-
     List<Box> boxlist = [];
 
     Provider.of<PouchProvider>(context, listen: false).getBoxes().then((list) {
@@ -50,17 +46,6 @@ class _NyProdukt extends State<NyProdukt> {
         });
       });
     });
-    /*
-    _snusItems = dosor.map<DropdownMenuItem<SnusAlternativ>>(
-      (SnusAlternativ snusAlternativ) {
-        return DropdownMenuItem<SnusAlternativ>(
-          value: snusAlternativ,
-          child: Text(snusAlternativ.snusNamn),
-        );
-      },
-    ).toList();
-    */
-    //_selectedSnus = dosor[0];
     super.initState();
   }
 
@@ -104,7 +89,7 @@ class _NyProdukt extends State<NyProdukt> {
                     fontSize: 12),
               ),
               const Text(
-                'Skriv in styckpriset manuellt!',
+                'Skriv in dospriset manuellt!',
                 style: TextStyle(
                     color: Colors.grey,
                     fontStyle: FontStyle.italic,
@@ -137,26 +122,20 @@ class _NyProdukt extends State<NyProdukt> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Color(0xff699985),
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30))),
-                  onPressed: () {
-                    var snusPris = int.parse(snusController.text);
-                    _selectedSnus!.price = int.parse(snusController.text);
+                style: ElevatedButton.styleFrom(
+                    primary: Color(0xff699985),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30))),
+                onPressed: () {
+                  _selectedSnus!.price = int.parse(snusController.text);
 
-                    Provider.of<PouchProvider>(context, listen: false)
-                        .updateBox(_selectedSnus!);
-                    assert(snusPris is int);
-                    Navigator.pop(context);
-                  },
-                  child: Text('SPARA',
-                      style: TextStyle(fontSize: 11)) //Icon(Icons.save),
-                  ),
-//todo - kostnadsruta (välj snus har ett pris som också går till rutan)
-
-//todo - spara
+                  Provider.of<PouchProvider>(context, listen: false)
+                      .updateBox(_selectedSnus!);
+                  Navigator.pop(context);
+                },
+                child: Text('SPARA', style: TextStyle(fontSize: 11)),
+              ),
             ],
           ),
         ),
