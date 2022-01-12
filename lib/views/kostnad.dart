@@ -61,10 +61,14 @@ class Kostnad extends StatelessWidget {
   }
 
   int _calculateTodayPrice(PouchProvider provider) {
-    return provider.countToday * provider.selectedBox!.price;
+    double d = provider.countToday *
+        (provider.selectedBox!.price / provider.selectedBox!.pouches);
+    return d.round();
   }
 
   int _calculateTotalPrice(PouchProvider provider) {
-    return provider.countTotal * provider.selectedBox!.price;
+    double d = provider.countTotal *
+        (provider.selectedBox!.price / provider.selectedBox!.pouches);
+    return d.round();
   }
 }

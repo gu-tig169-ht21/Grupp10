@@ -125,10 +125,14 @@ class DataRepo {
     await box.ref.update(box.toJson());
   }
 
-  Future<void> addBox(String name, int price) async {
+  Future<void> addBox(String name, int price, int pouches) async {
     var boxColl = db.collection('users/test/boxes');
 
-    await boxColl.add({"name": name, "price": price});
+    await boxColl.add({
+      "name": name,
+      "price": price,
+      "pouches": pouches,
+    });
   }
 
   Future<void> selectBox(Box box) async {

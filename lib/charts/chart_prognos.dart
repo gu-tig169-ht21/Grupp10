@@ -113,12 +113,13 @@ class LineChartPrognos extends StatelessWidget {
 
   double _getProjected30YearMax(int projectedYearCost) {
     double projectedMax = 0.0;
+    double percent = 1;
 
     for (int i = 1; i <= 30; i++) {
       projectedMax = (projectedMax + projectedYearCost) * 1.07;
     }
 
-    projectedMax *= 1.2;
+    projectedMax *= percent;
 
     return projectedMax;
   }
@@ -126,6 +127,7 @@ class LineChartPrognos extends StatelessWidget {
   int _calculateProjectedCost(PouchProvider state) {
     int currentYearCount = state.countYear;
     int price = state.selectedBox!.price;
+    int boxPouches = state.selectedBox!.pouches;
     DateTime now = DateTime.now();
     DateTime firstDay = DateTime(now.year);
     DateTime firstDay2 = DateTime(now.year + 1);
@@ -139,7 +141,7 @@ class LineChartPrognos extends StatelessWidget {
 
     double projectedCount = avgCount * daysInYear;
 
-    int projectedCost = (projectedCount * price).round();
+    int projectedCost = (projectedCount * (price / boxPouches)).round();
 
     return projectedCost;
   }

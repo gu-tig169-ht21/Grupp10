@@ -103,6 +103,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
   int _calculateProjectedCost(PouchProvider state) {
     int currentYearCount = state.countYear;
     int price = state.selectedBox!.price;
+    int boxPouches = state.selectedBox!.pouches;
     DateTime now = DateTime.now();
     DateTime firstDay = DateTime(now.year);
     DateTime firstDay2 = DateTime(now.year + 1);
@@ -116,7 +117,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
 
     double projectedCount = avgCount * daysInYear;
 
-    int projectedCost = (projectedCount * price).round();
+    int projectedCost = (projectedCount * (price / boxPouches)).round();
 
     return projectedCost;
   }

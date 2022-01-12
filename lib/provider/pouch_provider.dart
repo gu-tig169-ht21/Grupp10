@@ -65,8 +65,8 @@ class PouchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addBox(String name, int price) {
-    _dbRepo.addBox(name, price);
+  void addBox(String name, int price, int pouches) {
+    _dbRepo.addBox(name, price, pouches);
   }
 
   void selectBox(Box box) {

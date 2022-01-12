@@ -77,18 +77,21 @@ class HistoryBox extends StatelessWidget {
   }
 
   int _getCost(PouchProvider provider) {
-    int cost;
+    double cost;
 
     switch (_case) {
       case 'week':
-        cost = provider.countWeek * provider.selectedBox!.price;
-        return cost;
+        cost = provider.countWeek *
+            (provider.selectedBox!.price / provider.selectedBox!.pouches);
+        return cost.round();
       case 'month':
-        cost = provider.countMonth * provider.selectedBox!.price;
-        return cost;
+        cost = provider.countMonth *
+            (provider.selectedBox!.price / provider.selectedBox!.pouches);
+        return cost.round();
       case 'year':
-        cost = provider.countMonth * provider.selectedBox!.price;
-        return cost;
+        cost = provider.countYear *
+            (provider.selectedBox!.price / provider.selectedBox!.pouches);
+        return cost.round();
     }
     return 0;
   }
@@ -98,13 +101,13 @@ class HistoryBox extends StatelessWidget {
 
     switch (_case) {
       case 'week':
-        boxes = provider.countWeek ~/ 21;
+        boxes = provider.countWeek ~/ provider.selectedBox!.pouches;
         return boxes;
       case 'month':
-        boxes = provider.countMonth ~/ 21;
+        boxes = provider.countMonth ~/ provider.selectedBox!.pouches;
         return boxes;
       case 'year':
-        boxes = provider.countMonth ~/ 21;
+        boxes = provider.countYear ~/ provider.selectedBox!.pouches;
         return boxes;
     }
     return 0;
@@ -121,7 +124,7 @@ class HistoryBox extends StatelessWidget {
         pouches = provider.countMonth;
         return pouches;
       case 'year':
-        pouches = provider.countMonth;
+        pouches = provider.countYear;
         return pouches;
     }
     return 0;
