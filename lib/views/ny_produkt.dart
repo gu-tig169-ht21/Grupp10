@@ -142,27 +142,30 @@ class _NyProdukt extends State<NyProdukt> {
 
   Widget _dropDownSnus() {
     return Consumer<PouchProvider>(
-        builder: (context, state, child) => DropdownButtonHideUnderline(
-            child: ButtonTheme(
-                alignedDropdown: true,
-                child: DropdownButton<Box>(
-                  value: _selectedSnus,
-                  items: _snusItems,
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.white,
-                  ),
-                  borderRadius: BorderRadius.circular(30),
-                  dropdownColor: const Color.fromRGBO(30, 30, 30, 0.9),
-                  elevation: 16,
-                  style: GoogleFonts.raleway(color: Colors.white, fontSize: 12),
-                  onChanged: (newValue) {
-                    setState(() {
-                      state.selectBox(newValue!);
-                      _selectedSnus = newValue;
-                      snusController.text = _selectedSnus!.price.toString();
-                    });
-                  },
-                ))));
+      builder: (context, state, child) => DropdownButtonHideUnderline(
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: DropdownButton<Box>(
+            value: _selectedSnus,
+            items: _snusItems,
+            icon: const Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.circular(30),
+            dropdownColor: const Color.fromRGBO(30, 30, 30, 0.9),
+            elevation: 16,
+            style: GoogleFonts.raleway(color: Colors.white, fontSize: 12),
+            onChanged: (newValue) {
+              setState(() {
+                state.selectBox(newValue!);
+                _selectedSnus = newValue;
+                snusController.text = _selectedSnus!.price.toString();
+              });
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

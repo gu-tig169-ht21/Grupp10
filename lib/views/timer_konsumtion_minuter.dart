@@ -16,7 +16,9 @@ class TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
   void initState() {
     Future.delayed(Duration.zero, () {
       var provider = Provider.of<PouchProvider>(context, listen: false);
+
       provider.getLastPouchTimeInMinutes();
+
       _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
         provider.getLastPouchTimeInMinutes();
       });
