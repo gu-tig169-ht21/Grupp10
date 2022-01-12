@@ -23,8 +23,9 @@ class _NyProdukt extends State<NyProdukt> {
   void initState() {
     List<Box> dosor = [];
     List<Box> boxlist = [];
+    var provider = Provider.of<PouchProvider>(context, listen: false);
 
-    Provider.of<PouchProvider>(context, listen: false).getBoxes().then((list) {
+    provider.getBoxes().then((list) {
       setState(() {
         dosor = list;
         _snusItems = list.map((box) {
@@ -34,9 +35,7 @@ class _NyProdukt extends State<NyProdukt> {
           );
         }).toList();
 
-        Provider.of<PouchProvider>(context, listen: false)
-            .getSelectedBox()
-            .then((value) {
+        provider.getSelectedBox().then((value) {
           for (var box in dosor) {
             if (box.ref == value.ref) {
               _selectedSnus = box;
@@ -51,8 +50,7 @@ class _NyProdukt extends State<NyProdukt> {
 
   @override
   Widget build(BuildContext context) {
-    PouchProvider pouchProvider =
-        Provider.of<PouchProvider>(context, listen: false);
+    var provider = Provider.of<PouchProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -130,8 +128,7 @@ class _NyProdukt extends State<NyProdukt> {
                 onPressed: () {
                   _selectedSnus!.price = int.parse(snusController.text);
 
-                  Provider.of<PouchProvider>(context, listen: false)
-                      .updateBox(_selectedSnus!);
+                  provider.updateBox(_selectedSnus!);
                   Navigator.pop(context);
                 },
                 child: Text('SPARA', style: TextStyle(fontSize: 11)),
@@ -149,8 +146,7 @@ class _NyProdukt extends State<NyProdukt> {
             child: ButtonTheme(
                 alignedDropdown: true,
                 child: DropdownButton<Box>(
-                  value:
-                      _selectedSnus, //pouchProvider.selectedBox, boxlist[4] =! selectedSnus
+                  value: _selectedSnus,
                   items: _snusItems,
                   icon: const Icon(
                     Icons.keyboard_arrow_down,
@@ -158,7 +154,6 @@ class _NyProdukt extends State<NyProdukt> {
                   ),
                   borderRadius: BorderRadius.circular(30),
                   dropdownColor: const Color.fromRGBO(30, 30, 30, 0.9),
-
                   elevation: 16,
                   style: GoogleFonts.raleway(color: Colors.white, fontSize: 12),
                   onChanged: (newValue) {

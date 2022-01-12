@@ -11,20 +11,18 @@ class DataRepo {
   final db = FirebaseFirestore.instance;
 
   Future<DocumentReference> addPouch(Pouch pouch) async {
-    int counter = 0;
-    var pouchId;
+    var pouchDoc;
     DateTime now = DateTime.now();
     String today = "${now.year}-${now.month}-${now.day}";
 
     CollectionReference todayPouchesColl = FirebaseFirestore.instance
         .collection('users/test/dailyConsumption/$today/pouches');
 
-    // TODO gör om pouchId till en DocumentReference istället för string
-    await todayPouchesColl.add(pouch.toJson()).then((doc) => pouchId = doc);
+    await todayPouchesColl.add(pouch.toJson()).then((doc) => pouchDoc = doc);
 
     await incrementPouchCount(1);
 
-    return pouchId;
+    return pouchDoc;
   }
 
   Future<int> getDayCount(DateTime date) async {
@@ -37,7 +35,7 @@ class DataRepo {
       if (doc.exists) {
         counter = doc.data()?["count"];
       } else {
-        // ingen konsumption hittad för datum, counter är redan 0
+        // ingen konsumption hittad för datum, counter = 0
       }
     });
 
@@ -56,7 +54,7 @@ class DataRepo {
       if (doc.exists) {
         counter = doc.data()?["count"];
       } else {
-        // counter noll
+        // ingen konsumption hittad för datum, counter = 0
       }
     });
 
@@ -64,7 +62,6 @@ class DataRepo {
   }
 
   Future<int> getMonthCount(int month) async {
-    // TODO fixa hantering av år som inparameter?
     int counter = 0;
     DateTime now = DateTime.now();
     int currentYear = now.year;
@@ -77,7 +74,7 @@ class DataRepo {
       if (doc.exists) {
         counter = doc.data()?["count"];
       } else {
-        // redan noll
+        // ingen konsumption hittad för datum, counter är 0
       }
     });
 
@@ -93,7 +90,7 @@ class DataRepo {
       if (doc.exists) {
         counter = doc.data()?["count"];
       } else {
-        // counter noll
+        // ingen konsumption hittad för datum, counter är 0
       }
     });
 
@@ -111,7 +108,6 @@ class DataRepo {
   }
 
   Future<void> removePouch(DocumentReference docId) async {
-    // TODO gör om incrementPouchCount till att kunna hantera decrement och använd här?
     await docId.delete().then((_) {
       incrementPouchCount(-1);
     });
@@ -157,11 +153,6 @@ class DataRepo {
     });
 
     await boxDoc.get().then((doc) {
-      if (doc.exists) {
-        print("i exist: ${doc.data()}");
-      } else {
-        print('i dont exist :(');
-      }
       box = Box.fromJson(doc.data() as Map<String, dynamic>, doc.reference);
     });
 
@@ -222,15 +213,12 @@ class DataRepo {
   }
 
   Future<DateTime> getLatestPouchTime() async {
-    // TODO STÄDA UPP
     var daysColl = db
         .collection('users/test/dailyConsumption')
         .orderBy("date", descending: true)
         .limit(1);
 
     var something = await daysColl.get();
-
-    print(something.docs.first.data());
 
     var lastDay = something.docs.first.id;
 
