@@ -4,9 +4,7 @@ import 'package:provider/provider.dart';
 import '/provider/pouch_provider.dart';
 
 class LineChartPrognos extends StatelessWidget {
-  final int prognos;
-
-  const LineChartPrognos(this.prognos, {Key? key}) : super(key: key);
+  const LineChartPrognos({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class LineChartPrognos extends StatelessWidget {
         minX: 0,
         maxX: 30,
         minY: 0,
-        maxY: _getProjected30YearMax(prognos),
+        maxY: _getProjected30YearMax(_calculateProjectedCost(state)),
         backgroundColor: const Color(0xff101010),
         titlesData: FlTitlesData(
           bottomTitles: SideTitles(
@@ -66,7 +64,7 @@ class LineChartPrognos extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             // börsen
-            spots: _getProjected30YearGain(prognos),
+            spots: _getProjected30YearGain(_calculateProjectedCost(state)),
             isCurved: true,
             barWidth: 3,
             colors: [const Color(0xffffbe66)],
@@ -74,7 +72,7 @@ class LineChartPrognos extends StatelessWidget {
           ),
           LineChartBarData(
             // konsumtion
-            spots: _getProjected30YearCost(prognos),
+            spots: _getProjected30YearCost(_calculateProjectedCost(state)),
             isCurved: true,
             barWidth: 3,
             colors: [
@@ -123,5 +121,26 @@ class LineChartPrognos extends StatelessWidget {
     projectedMax *= 1.2;
 
     return projectedMax;
+  }
+
+  int _calculateProjectedCost(PouchProvider state) {
+    int currentYearCount = state.countYear;
+    int price = state.selectedBox!.price;
+    DateTime now = DateTime.now();
+    DateTime firstDay = DateTime(now.year);
+    DateTime firstDay2 = DateTime(now.year + 1);
+
+    // inDays rundar ner, lägg till +1
+    int dayOfYear = now.difference(firstDay).inDays + 1;
+
+    double avgCount = currentYearCount / dayOfYear;
+
+    int daysInYear = firstDay2.difference(firstDay).inDays;
+
+    double projectedCount = avgCount * daysInYear;
+
+    int projectedCost = (projectedCount * price).round();
+
+    return projectedCost;
   }
 }

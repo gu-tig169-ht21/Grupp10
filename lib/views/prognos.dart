@@ -31,7 +31,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
                 children: [
                   Consumer<PouchProvider>(
                     builder: (context, state, child) => Text(
-                      '${_calculateProjectedCost(state.countYear, state.selectedBox!.price)}',
+                      '${_calculateProjectedCost(state)}',
                       style: const TextStyle(
                         color: Color(0xff699985),
                         fontSize: 50.0,
@@ -78,11 +78,6 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
   }
 
   Widget _graf() {
-    var provider = Provider.of<PouchProvider>(context, listen: false);
-    int count = provider.countYear;
-    int price = provider.selectedBox!.price;
-    int projectedCost = _calculateProjectedCost(count, price);
-
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Align(
@@ -97,7 +92,7 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
             color: const Color(0xff101010),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
-              child: LineChartPrognos(projectedCost),
+              child: LineChartPrognos(),
             ),
           ),
         ),
@@ -105,7 +100,9 @@ class _MyPrognosPageState extends State<MyPrognosPage> {
     );
   }
 
-  int _calculateProjectedCost(int currentYearCount, int price) {
+  int _calculateProjectedCost(PouchProvider state) {
+    int currentYearCount = state.countYear;
+    int price = state.selectedBox!.price;
     DateTime now = DateTime.now();
     DateTime firstDay = DateTime(now.year);
     DateTime firstDay2 = DateTime(now.year + 1);
