@@ -68,8 +68,8 @@ class MyHomePageState extends State<MyHomePage> {
                   children: [KonsumtionTab(), EkonomiTab()],
                 )
               : _selectedIndex == 1
-                  ? MyHistorikPage()
-                  : MyPrognosPage(),
+                  ? const MyHistorikPage()
+                  : const MyPrognosPage(),
         ));
   }
 
@@ -100,8 +100,10 @@ class MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => NyProdukt()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const NyProdukt()));
                       prefs.setBool(appIsFirstLoaded, false);
                     })
               ],
