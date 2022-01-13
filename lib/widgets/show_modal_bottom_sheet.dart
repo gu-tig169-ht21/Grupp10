@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/ny_produkt.dart';
+import '../screens/new_product.dart';
 
 abstract class ShowModalBottomSheet extends StatelessWidget {
   const ShowModalBottomSheet({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ abstract class ShowModalBottomSheet extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const NyProdukt()),
+                    MaterialPageRoute(builder: (context) => const NewProduct()),
                   );
                 },
               ),

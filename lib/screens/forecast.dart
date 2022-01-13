@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../services/pouch_provider.dart';
-import '../widgets/chart_prognos.dart';
+import '../widgets/chart_forecast.dart';
 
-class Prognos extends StatefulWidget {
-  const Prognos({Key? key}) : super(key: key);
+class Forecast extends StatefulWidget {
+  const Forecast({Key? key}) : super(key: key);
 
   @override
-  _PrognosState createState() => _PrognosState();
+  _ForecastState createState() => _ForecastState();
 }
 
-class _PrognosState extends State<Prognos> {
+class _ForecastState extends State<Forecast> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,7 @@ class _PrognosState extends State<Prognos> {
               ),
             ],
           ),
-          _graf(),
+          _graph(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
@@ -74,7 +74,7 @@ class _PrognosState extends State<Prognos> {
     );
   }
 
-  Widget _graf() {
+  Widget _graph() {
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Align(
@@ -89,7 +89,7 @@ class _PrognosState extends State<Prognos> {
             color: const Color(0xff101010),
             child: const Padding(
               padding: EdgeInsets.fromLTRB(5, 25, 25, 5),
-              child: LineChartPrognos(),
+              child: ChartForecast(),
             ),
           ),
         ),

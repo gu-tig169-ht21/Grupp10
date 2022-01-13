@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'konsumtion_tab.dart';
-import 'ekonomi_tab.dart';
-import '../historik.dart';
-import '../ny_produkt.dart';
-import '../prognos.dart';
+import 'consumption_tab.dart';
+import 'economy_tab.dart';
+import '../history.dart';
+import '../new_product.dart';
+import '../forecast.dart';
 import '../../widgets/bottom_nav.dart';
 import '../../widgets/show_modal_bottom_sheet.dart';
 
@@ -65,11 +65,11 @@ class _HomeState extends State<Home> {
           bottomNavigationBar: BottomNav(_selectedIndex, _onItemTapped),
           body: _selectedIndex == 0
               ? const TabBarView(
-                  children: [KonsumtionTab(), EkonomiTab()],
+                  children: [ConsumptionTab(), EconomyTab()],
                 )
               : _selectedIndex == 1
-                  ? const Historik()
-                  : const Prognos(),
+                  ? const History()
+                  : const Forecast(),
         ));
   }
 
@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const NyProdukt()));
+                              builder: (context) => const NewProduct()));
                       prefs.setBool(appIsFirstLoaded, false);
                     })
               ],

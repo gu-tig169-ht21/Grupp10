@@ -5,26 +5,26 @@ import 'package:provider/provider.dart';
 import '../models/box.dart';
 import '../services/pouch_provider.dart';
 
-class NyProdukt extends StatefulWidget {
-  const NyProdukt({Key? key}) : super(key: key);
+class NewProduct extends StatefulWidget {
+  const NewProduct({Key? key}) : super(key: key);
   @override
-  _NyProdukt createState() => _NyProdukt();
+  _NewProduct createState() => _NewProduct();
 }
 
-class _NyProdukt extends State<NyProdukt> {
-  TextEditingController snusController = TextEditingController();
-  late List<DropdownMenuItem<Box>> _snusItems = [];
-  Box? _selectedSnus;
+class _NewProduct extends State<NewProduct> {
+  TextEditingController boxController = TextEditingController();
+  late List<DropdownMenuItem<Box>> _boxItems = [];
+  Box? _selectedBox;
 
   @override
   void initState() {
-    List<Box> dosor = [];
+    List<Box> boxes = [];
     var provider = Provider.of<PouchProvider>(context, listen: false);
 
     provider.getBoxes().then((list) {
       setState(() {
-        dosor = list;
-        _snusItems = list.map((box) {
+        boxes = list;
+        _boxItems = list.map((box) {
           return DropdownMenuItem<Box>(
             value: box,
             child: Text(box.name),
@@ -32,12 +32,12 @@ class _NyProdukt extends State<NyProdukt> {
         }).toList();
 
         provider.getSelectedBox().then((value) {
-          for (var box in dosor) {
+          for (var box in boxes) {
             if (box.ref == value.ref) {
-              _selectedSnus = box;
+              _selectedBox = box;
             }
           }
-          snusController.text = _selectedSnus!.price.toString();
+          boxController.text = _selectedBox!.price.toString();
         });
       });
     });
@@ -73,30 +73,13 @@ class _NyProdukt extends State<NyProdukt> {
               ),
               _dropDownSnus(),
               const SizedBox(
-                height: 30,
-              ),
-              const Text(
-                'Hittar du inte ditt snus i listan ovan?',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 12),
-              ),
-              const Text(
-                'Skriv in dospriset manuellt!',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 12),
-              ),
-              const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
                 child: TextField(
                   cursorColor: const Color(0xff699985),
-                  controller: snusController,
+                  controller: boxController,
                   style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                       labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
@@ -115,6 +98,20 @@ class _NyProdukt extends State<NyProdukt> {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              const SizedBox(
+                width: 270,
+                child: Text(
+                  'Detta är ett snittpris för vald dosa. Har du betalat något annat än det angivna snittpriset? Skriv in priset manuellt och spara!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 12),
+                ),
+              ),
               const SizedBox(height: 10),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -123,9 +120,9 @@ class _NyProdukt extends State<NyProdukt> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30))),
                 onPressed: () {
-                  _selectedSnus!.price = int.parse(snusController.text);
+                  _selectedBox!.price = int.parse(boxController.text);
 
-                  provider.updateBox(_selectedSnus!);
+                  provider.updateBox(_selectedBox!);
                   Navigator.pop(context);
                 },
                 child: const Text('SPARA', style: TextStyle(fontSize: 11)),
@@ -143,8 +140,8 @@ class _NyProdukt extends State<NyProdukt> {
         child: ButtonTheme(
           alignedDropdown: true,
           child: DropdownButton<Box>(
-            value: _selectedSnus,
-            items: _snusItems,
+            value: _selectedBox,
+            items: _boxItems,
             icon: const Icon(
               Icons.keyboard_arrow_down,
               color: Colors.white,
@@ -156,8 +153,8 @@ class _NyProdukt extends State<NyProdukt> {
             onChanged: (newValue) {
               setState(() {
                 state.selectBox(newValue!);
-                _selectedSnus = newValue;
-                snusController.text = _selectedSnus!.price.toString();
+                _selectedBox = newValue;
+                boxController.text = _selectedBox!.price.toString();
               });
             },
           ),

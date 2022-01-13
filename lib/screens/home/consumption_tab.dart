@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_first_app/widgets/timer_consumption_minutes.dart';
 import 'package:provider/provider.dart';
 import '../../models/pouch.dart';
 import '../../services/pouch_provider.dart';
-import '../../widgets/timer_konsumtion_minuter.dart';
-import '../../widgets/total_konsumtion_idag.dart';
+import '../../widgets/timer_consumption_minutes.dart';
+import '../../widgets/total_consumption_today.dart';
 
-class KonsumtionTab extends StatelessWidget {
-  const KonsumtionTab({Key? key}) : super(key: key);
+class ConsumptionTab extends StatelessWidget {
+  const ConsumptionTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,9 @@ class KonsumtionTab extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const TimerKonsumtionMinuter(),
+              const TimerConsumptionMinutes(),
               Container(height: 80),
-              const TotalKonsumtionIdag(),
+              const TotalConsumptionToday(),
             ],
           ),
         ),

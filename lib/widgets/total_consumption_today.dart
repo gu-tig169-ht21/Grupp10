@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/pouch_provider.dart';
 
-class TotalKonsumtionIdag extends StatefulWidget {
-  const TotalKonsumtionIdag({Key? key}) : super(key: key);
+class TotalConsumptionToday extends StatefulWidget {
+  const TotalConsumptionToday({Key? key}) : super(key: key);
 
   @override
-  _TotalKonsumtionIdagState createState() => _TotalKonsumtionIdagState();
+  _TotalConsumptionTodayState createState() => _TotalConsumptionTodayState();
 }
 
-class _TotalKonsumtionIdagState extends State<TotalKonsumtionIdag> {
+class _TotalConsumptionTodayState extends State<TotalConsumptionToday> {
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:week_of_year/week_of_year.dart';
-import '../widgets/chart_historik.dart';
+import '../widgets/chart_history.dart';
 import '../widgets/history_box.dart';
 
-class Historik extends StatefulWidget {
-  const Historik({Key? key}) : super(key: key);
+class History extends StatefulWidget {
+  const History({Key? key}) : super(key: key);
 
   @override
-  _HistorikState createState() => _HistorikState();
+  _HistoryState createState() => _HistoryState();
 }
 
-class _HistorikState extends State<Historik> {
+class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
-    int veckonr = DateTime.now().weekOfYear;
+    int weekNumber = DateTime.now().weekOfYear;
 
     return Scaffold(
       body: Center(
         child: ListView(
           padding: const EdgeInsets.all(10),
           children: [
-            _graf(),
+            _graph(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.circle, color: Color(0xff699985), size: 10),
-                Text(' Antal prillor per dag för vecka $veckonr',
+                Text(' Antal prillor per dag för vecka $weekNumber',
                     style: const TextStyle(color: Colors.white, fontSize: 12))
               ],
             ),
@@ -64,7 +64,7 @@ class _HistorikState extends State<Historik> {
   }
 }
 
-Widget _graf() {
+Widget _graph() {
   return Container(
     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
     child: Align(
@@ -79,7 +79,7 @@ Widget _graf() {
           color: const Color(0xff101010),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(5, 25, 25, 5),
-            child: BarChartHistorik(),
+            child: ChartHistory(),
           ),
         ),
       ),

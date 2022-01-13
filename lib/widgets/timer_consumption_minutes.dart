@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/pouch_provider.dart';
 
-class TimerKonsumtionMinuter extends StatefulWidget {
-  const TimerKonsumtionMinuter({Key? key}) : super(key: key);
+class TimerConsumptionMinutes extends StatefulWidget {
+  const TimerConsumptionMinutes({Key? key}) : super(key: key);
 
   @override
-  _TimerKonsumtionMinuterState createState() => _TimerKonsumtionMinuterState();
+  _TimerConsumptionMinutesState createState() =>
+      _TimerConsumptionMinutesState();
 }
 
-class _TimerKonsumtionMinuterState extends State<TimerKonsumtionMinuter> {
+class _TimerConsumptionMinutesState extends State<TimerConsumptionMinutes> {
   Timer? _timer;
 
   @override

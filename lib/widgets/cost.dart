@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/pouch_provider.dart';
 
-class Kostnad extends StatelessWidget {
+class Cost extends StatelessWidget {
   late final String _titleString;
   late final Function _priceW;
 
-  Kostnad.idag({Key? key}) : super(key: key) {
+  Cost.today({Key? key}) : super(key: key) {
     _titleString = 'Pengar du spenderat på snus idag';
-    _priceW = _kostnadIdag;
+    _priceW = _costToday;
   }
 
-  Kostnad.totalt({Key? key}) : super(key: key) {
+  Cost.total({Key? key}) : super(key: key) {
     _titleString = 'Pengar du spenderat på snus sedan start';
-    _priceW = _kostnadTotalt;
+    _priceW = _costTotal;
   }
 
   @override
@@ -36,7 +36,7 @@ class Kostnad extends StatelessWidget {
     );
   }
 
-  Widget _kostnadIdag() {
+  Widget _costToday() {
     return Consumer<PouchProvider>(
       builder: (context, state, child) => Text(
         '${_calculateTodayPrice(state)}',
@@ -48,7 +48,7 @@ class Kostnad extends StatelessWidget {
     );
   }
 
-  Widget _kostnadTotalt() {
+  Widget _costTotal() {
     return Consumer<PouchProvider>(
       builder: (context, state, child) => Text(
         '${_calculateTotalPrice(state)}',

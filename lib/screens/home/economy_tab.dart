@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../widgets/kostnad.dart';
+import '../../widgets/cost.dart';
 
-class EkonomiTab extends StatelessWidget {
-  const EkonomiTab({Key? key}) : super(key: key);
+class EconomyTab extends StatelessWidget {
+  const EconomyTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +10,9 @@ class EkonomiTab extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Kostnad.totalt(),
+          Cost.total(),
           Container(height: 80),
-          Kostnad.idag(),
+          Cost.today(),
         ],
       ),
     );
