@@ -61,7 +61,7 @@ class _ForecastState extends State<Forecast> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                  'Den gröna linjen visar hur mycket pengar du förväntas spendera på snus i år. Den orangea linjen visar vad du skulle kunna spara om du istället lägger in samma summa på börsen med en förväntad årlig avkastning på 7%',
+                  'Den gröna linjen visar hur mycket pengar du förväntas spendera på snus över en period på 30 år. Den orangea linjen visar vad du skulle kunna spara om du istället lägger in samma summa på börsen med en förväntad årlig avkastning på 7%',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.raleway(
                       color: Colors.grey,
