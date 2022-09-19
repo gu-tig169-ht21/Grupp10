@@ -1,3 +1,6 @@
+![First slide](https://github.com/gu-tig169-ht21/Grupp10/blob/main/Nicotine%20Tracker%20Overview.png?raw=true)
+![Second slide](https://github.com/gu-tig169-ht21/Grupp10/blob/main/Nicotine%20Tracker%20Overview%20(1).png?raw=true)
+
 # TIG169 - programmering för mobila enheter.
 
 Det här repot är uppsatt med ett projekt skapat från `flutter create ` som du kommer använda för inlämningsuppgifter.
